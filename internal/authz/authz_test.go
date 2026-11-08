@@ -88,6 +88,7 @@ func TestEnvironmentAndAgentRules(t *testing.T) {
 		{"agent owner apply protected", authz.KindAgent, authz.RoleOwner, authz.PlanApply, prot, true, true},
 		{"agent dev apply plain", authz.KindAgent, authz.RoleDeveloper, authz.PlanApply, plain, true, false},
 		{"agent cannot approve", authz.KindAgent, authz.RoleOwner, authz.PlanApprove, prot, false, false},
+		{"agent cannot start sessions", authz.KindAgent, authz.RoleOwner, authz.AgentRun, plain, false, false},
 		{"agent can propose", authz.KindAgent, authz.RoleDeveloper, authz.PlanCreate, prot, true, false},
 		// No environment in the chain (for example a project scope): flags do not apply.
 		{"dev apply without env", authz.KindHuman, authz.RoleDeveloper, authz.PlanApply, nil, true, false},

@@ -1,0 +1,25 @@
+# TEMPORARY placeholder, replaced by the researched catalog.
+- id: railway
+  name: Railway
+  category: paas
+  kinds: [web, worker, cron, postgres, redis]
+  auth: [api_token]
+  adapter: native
+  status: alpha
+  docs: https://docs.railway.com/reference/public-api
+- id: vercel
+  name: Vercel
+  category: paas
+  kinds: [web, function, static, cron]
+  auth: [api_token]
+  adapter: native
+  status: alpha
+  docs: https://vercel.com/docs/rest-api
+- id: supabase
+  name: Supabase
+  category: database
+  kinds: [postgres, bucket, function]
+  auth: [api_token]
+  adapter: native
+  status: alpha
+  docs: https://supabase.com/docs/reference/api/introduction

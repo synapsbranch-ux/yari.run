@@ -38,3 +38,9 @@ UPDATE api_tokens SET revoked_at = now() WHERE principal_id = @principal_id AND 
 
 -- name: GetAPIToken :one
 SELECT * FROM api_tokens WHERE id = @id;
+
+-- name: RevokeAPITokensByLabel :execrows
+UPDATE api_tokens SET revoked_at = now() WHERE label = @label AND revoked_at IS NULL;
+
+-- name: GetServiceByName :one
+SELECT * FROM services WHERE project_id = @project_id AND name = @name;

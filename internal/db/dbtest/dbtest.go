@@ -66,7 +66,7 @@ func SeedOrg(t testing.TB, pool *pgxpool.Pool) Org {
 	o := Org{ID: db.NewID(), UserID: db.NewID(), PrincipalID: db.NewID(), WorkspaceID: db.NewID(), ProjectID: db.NewID(), ProdEnvID: db.NewID(), DevEnvID: db.NewID()}
 	suffix := o.ID.String()[24:]
 	o.Slug = "t-" + suffix
-	o.Subject = "test-subject-" + o.ID.String()
+	o.Subject = "dev:test-" + o.ID.String()
 
 	if _, err := dbsqlc.New(pool).UpsertUser(ctx, dbsqlc.UpsertUserParams{ID: o.UserID, ExternalSubject: o.Subject, Email: "fake@fake.invalid", DisplayName: "Fake User"}); err != nil {
 		t.Fatalf("seed user: %v", err)
@@ -98,4 +98,34 @@ func SeedOrg(t testing.TB, pool *pgxpool.Pool) Org {
 		t.Fatalf("seed org: %s", fmt.Sprint(err))
 	}
 	return o
+}
+
+// Member is a principal added to a seeded Organization.
+type Member struct {
+	UserID      uuid.UUID
+	Subject     string
+	PrincipalID uuid.UUID
+}
+
+// AddMember adds a human member with one role at the given scope, as the seeded owner.
+// There is no invite API yet, so tests create members directly.
+func AddMember(t testing.TB, pool *pgxpool.Pool, o Org, role, scopeType string, scopeID uuid.UUID) Member {
+	t.Helper()
+	ctx := context.Background()
+	m := Member{UserID: db.NewID(), PrincipalID: db.NewID(), Subject: "dev:member-" + db.NewID().String()}
+	if _, err := dbsqlc.New(pool).UpsertUser(ctx, dbsqlc.UpsertUserParams{ID: m.UserID, ExternalSubject: m.Subject, Email: "m@fake.invalid", DisplayName: "Member"}); err != nil {
+		t.Fatalf("add member user: %v", err)
+	}
+	err := db.WithTenant(ctx, pool, o.ID, func(ctx context.Context, tx pgx.Tx) error {
+		q := dbsqlc.New(tx)
+		if _, err := q.CreatePrincipal(ctx, dbsqlc.CreatePrincipalParams{ID: m.PrincipalID, OrganizationID: o.ID, Kind: "human", UserID: uuid.NullUUID{UUID: m.UserID, Valid: true}, DisplayName: "Member"}); err != nil {
+			return err
+		}
+		_, err := q.CreateGrant(ctx, dbsqlc.CreateGrantParams{ID: db.NewID(), OrganizationID: o.ID, PrincipalID: m.PrincipalID, Role: role, ScopeType: scopeType, ScopeID: scopeID, CreatedBy: o.PrincipalID})
+		return err
+	})
+	if err != nil {
+		t.Fatalf("add member: %v", err)
+	}
+	return m
 }

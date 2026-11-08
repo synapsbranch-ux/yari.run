@@ -200,6 +200,29 @@ func (q *Queries) GetPrincipal(ctx context.Context, id uuid.UUID) (Principal, er
 	return i, err
 }
 
+const getServiceByName = `-- name: GetServiceByName :one
+SELECT id, organization_id, project_id, name, kind, created_at FROM services WHERE project_id = $1 AND name = $2
+`
+
+type GetServiceByNameParams struct {
+	ProjectID uuid.UUID
+	Name      string
+}
+
+func (q *Queries) GetServiceByName(ctx context.Context, arg GetServiceByNameParams) (Service, error) {
+	row := q.db.QueryRow(ctx, getServiceByName, arg.ProjectID, arg.Name)
+	var i Service
+	err := row.Scan(
+		&i.ID,
+		&i.OrganizationID,
+		&i.ProjectID,
+		&i.Name,
+		&i.Kind,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const listOrganizations = `-- name: ListOrganizations :many
 SELECT id, slug, name, created_at FROM organizations ORDER BY created_at
 `
@@ -267,6 +290,18 @@ UPDATE api_tokens SET revoked_at = now() WHERE id = $1 AND revoked_at IS NULL
 
 func (q *Queries) RevokeAPIToken(ctx context.Context, id uuid.UUID) (int64, error) {
 	result, err := q.db.Exec(ctx, revokeAPIToken, id)
+	if err != nil {
+		return 0, err
+	}
+	return result.RowsAffected(), nil
+}
+
+const revokeAPITokensByLabel = `-- name: RevokeAPITokensByLabel :execrows
+UPDATE api_tokens SET revoked_at = now() WHERE label = $1 AND revoked_at IS NULL
+`
+
+func (q *Queries) RevokeAPITokensByLabel(ctx context.Context, label string) (int64, error) {
+	result, err := q.db.Exec(ctx, revokeAPITokensByLabel, label)
 	if err != nil {
 		return 0, err
 	}

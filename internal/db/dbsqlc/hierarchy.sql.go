@@ -194,6 +194,26 @@ func (q *Queries) GetEnvironment(ctx context.Context, id uuid.UUID) (Environment
 	return i, err
 }
 
+const getGrant = `-- name: GetGrant :one
+SELECT id, organization_id, principal_id, role, scope_type, scope_id, created_by, created_at FROM grants WHERE id = $1
+`
+
+func (q *Queries) GetGrant(ctx context.Context, id uuid.UUID) (Grant, error) {
+	row := q.db.QueryRow(ctx, getGrant, id)
+	var i Grant
+	err := row.Scan(
+		&i.ID,
+		&i.OrganizationID,
+		&i.PrincipalID,
+		&i.Role,
+		&i.ScopeType,
+		&i.ScopeID,
+		&i.CreatedBy,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const getProject = `-- name: GetProject :one
 SELECT id, organization_id, workspace_id, slug, name, created_at FROM projects WHERE id = $1
 `

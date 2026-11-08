@@ -1,0 +1,40 @@
+# LiteLLM Proxy configuration for yari.run agent sessions.
+#
+# This file lists the models agents may use, under stable aliases. The aliases are what
+# yari.run shows in the model picker (ListModels) and what a session virtual key is
+# restricted to. Provider keys are read from the LiteLLM container's environment only.
+# They never appear in this file and never reach a sandbox.
+#
+# To add or switch a model: add an entry here, restart the litellm container, then pick the
+# alias in the client or pass it to `yari agent start --model`. See README, "How to switch models".
+model_list:
+  - model_name: claude-sonnet-5-5
+    litellm_params:
+      model: anthropic/claude-sonnet-5-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+    model_info:
+      display_name: Claude Sonnet 5.5
+
+  - model_name: gpt-6.1-sol
+    litellm_params:
+      model: openai/gpt-6.1-sol
+      api_key: os.environ/OPENAI_API_KEY
+    model_info:
+      display_name: GPT-6.1 Sol
+
+  # Local models through Ollama (no key needed). Uncomment and point api_base at your host.
+  # The proxy container reaches the host through host.docker.internal.
+  # - model_name: local-qwen
+  #   litellm_params:
+  #     model: ollama_chat/qwen3-coder
+  #     api_base: http://host.docker.internal:11434
+  #   model_info:
+  #     display_name: Qwen3 Coder (local)
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: os.environ/DATABASE_URL
+
+litellm_settings:
+  # Different providers accept different parameters. Drop the ones a model does not support.
+  drop_params: true

@@ -79,3 +79,6 @@ ORDER BY created_at;
 -- Callers must still compare scope_type, because the filter here is on ids only.
 SELECT * FROM grants
 WHERE principal_id = @principal_id AND scope_id = ANY(@scope_ids::uuid[]);
+
+-- name: GetGrant :one
+SELECT * FROM grants WHERE id = @id;

@@ -103,6 +103,9 @@ var rolePerms = func() map[Role]map[Permission]bool {
 	return out
 }()
 
+// ValidPermission reports whether p is a known permission string.
+func ValidPermission(p Permission) bool { return rolePerms[RoleOwner][p] }
+
 // RoleHas reports whether the role includes the permission, before environment and agent rules.
 func RoleHas(r Role, p Permission) bool { return rolePerms[r][p] }
 
@@ -195,6 +198,11 @@ func Evaluate(kind PrincipalKind, role Role, perm Permission, env *EnvInfo) Deci
 		if kind == KindAgent {
 			return deny("agents cannot approve plans")
 		}
+	case AgentRun:
+		// Decision beyond the specified rules: no agents starting agents.
+		if kind == KindAgent {
+			return deny("agents cannot start agent sessions")
+		}
 	case PlanApply:
 		switch {
 		case kind == KindAgent && protected:
@@ -269,6 +277,29 @@ func (a *Authorizer) Can(ctx context.Context, p Principal, perm Permission, scop
 	}
 	return Evaluate(p.Kind, best, perm, env), nil
 }
+
+// RoleOn returns the highest role the principal holds on the scope or its ancestors,
+// or "" if it holds none. It is used to stop a principal granting more than it has.
+func (a *Authorizer) RoleOn(ctx context.Context, p Principal, scope Scope) (Role, error) {
+	chain, err := a.loader.ScopeChain(ctx, scope)
+	if err != nil {
+		return "", fmt.Errorf("authz: scope chain: %w", err)
+	}
+	grants, err := a.loader.Grants(ctx, p.ID, chain)
+	if err != nil {
+		return "", fmt.Errorf("authz: grants: %w", err)
+	}
+	var best Role
+	for _, g := range grants {
+		if g.Role.rank() > best.rank() {
+			best = g.Role
+		}
+	}
+	return best, nil
+}
+
+// AtLeast reports whether r is at least as powerful as other.
+func (r Role) AtLeast(other Role) bool { return r.rank() >= other.rank() }
 
 // CanApprove checks plan.approve on the scope and rule 5: a principal can never approve a plan
 // it created.
