@@ -82,3 +82,20 @@ WHERE principal_id = @principal_id AND scope_id = ANY(@scope_ids::uuid[]);
 
 -- name: GetGrant :one
 SELECT * FROM grants WHERE id = @id;
+
+-- name: UpsertService :one
+INSERT INTO services (id, organization_id, project_id, name, kind)
+VALUES (@id, @organization_id, @project_id, @name, @kind)
+ON CONFLICT (project_id, name) DO UPDATE SET kind = EXCLUDED.kind
+RETURNING *;
+
+-- name: UpsertServiceInstance :exec
+INSERT INTO service_instances (id, organization_id, service_id, environment_id, provider, external_ref, status)
+VALUES (@id, @organization_id, @service_id, @environment_id, @provider, sqlc.narg('external_ref'), @status)
+ON CONFLICT (service_id, environment_id) DO UPDATE
+    SET provider = EXCLUDED.provider, external_ref = EXCLUDED.external_ref, status = EXCLUDED.status, updated_at = now();
+
+-- name: DeleteServiceInstanceByName :exec
+DELETE FROM service_instances si
+USING services s
+WHERE si.service_id = s.id AND s.project_id = @project_id AND s.name = @name AND si.environment_id = @environment_id;

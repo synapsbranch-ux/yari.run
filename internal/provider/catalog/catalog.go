@@ -195,3 +195,9 @@ func (c *Catalog) Filter(category string, kind provider.Kind) []Entry {
 	}
 	return out
 }
+
+// DocsURL implements provider.DocsResolver.
+func (c *Catalog) DocsURL(id string) (string, bool) {
+	e, ok := c.Get(id)
+	return e.Docs, ok
+}

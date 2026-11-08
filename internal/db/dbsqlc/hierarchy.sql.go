@@ -9,6 +9,7 @@ import (
 	"context"
 
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createEnvironment = `-- name: CreateEnvironment :one
@@ -172,6 +173,23 @@ func (q *Queries) DeleteGrant(ctx context.Context, id uuid.UUID) (Grant, error) 
 		&i.CreatedAt,
 	)
 	return i, err
+}
+
+const deleteServiceInstanceByName = `-- name: DeleteServiceInstanceByName :exec
+DELETE FROM service_instances si
+USING services s
+WHERE si.service_id = s.id AND s.project_id = $1 AND s.name = $2 AND si.environment_id = $3
+`
+
+type DeleteServiceInstanceByNameParams struct {
+	ProjectID     uuid.UUID
+	Name          string
+	EnvironmentID uuid.UUID
+}
+
+func (q *Queries) DeleteServiceInstanceByName(ctx context.Context, arg DeleteServiceInstanceByNameParams) error {
+	_, err := q.db.Exec(ctx, deleteServiceInstanceByName, arg.ProjectID, arg.Name, arg.EnvironmentID)
+	return err
 }
 
 const getEnvironment = `-- name: GetEnvironment :one
@@ -519,4 +537,69 @@ func (q *Queries) ScopeChain(ctx context.Context, arg ScopeChainParams) ([]Scope
 		return nil, err
 	}
 	return items, nil
+}
+
+const upsertService = `-- name: UpsertService :one
+INSERT INTO services (id, organization_id, project_id, name, kind)
+VALUES ($1, $2, $3, $4, $5)
+ON CONFLICT (project_id, name) DO UPDATE SET kind = EXCLUDED.kind
+RETURNING id, organization_id, project_id, name, kind, created_at
+`
+
+type UpsertServiceParams struct {
+	ID             uuid.UUID
+	OrganizationID uuid.UUID
+	ProjectID      uuid.UUID
+	Name           string
+	Kind           string
+}
+
+func (q *Queries) UpsertService(ctx context.Context, arg UpsertServiceParams) (Service, error) {
+	row := q.db.QueryRow(ctx, upsertService,
+		arg.ID,
+		arg.OrganizationID,
+		arg.ProjectID,
+		arg.Name,
+		arg.Kind,
+	)
+	var i Service
+	err := row.Scan(
+		&i.ID,
+		&i.OrganizationID,
+		&i.ProjectID,
+		&i.Name,
+		&i.Kind,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
+const upsertServiceInstance = `-- name: UpsertServiceInstance :exec
+INSERT INTO service_instances (id, organization_id, service_id, environment_id, provider, external_ref, status)
+VALUES ($1, $2, $3, $4, $5, $6, $7)
+ON CONFLICT (service_id, environment_id) DO UPDATE
+    SET provider = EXCLUDED.provider, external_ref = EXCLUDED.external_ref, status = EXCLUDED.status, updated_at = now()
+`
+
+type UpsertServiceInstanceParams struct {
+	ID             uuid.UUID
+	OrganizationID uuid.UUID
+	ServiceID      uuid.UUID
+	EnvironmentID  uuid.UUID
+	Provider       string
+	ExternalRef    pgtype.Text
+	Status         string
+}
+
+func (q *Queries) UpsertServiceInstance(ctx context.Context, arg UpsertServiceInstanceParams) error {
+	_, err := q.db.Exec(ctx, upsertServiceInstance,
+		arg.ID,
+		arg.OrganizationID,
+		arg.ServiceID,
+		arg.EnvironmentID,
+		arg.Provider,
+		arg.ExternalRef,
+		arg.Status,
+	)
+	return err
 }
