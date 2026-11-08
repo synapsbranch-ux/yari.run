@@ -222,6 +222,9 @@ func mapErr(err error) error {
 	if err == nil {
 		return nil
 	}
+	if errors.Is(err, errNotHere) {
+		return err // internal signal for findOrg, never reaches a client: findOrg turns it into NotFound
+	}
 	var ce *connect.Error
 	if errors.As(err, &ce) {
 		return err

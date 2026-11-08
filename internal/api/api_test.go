@@ -581,3 +581,29 @@ func TestWatchSessionStreamsStepsUntilTheSessionEnds(t *testing.T) {
 }
 
 func pgText(s string) pgtype.Text { return pgtype.Text{String: s, Valid: true} }
+
+// A user who belongs to several organizations can still address resources by id: the API has to
+// look through the user's organizations until it finds the owner of the id.
+func TestResourcesAreFoundAcrossAUsersOrganizations(t *testing.T) {
+	h := newHarness(t)
+	ctx := context.Background()
+	subject := "dev:multi-" + db.NewID().String()
+	c := h.as(asUser(subject))
+	var projects []string
+	for i := 0; i < 3; i++ {
+		org, err := c.Hierarchy.CreateOrganization(ctx, connect.NewRequest(&yariv1.CreateOrganizationRequest{Slug: "multi-" + db.NewID().String()[24:], Name: "Multi"}))
+		require.NoError(t, err)
+		ws, err := c.Hierarchy.CreateWorkspace(ctx, connect.NewRequest(&yariv1.CreateWorkspaceRequest{OrganizationId: org.Msg.Organization.Id, Slug: "main", Name: "Main"}))
+		require.NoError(t, err)
+		pr, err := c.Hierarchy.CreateProject(ctx, connect.NewRequest(&yariv1.CreateProjectRequest{WorkspaceId: ws.Msg.Workspace.Id, Slug: "shop", Name: "Shop"}))
+		require.NoError(t, err, "organization %d: the workspace is not in the first organization searched", i)
+		projects = append(projects, pr.Msg.Project.Id)
+	}
+	// Every project can be reached again by id, wherever it lives.
+	for _, id := range projects {
+		_, err := c.Hierarchy.CreateEnvironment(ctx, connect.NewRequest(&yariv1.CreateEnvironmentRequest{ProjectId: id, Slug: "staging", Name: "Staging"}))
+		require.NoError(t, err)
+	}
+	_, err := c.Hierarchy.CreateEnvironment(ctx, connect.NewRequest(&yariv1.CreateEnvironmentRequest{ProjectId: db.NewID().String(), Slug: "x", Name: "X"}))
+	require.Equal(t, connect.CodeNotFound, code(err), "an id that exists nowhere is NotFound, not an internal error")
+}

@@ -13,7 +13,7 @@ include .env.example
 export
 endif
 
-.PHONY: catalog-table service-binaries help setup up down migrate gen lint test build api worker mcp agent-image client desktop mobile
+.PHONY: demo catalog-table service-binaries help setup up down migrate gen lint test build api worker mcp agent-image client desktop mobile
 
 help: ## List targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-14s %s\n", $$1, $$2}'
@@ -70,6 +70,10 @@ worker: ## Run the River worker (plan applies, agent sessions)
 mcp: ## Run the MCP server (talks only to the Connect API)
 	@echo ">> mcp: MCP server on $${YARI_MCP_ADDR:-:8090}"
 	go run ./cmd/mcp
+
+demo: ## Create a demo organization and watch the agent work (API and worker must be running)
+	@echo ">> demo: org, production environment, agent session"
+	./scripts/demo.sh
 
 catalog-table: ## Print the Provider Catalog as the Markdown table used in the README
 	@go run ./internal/provider/catalog/catalogdoc
