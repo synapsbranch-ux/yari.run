@@ -8,12 +8,16 @@ This folder is the source of the yari.run design prototype: 48 artboards on one 
 
 ## Where to view it
 
-The clickable version runs on the canvas, not from this repo:
+**Standalone file (recommended): `yari-prototype.html`.** One self-contained HTML file with all 48 screens, the runtime and the fonts embedded. Download it and double-click to open it in any modern browser. No server, no install, works offline.
+
+- Start on the index and pick one of the four flows, or press `/` to search all screens.
+- Every link, button and form between screens works. `Back`, `Index` and `Screens` are in the top bar.
+- On GitHub, use "Download raw file" (GitHub shows HTML as source, it does not run it).
+
+The same prototype also runs on the design canvas:
 https://claude.ai/artifact/WY53fSvprhVyn74G7TELFi
 
-Open the "Start" page and press Play on the index board to walk the four flows.
-
-The files here are the source. They won't render as clickable pages when opened directly from GitHub, because they depend on the canvas runtime (`support.js`) that the artifact host provides.
+The loose `project/*.dc.html` files are the editable source. They need the canvas runtime and won't render on their own; use the standalone file or the canvas.
 
 ## Status
 
