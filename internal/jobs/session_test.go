@@ -240,7 +240,7 @@ func TestFakeRuntimeEndToEndReachesWaitingApprovalOnProduction(t *testing.T) {
 	}
 	joined := strings.Join(summaries, "\n")
 	require.Contains(t, joined, "make build: exit 2")
-	require.Contains(t, joined, "write /workspace/Makefile")
+	require.Contains(t, joined, "write /workspace/project/Makefile")
 	require.Contains(t, joined, "make build: ok")
 	require.Contains(t, joined, "plan.propose")
 	require.Contains(t, joined, "pending_approval")

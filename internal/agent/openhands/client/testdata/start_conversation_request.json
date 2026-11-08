@@ -1,0 +1,28 @@
+{
+  "agent": {
+    "kind": "Agent",
+    "llm": {
+      "usage_id": "yari-session",
+      "model": "openai/yari-default",
+      "base_url": "http://litellm.internal:4000/v1",
+      "api_key": "sk-session-virtual-key-placeholder",
+      "num_retries": 2
+    },
+    "tools": [
+      {"name": "terminal"},
+      {"name": "file_editor"},
+      {"name": "task_tracker"}
+    ],
+    "mcp_config": {
+      "yari": {
+        "url": "http://yari-mcp.internal:8080/mcp",
+        "transport": "streamable-http",
+        "headers": {"Authorization": "Bearer yari-mcp-session-token-placeholder"}
+      }
+    }
+  },
+  "workspace": {"working_dir": "/workspace/project"},
+  "max_iterations": 25,
+  "autotitle": false,
+  "stuck_detection": true
+}

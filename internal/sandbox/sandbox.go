@@ -104,3 +104,11 @@ func (s Spec) WithDefaults() Spec {
 	}
 	return s
 }
+
+// ProjectDir is the working directory of the agent inside a Sandbox. In development the sample
+// repository is copied here.
+const ProjectDir = "/workspace/project"
+
+// AgentServerWritablePaths are the extra writable paths the OpenHands agent server needs on a
+// read-only root filesystem, besides /workspace and /tmp.
+var AgentServerWritablePaths = []string{"/home/openhands"}

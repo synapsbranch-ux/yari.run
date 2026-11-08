@@ -200,6 +200,10 @@ func (s *running) step(ctx context.Context, in audit.StepInput) error {
 
 func (s *running) run(ctx context.Context) error {
 	w := s.w
+	// Register for commands before the status says running: the API sends a command only to a
+	// running session, so none can arrive before this session is listening.
+	live := w.Live.add(s.sid)
+	defer w.Live.remove(s.sid)
 	ttl := w.Config.AgentSessionTTL
 	if ttl <= 0 {
 		ttl = 30 * time.Minute
@@ -232,7 +236,7 @@ func (s *running) run(ctx context.Context) error {
 	// 2. Sandbox, with the only secret it may hold: the agent server session key.
 	sb, err := w.Sandboxes.Create(ctx, sandbox.Spec{
 		SessionID: s.sid.String(), Image: w.Config.AgentImage, TTL: ttl + 5*time.Minute,
-		Network: sandbox.NetworkAgentEgress, Env: map[string]string{sandbox.AgentServerKeyEnv: agentKey},
+		Network: sandbox.NetworkAgentEgress, WritablePaths: sandbox.AgentServerWritablePaths, Env: map[string]string{sandbox.AgentServerKeyEnv: agentKey},
 	})
 	if err != nil {
 		return fmt.Errorf("create the sandbox: %w", err)
@@ -244,7 +248,7 @@ func (s *running) run(ctx context.Context) error {
 		return err
 	}
 	if w.Config.IsDev() && w.SampleRepo != nil {
-		if err := copyTree(ctx, sb, w.SampleRepo, "/workspace"); err != nil {
+		if err := copyTree(ctx, sb, w.SampleRepo, sandbox.ProjectDir); err != nil {
 			return fmt.Errorf("copy the sample repo: %w", err)
 		}
 	}
@@ -257,8 +261,6 @@ func (s *running) run(ctx context.Context) error {
 		LLMBaseURL: w.Config.LLMBaseURL, LLMKey: key.Key, MCPURL: w.Config.MCPURL, MCPToken: s.mcpToken,
 		AgentServerKey: agentKey, MaxIterations: int(s.sess.MaxIterations),
 	}
-	live := w.Live.add(s.sid)
-	defer w.Live.remove(s.sid)
 	r, err := w.Runtime.Start(runCtx, spec, sb)
 	if err != nil {
 		return fmt.Errorf("start the agent: %w", err)

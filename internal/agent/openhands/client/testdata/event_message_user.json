@@ -1,0 +1,20 @@
+{
+  "id": "71d7a380-074a-4516-a1a0-cc2c112626dc",
+  "timestamp": "2026-11-08T14:48:44.388060",
+  "source": "user",
+  "parent_id": "e79df778-0add-4ba9-8f36-75a8e1fd2ead",
+  "llm_message": {
+    "role": "user",
+    "content": [
+      {
+        "cache_prompt": false,
+        "type": "text",
+        "text": "Say hello and run id."
+      }
+    ],
+    "thinking_blocks": []
+  },
+  "activated_skills": [],
+  "extended_content": [],
+  "kind": "MessageEvent"
+}

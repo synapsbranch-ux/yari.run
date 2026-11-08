@@ -7,6 +7,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"regexp"
 	"time"
@@ -247,6 +248,7 @@ func mapErr(err error) error {
 	case errors.Is(err, context.DeadlineExceeded):
 		return connect.NewError(connect.CodeDeadlineExceeded, err)
 	}
+	slog.Error("api: internal error", "error", err) // the client only sees "internal error"
 	return connect.NewError(connect.CodeInternal, errors.New("internal error"))
 }
 

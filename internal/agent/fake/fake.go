@@ -164,7 +164,7 @@ func (r *run) script(ctx context.Context) error {
 	}
 	exec := func(cmd ...string) (sandbox.ExecResult, error) {
 		r.emit(agent.EventAction, "terminal", agent.LocationSandbox, "run "+join(cmd), map[string]any{"command": cmd})
-		res, err := r.sb.Exec(ctx, cmd, sandbox.ExecOptions{Dir: "/workspace", Timeout: 60 * time.Second})
+		res, err := r.sb.Exec(ctx, cmd, sandbox.ExecOptions{Dir: sandbox.ProjectDir, Timeout: 60 * time.Second})
 		if err != nil {
 			return res, err
 		}
@@ -199,12 +199,12 @@ func (r *run) script(ctx context.Context) error {
 		}
 		r.emit(agent.EventMessage, "", agent.LocationNone, "The build fails because dist/ does not exist. I will make the build create it.", map[string]any{"role": "assistant"})
 		if !r.r.FailBuildForever {
-			r.emit(agent.EventAction, "file_editor", agent.LocationSandbox, "write /workspace/Makefile", map[string]any{"path": "/workspace/Makefile"})
+			r.emit(agent.EventAction, "file_editor", agent.LocationSandbox, "write "+sandbox.ProjectDir+"/Makefile", map[string]any{"path": sandbox.ProjectDir + "/Makefile"})
 			fixed := "build:\n\tmkdir -p dist\n\tcat src/main.txt > dist/out.txt\n"
-			if err := r.sb.WriteFile(ctx, "/workspace/Makefile", []byte(fixed)); err != nil {
+			if err := r.sb.WriteFile(ctx, sandbox.ProjectDir+"/Makefile", []byte(fixed)); err != nil {
 				return fmt.Errorf("write Makefile: %w", err)
 			}
-			r.emit(agent.EventObservation, "file_editor", agent.LocationSandbox, "Makefile updated", map[string]any{"path": "/workspace/Makefile"})
+			r.emit(agent.EventObservation, "file_editor", agent.LocationSandbox, "Makefile updated", map[string]any{"path": sandbox.ProjectDir + "/Makefile"})
 		}
 		if res, err = exec("make", "build"); err != nil {
 			return err

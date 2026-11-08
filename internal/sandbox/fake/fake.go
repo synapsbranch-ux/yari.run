@@ -181,7 +181,7 @@ func (s *Sandbox) Execs() [][]string {
 // Makefile creates the dist directory, which is the fix the scripted agent applies.
 func SampleRepoExec(s *Sandbox, cmd []string, opts sandbox.ExecOptions) (sandbox.ExecResult, error) {
 	if len(cmd) >= 2 && cmd[0] == "make" && cmd[1] == "build" {
-		mk, err := s.ReadFile(context.Background(), "/workspace/Makefile", 0)
+		mk, err := s.ReadFile(context.Background(), ProjectFile("Makefile"), 0)
 		if err != nil {
 			return sandbox.ExecResult{ExitCode: 2, Stderr: "make: *** No rule to make target 'build'.  Stop.\n"}, nil
 		}
@@ -199,3 +199,6 @@ func SampleRepoExec(s *Sandbox, cmd []string, opts sandbox.ExecOptions) (sandbox
 	}
 	return sandbox.ExecResult{ExitCode: 127, Stderr: fmt.Sprintf("fake sandbox: command not found: %s\n", strings.Join(cmd, " "))}, errors.New("unsupported command in fake sandbox")
 }
+
+// ProjectFile returns a path inside the sandbox project directory.
+func ProjectFile(name string) string { return sandbox.ProjectDir + "/" + name }
