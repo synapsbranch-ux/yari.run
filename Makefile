@@ -3,13 +3,17 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 COMPOSE ?= docker compose
-# Load .env when present so local commands see the same configuration as the services.
+# Load .env when present (else .env.example, whose values are local-only placeholders) so local
+# commands see the same configuration as the services.
 ifneq (,$(wildcard .env))
 include .env
 export
+else ifneq (,$(wildcard .env.example))
+include .env.example
+export
 endif
 
-.PHONY: service-binaries help setup up down migrate gen lint test build api worker mcp agent-image client desktop mobile
+.PHONY: catalog-table service-binaries help setup up down migrate gen lint test build api worker mcp agent-image client desktop mobile
 
 help: ## List targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-14s %s\n", $$1, $$2}'
@@ -33,7 +37,8 @@ migrate: ## Apply goose migrations, then River migrations
 	go run ./cmd/migrate
 
 gen: ## Generate code from proto (Go + TypeScript) and SQL (sqlc)
-	@echo ">> gen: buf generate, sqlc generate"
+	@echo ">> gen: buf generate, sqlc generate (installs the pnpm workspace first if the TypeScript plugin is missing)"
+	@test -x packages/api-client/node_modules/.bin/protoc-gen-es || pnpm install
 	go tool buf generate
 	go tool sqlc generate
 
@@ -65,6 +70,9 @@ worker: ## Run the River worker (plan applies, agent sessions)
 mcp: ## Run the MCP server (talks only to the Connect API)
 	@echo ">> mcp: MCP server on $${YARI_MCP_ADDR:-:8090}"
 	go run ./cmd/mcp
+
+catalog-table: ## Print the Provider Catalog as the Markdown table used in the README
+	@go run ./internal/provider/catalog/catalogdoc
 
 service-binaries: ## Cross-build the Go services for the compose images (bin/linux)
 	@echo ">> service-binaries: linux binaries for the yari-mcp container"

@@ -201,3 +201,15 @@ func (c *Catalog) DocsURL(id string) (string, bool) {
 	e, ok := c.Get(id)
 	return e.Docs, ok
 }
+
+// Markdown renders the catalog as a Markdown table grouped in file order. The README embeds it.
+func (c *Catalog) Markdown() string {
+	var b strings.Builder
+	b.WriteString("| Provider | Category | Kinds | Auth | Adapter | Status | API docs |\n")
+	b.WriteString("| --- | --- | --- | --- | --- | --- | --- |\n")
+	for _, e := range c.entries {
+		fmt.Fprintf(&b, "| %s (`%s`) | %s | %s | %s | %s | %s | [docs](%s) |\n",
+			e.Name, e.ID, e.Category, strings.Join(e.Kinds, ", "), strings.Join(e.Auth, ", "), e.Adapter, e.Status, e.Docs)
+	}
+	return b.String()
+}
