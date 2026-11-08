@@ -1,0 +1,16 @@
+{
+  "name": "yari-run",
+  "private": true,
+  "version": "0.0.0",
+  "description": "yari.run monorepo (TypeScript workspace). Go code lives at the repository root.",
+  "packageManager": "pnpm@12.18.0",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "client": "pnpm --filter client dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r --if-present lint",
+    "check": "pnpm -r --if-present check"
+  }
+}

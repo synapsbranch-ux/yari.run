@@ -1,0 +1,46 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Go
+/bin/
+*.test
+*.out
+coverage.*
+
+# Node
+node_modules/
+.pnpm-store/
+dist/
+.turbo/
+
+# SvelteKit
+.svelte-kit/
+apps/client/build/
+apps/client/.vercel/
+
+# Tauri
+apps/desktop/src-tauri/target/
+apps/desktop/src-tauri/gen/schemas/
+
+# Capacitor
+apps/mobile/android/app/build/
+apps/mobile/android/build/
+apps/mobile/android/.gradle/
+apps/mobile/android/local.properties
+apps/mobile/android/app/src/main/assets/public/
+apps/mobile/android/capacitor-cordova-android-plugins/
+apps/mobile/ios/App/build/
+apps/mobile/ios/App/Pods/
+apps/mobile/ios/App/App/public/
+.gradle/
+*.apk
+*.aab
+
+# Editors and OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
