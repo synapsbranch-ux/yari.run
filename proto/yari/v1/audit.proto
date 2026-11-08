@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package yari.v1;
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+import "yari/v1/common.proto";
+
+message AuditEvent {
+  int64 id = 1;
+  string organization_id = 2;
+  google.protobuf.Timestamp occurred_at = 3;
+  string principal_id = 4;
+  string action = 5;
+  Scope scope = 6;
+  string target = 7;
+  string plan_id = 8;
+  string agent_session_id = 9;
+  google.protobuf.Struct metadata = 10;
+}
+
+message ListAuditEventsRequest {
+  string organization_id = 1;
+  // Optional. Filters to events on this scope.
+  Scope scope = 2;
+  int32 page_size = 3;
+  // Opaque token from a previous response.
+  string page_token = 4;
+}
+
+message ListAuditEventsResponse {
+  repeated AuditEvent events = 1;
+  string next_page_token = 2;
+}
+
+service AuditService {
+  rpc ListAuditEvents(ListAuditEventsRequest) returns (ListAuditEventsResponse);
+}

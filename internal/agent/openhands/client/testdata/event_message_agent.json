@@ -1,0 +1,21 @@
+{
+  "id": "bb2c7366-5e42-4e05-87a3-650317c011c2",
+  "timestamp": "2026-11-08T14:48:44.855832",
+  "source": "agent",
+  "parent_id": "77a674de-907a-480f-bfa5-f920c2f8f6d7",
+  "llm_message": {
+    "role": "assistant",
+    "content": [
+      {
+        "cache_prompt": false,
+        "type": "text",
+        "text": "Hello from the fake LLM."
+      }
+    ],
+    "thinking_blocks": []
+  },
+  "llm_response_id": "chatcmpl-895403d5",
+  "activated_skills": [],
+  "extended_content": [],
+  "kind": "MessageEvent"
+}

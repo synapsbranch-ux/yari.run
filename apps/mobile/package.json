@@ -1,0 +1,24 @@
+{
+  "name": "mobile",
+  "version": "0.0.0",
+  "private": true,
+  "description": "yari.run mobile shell (Capacitor). Wraps the static build of apps/client.",
+  "type": "module",
+  "scripts": {
+    "sync": "cap sync",
+    "sync:android": "cap sync android",
+    "open:android": "cap open android",
+    "run:android": "cap run android",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aparajita/capacitor-secure-storage": "8.0.1",
+    "@capacitor/android": "8.6.0",
+    "@capacitor/core": "8.6.0",
+    "@capacitor/local-notifications": "8.3.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.6.0",
+    "typescript": "7.0.2"
+  }
+}

@@ -1,0 +1,10 @@
+# oapi-codegen configuration for the OpenHands agent server client.
+# Invoked through `go generate` (see doc.go) as: go tool oapi-codegen -config oapi-codegen.yaml openapi.yaml
+package: client
+output: client.gen.go
+generate:
+  models: true
+  client: true
+output-options:
+  # Keep operation names as authored in openapi.yaml (StartConversation, SendMessage, ...).
+  skip-prune: true

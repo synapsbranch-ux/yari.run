@@ -1,0 +1,122 @@
+# Local development stack for yari.run. Nothing here is production configuration.
+# Every password below is a placeholder. Override through your shell or a .env file.
+name: yari
+
+services:
+  postgres:
+    image: postgres:18.6
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: yari
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+      POSTGRES_DB: yari
+      # Read by db/init/01-roles.sql through psql \getenv (local development only).
+      YARI_APP_PASSWORD: ${YARI_APP_PASSWORD:-change-me}
+      ZITADEL_DB_PASSWORD: ${ZITADEL_DB_PASSWORD:-change-me}
+      LITELLM_DB_PASSWORD: ${LITELLM_DB_PASSWORD:-change-me}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      # PostgreSQL 18 images keep versioned data directories below /var/lib/postgresql.
+      - yari-pgdata:/var/lib/postgresql
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U yari -d yari"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+      start_period: 5s
+
+  # Optional identity provider. Start with: docker compose --profile auth up -d
+  zitadel:
+    profiles: ["auth"]
+    image: ghcr.io/zitadel/zitadel:v4.20.1
+    restart: unless-stopped
+    command: start-from-init --masterkeyFromEnv --tlsMode disabled
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ZITADEL_MASTERKEY: ${ZITADEL_MASTERKEY:-change-me-change-me-change-me-00}
+      ZITADEL_DATABASE_POSTGRES_HOST: postgres
+      ZITADEL_DATABASE_POSTGRES_PORT: "5432"
+      ZITADEL_DATABASE_POSTGRES_DATABASE: zitadel
+      ZITADEL_DATABASE_POSTGRES_USER_USERNAME: zitadel
+      ZITADEL_DATABASE_POSTGRES_USER_PASSWORD: ${ZITADEL_DB_PASSWORD:-change-me}
+      ZITADEL_DATABASE_POSTGRES_USER_SSL_MODE: disable
+      ZITADEL_DATABASE_POSTGRES_ADMIN_USERNAME: yari
+      ZITADEL_DATABASE_POSTGRES_ADMIN_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+      ZITADEL_DATABASE_POSTGRES_ADMIN_SSL_MODE: disable
+      ZITADEL_EXTERNALDOMAIN: localhost
+      ZITADEL_EXTERNALPORT: "8081"
+      ZITADEL_EXTERNALSECURE: "false"
+      # Keep the single-container login. The official compose adds a separate login app behind a proxy.
+      ZITADEL_DEFAULTINSTANCE_FEATURES_LOGINV2_REQUIRED: "false"
+    ports:
+      - "127.0.0.1:8081:8080"
+    healthcheck:
+      test: ["CMD", "/app/zitadel", "ready"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 20s
+
+  # Model gateway for agent sessions. Start with: docker compose --profile agent up -d
+  # It holds the real provider keys and is the only place they exist.
+  litellm:
+    profiles: ["agent"]
+    image: ghcr.io/berriai/litellm-database:v1.83.14-stable.patch.3
+    restart: unless-stopped
+    command: ["--config", "/app/config.yaml", "--port", "4000"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://litellm:${LITELLM_DB_PASSWORD:-change-me}@postgres:5432/litellm
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY:-change-me}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-change-me}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-change-me}
+    volumes:
+      - ./agent/litellm/config.yaml:/app/config.yaml:ro
+    ports:
+      - "127.0.0.1:4000:4000"
+    networks:
+      - default # outbound internet, to reach model providers
+      - yari-agent-net # reachable by sandboxes
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:4000/health/liveliness')"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+
+  # MCP server exposing yari.run tools to agents. It only talks to the Connect API.
+  yari-mcp:
+    profiles: ["agent"]
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        CMD: mcp # needs bin/linux/mcp: run `make service-binaries` first
+    restart: unless-stopped
+    environment:
+      YARI_ENV: ${YARI_ENV:-dev}
+      YARI_MCP_ADDR: ":8090"
+      # The API runs on the host in local development (make api).
+      YARI_API_URL: ${YARI_MCP_API_URL:-http://host.docker.internal:8080}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:8090:8090" # for the worker's scripted fake runtime and external MCP clients
+    networks:
+      - default # reaches the API
+      - yari-agent-net # reachable by sandboxes
+
+volumes:
+  yari-pgdata:
+
+networks:
+  # No internet egress. Agent sandboxes join only this network.
+  yari-agent-net:
+    name: yari-agent-net
+    internal: true

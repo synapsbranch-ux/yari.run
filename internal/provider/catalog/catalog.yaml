@@ -1,0 +1,477 @@
+# Provider Catalog of yari.run. Intended capabilities checked against each provider's official API docs.
+- id: railway
+  name: Railway
+  category: paas
+  kinds: [web, worker, cron, postgres, redis]
+  auth: [api_token, oauth]
+  adapter: native
+  status: alpha
+  docs: https://docs.railway.com/integrations/api
+
+- id: vercel
+  name: Vercel
+  category: paas
+  kinds: [web, function, static, cron]
+  auth: [api_token]
+  adapter: native
+  status: alpha
+  docs: https://vercel.com/docs/rest-api
+
+- id: render
+  name: Render
+  category: paas
+  kinds: [web, worker, cron, static, postgres, kv]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://render.com/docs/api
+
+- id: netlify
+  name: Netlify
+  category: paas
+  kinds: [static, function, cron]
+  auth: [api_token, oauth]
+  adapter: native
+  status: planned
+  docs: https://docs.netlify.com/api-and-cli-guides/api-guides/get-started-with-api/
+
+- id: cloudflare
+  name: Cloudflare
+  category: paas
+  kinds: [function, static, cron, kv, bucket, sqlite, queue, dns, cdn]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://developers.cloudflare.com/api/
+
+- id: fly
+  name: Fly.io
+  category: paas
+  kinds: [web, worker, postgres]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://docs.fly.io/machines/api
+
+- id: heroku
+  name: Heroku
+  category: paas
+  kinds: [web, worker, cron, postgres, redis]
+  auth: [oauth, api_token]
+  adapter: native
+  status: planned
+  docs: https://devcenter.heroku.com/articles/platform-api-reference
+
+- id: koyeb
+  name: Koyeb
+  category: paas
+  kinds: [web, worker, postgres]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://www.koyeb.com/docs/reference/api
+
+- id: northflank
+  name: Northflank
+  category: paas
+  kinds: [web, worker, cron, postgres, mysql, redis, mongodb]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://northflank.com/docs/v1/api/introduction
+
+- id: aws
+  name: Amazon Web Services
+  category: cloud
+  kinds: [web, worker, cron, function, postgres, mysql, redis, bucket, queue, email, dns, cdn, vm]
+  auth: [iam_role, access_key]
+  adapter: pulumi
+  status: planned
+  docs: https://docs.aws.amazon.com/general/latest/gr/aws-apis.html
+
+- id: gcp
+  name: Google Cloud
+  category: cloud
+  kinds: [web, worker, cron, function, postgres, mysql, redis, bucket, queue, dns, cdn, vm]
+  auth: [workload_identity, oauth]
+  adapter: pulumi
+  status: planned
+  docs: https://cloud.google.com/apis
+
+- id: azure
+  name: Microsoft Azure
+  category: cloud
+  kinds: [web, worker, cron, function, postgres, mysql, redis, bucket, queue, dns, cdn, vm]
+  auth: [workload_identity, oauth]
+  adapter: pulumi
+  status: planned
+  docs: https://learn.microsoft.com/en-us/rest/api/azure/
+
+- id: digitalocean
+  name: DigitalOcean
+  category: cloud
+  kinds: [web, worker, cron, static, postgres, mysql, redis, mongodb, bucket, vm, dns]
+  auth: [api_token, oauth, access_key]
+  adapter: native
+  status: planned
+  docs: https://docs.digitalocean.com/reference/api/
+
+- id: hetzner
+  name: Hetzner
+  category: cloud
+  kinds: [vm, bucket, dns]
+  auth: [api_token, access_key]
+  adapter: native
+  status: planned
+  docs: https://docs.hetzner.cloud/
+
+- id: akamai-linode
+  name: Akamai (Linode)
+  category: cloud
+  kinds: [vm, postgres, mysql, bucket, dns]
+  auth: [api_token, oauth, access_key]
+  adapter: native
+  status: planned
+  docs: https://techdocs.akamai.com/linode-api/reference/api
+
+- id: vultr
+  name: Vultr
+  category: cloud
+  kinds: [vm, postgres, mysql, redis, bucket, dns]
+  auth: [api_key, access_key]
+  adapter: native
+  status: planned
+  docs: https://www.vultr.com/api/
+
+- id: scaleway
+  name: Scaleway
+  category: cloud
+  kinds: [web, function, vm, postgres, mysql, redis, bucket, dns]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://www.scaleway.com/en/developers/api/
+
+- id: ovhcloud
+  name: OVHcloud
+  category: cloud
+  kinds: [vm, postgres, mysql, bucket, dns]
+  auth: [oauth, api_key]
+  adapter: native
+  status: planned
+  docs: https://docs.ovhcloud.com/en/guides/manage-and-operate/api/first-steps
+
+- id: supabase
+  name: Supabase
+  category: database
+  kinds: [postgres, bucket, function]
+  auth: [oauth, api_token]
+  adapter: native
+  status: alpha
+  docs: https://supabase.com/docs/reference/api/introduction
+
+- id: neon
+  name: Neon
+  category: database
+  kinds: [postgres]
+  auth: [api_key, oauth]
+  adapter: native
+  status: planned
+  docs: https://neon.com/docs/reference/api
+
+- id: planetscale
+  name: PlanetScale
+  category: database
+  kinds: [mysql, postgres]
+  auth: [api_token, oauth]
+  adapter: native
+  status: planned
+  docs: https://planetscale.com/docs/api/reference/getting-started-with-planetscale-api
+
+- id: turso
+  name: Turso
+  category: database
+  kinds: [sqlite]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://docs.turso.tech/api-reference/introduction
+
+- id: mongodb-atlas
+  name: MongoDB Atlas
+  category: database
+  kinds: [mongodb]
+  auth: [oauth, api_key]
+  adapter: native
+  status: planned
+  docs: https://www.mongodb.com/docs/atlas/api/
+
+- id: upstash
+  name: Upstash
+  category: database
+  kinds: [redis, queue]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://upstash.com/docs/devops/developer-api/introduction
+
+- id: aiven
+  name: Aiven
+  category: database
+  kinds: [postgres, mysql, redis, queue, search]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://api.aiven.io/doc/
+
+- id: redis-cloud
+  name: Redis Cloud
+  category: database
+  kinds: [redis]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://redis.io/docs/latest/operate/rc/api/
+
+- id: backblaze-b2
+  name: Backblaze B2
+  category: storage
+  kinds: [bucket]
+  auth: [access_key]
+  adapter: s3compat
+  status: planned
+  docs: https://www.backblaze.com/docs/cloud-storage-s3-compatible-api
+
+- id: wasabi
+  name: Wasabi
+  category: storage
+  kinds: [bucket]
+  auth: [access_key]
+  adapter: s3compat
+  status: planned
+  docs: https://docs.wasabi.com/
+
+- id: tigris
+  name: Tigris
+  category: storage
+  kinds: [bucket]
+  auth: [access_key]
+  adapter: s3compat
+  status: planned
+  docs: https://www.tigrisdata.com/docs/
+
+- id: bunny
+  name: bunny.net
+  category: cdn_dns
+  kinds: [cdn, dns, bucket]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://bunny.net/docs/api-reference/core
+
+- id: resend
+  name: Resend
+  category: email
+  kinds: [email]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://resend.com/docs/api-reference/introduction
+
+- id: postmark
+  name: Postmark
+  category: email
+  kinds: [email]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://postmarkapp.com/developer
+
+- id: sendgrid
+  name: SendGrid
+  category: email
+  kinds: [email]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://www.twilio.com/docs/sendgrid/api-reference
+
+- id: mailgun
+  name: Mailgun
+  category: email
+  kinds: [email]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://documentation.mailgun.com/docs/mailgun/api-reference/mg-auth
+
+- id: cloudamqp
+  name: CloudAMQP
+  category: messaging
+  kinds: [queue]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://docs.cloudamqp.com/instance-api.html
+
+- id: confluent
+  name: Confluent Cloud
+  category: messaging
+  kinds: [queue]
+  auth: [api_key, oauth]
+  adapter: native
+  status: planned
+  docs: https://docs.confluent.io/cloud/current/api.html
+
+- id: algolia
+  name: Algolia
+  category: search
+  kinds: [search]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://www.algolia.com/doc/rest-api/search/
+
+- id: meilisearch-cloud
+  name: Meilisearch Cloud
+  category: search
+  kinds: [search]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://www.meilisearch.com/docs/reference/api/authorization
+
+- id: typesense-cloud
+  name: Typesense Cloud
+  category: search
+  kinds: [search]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://typesense.org/docs/cloud-management-api/v1/
+
+- id: elastic-cloud
+  name: Elastic Cloud
+  category: search
+  kinds: [search]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://www.elastic.co/docs/api/doc/cloud/
+
+- id: grafana-cloud
+  name: Grafana Cloud
+  category: observability
+  kinds: [observability]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://grafana.com/docs/grafana-cloud/learn-and-build/developer-resources/api-reference/cloud-api/
+
+- id: better-stack
+  name: Better Stack
+  category: observability
+  kinds: [observability]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://betterstack.com/docs/uptime/api/getting-started-with-uptime-api/
+
+- id: sentry
+  name: Sentry
+  category: observability
+  kinds: [observability]
+  auth: [api_token, oauth]
+  adapter: native
+  status: planned
+  docs: https://docs.sentry.io/api/
+
+- id: axiom
+  name: Axiom
+  category: observability
+  kinds: [observability]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://axiom.co/docs/restapi/introduction
+
+- id: clerk
+  name: Clerk
+  category: auth
+  kinds: [auth]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://clerk.com/docs/reference/backend-api
+
+- id: auth0
+  name: Auth0
+  category: auth
+  kinds: [auth]
+  auth: [oauth]
+  adapter: native
+  status: planned
+  docs: https://auth0.com/docs/api/management/v2
+
+- id: workos
+  name: WorkOS
+  category: auth
+  kinds: [auth]
+  auth: [api_key]
+  adapter: native
+  status: planned
+  docs: https://workos.com/docs/reference
+
+- id: zitadel-cloud
+  name: ZITADEL Cloud
+  category: auth
+  kinds: [auth]
+  auth: [api_token, oauth]
+  adapter: native
+  status: planned
+  docs: https://zitadel.com/docs/apis/introduction
+
+- id: github
+  name: GitHub
+  category: source
+  kinds: [repository]
+  auth: [oauth, api_token]
+  adapter: native
+  status: planned
+  docs: https://docs.github.com/en/rest
+
+- id: gitlab
+  name: GitLab
+  category: source
+  kinds: [repository]
+  auth: [oauth, api_token]
+  adapter: native
+  status: planned
+  docs: https://docs.gitlab.com/api/rest/
+
+- id: bitbucket
+  name: Bitbucket
+  category: source
+  kinds: [repository]
+  auth: [oauth, api_token]
+  adapter: native
+  status: planned
+  docs: https://developer.atlassian.com/cloud/bitbucket/rest/intro/
+
+- id: ghcr
+  name: GitHub Container Registry
+  category: source
+  kinds: [registry]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry
+
+- id: docker-hub
+  name: Docker Hub
+  category: source
+  kinds: [registry]
+  auth: [api_token]
+  adapter: native
+  status: planned
+  docs: https://docs.docker.com/reference/api/hub/latest/

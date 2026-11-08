@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+package yari.v1;
+
+import "google/protobuf/timestamp.proto";
+
+message Organization {
+  string id = 1;
+  string slug = 2;
+  string name = 3;
+  google.protobuf.Timestamp created_at = 4;
+}
+
+message Workspace {
+  string id = 1;
+  string organization_id = 2;
+  string slug = 3;
+  string name = 4;
+  google.protobuf.Timestamp created_at = 5;
+}
+
+message Project {
+  string id = 1;
+  string organization_id = 2;
+  string workspace_id = 3;
+  string slug = 4;
+  string name = 5;
+  google.protobuf.Timestamp created_at = 6;
+}
+
+message Environment {
+  string id = 1;
+  string organization_id = 2;
+  string project_id = 3;
+  string slug = 4;
+  string name = 5;
+  // Protected environments gate secret access and plan applies.
+  bool protected = 6;
+  // When set, a plan needs approval from a second principal with plan.approve.
+  bool require_second_approver = 7;
+  google.protobuf.Timestamp created_at = 8;
+}
+
+// Service is a deployable unit in a Project, with its state in one Environment.
+message Service {
+  string id = 1;
+  string organization_id = 2;
+  string project_id = 3;
+  string name = 4;
+  string kind = 5;
+  // Provider Catalog id the service runs on. Empty if not deployed in the Environment.
+  string provider = 6;
+  string status = 7;
+}
+
+message CreateOrganizationRequest {
+  string slug = 1;
+  string name = 2;
+}
+
+message CreateOrganizationResponse {
+  Organization organization = 1;
+}
+
+message ListOrganizationsRequest {}
+
+message ListOrganizationsResponse {
+  repeated Organization organizations = 1;
+}
+
+message CreateWorkspaceRequest {
+  string organization_id = 1;
+  string slug = 2;
+  string name = 3;
+}
+
+message CreateWorkspaceResponse {
+  Workspace workspace = 1;
+}
+
+message ListWorkspacesRequest {
+  string organization_id = 1;
+}
+
+message ListWorkspacesResponse {
+  repeated Workspace workspaces = 1;
+}
+
+message CreateProjectRequest {
+  string workspace_id = 1;
+  string slug = 2;
+  string name = 3;
+}
+
+message CreateProjectResponse {
+  Project project = 1;
+}
+
+message ListProjectsRequest {
+  string workspace_id = 1;
+}
+
+message ListProjectsResponse {
+  repeated Project projects = 1;
+}
+
+message CreateEnvironmentRequest {
+  string project_id = 1;
+  string slug = 2;
+  string name = 3;
+  // Ignored for the slug "production", which is always protected.
+  bool protected = 4;
+  bool require_second_approver = 5;
+}
+
+message CreateEnvironmentResponse {
+  Environment environment = 1;
+}
+
+message ListEnvironmentsRequest {
+  string project_id = 1;
+}
+
+message ListEnvironmentsResponse {
+  repeated Environment environments = 1;
+}
+
+message GetEnvironmentRequest {
+  string environment_id = 1;
+}
+
+message GetEnvironmentResponse {
+  Environment environment = 1;
+}
+
+message ListServicesRequest {
+  string environment_id = 1;
+}
+
+message ListServicesResponse {
+  repeated Service services = 1;
+}
+
+service HierarchyService {
+  rpc CreateOrganization(CreateOrganizationRequest) returns (CreateOrganizationResponse);
+  rpc ListOrganizations(ListOrganizationsRequest) returns (ListOrganizationsResponse);
+  rpc CreateWorkspace(CreateWorkspaceRequest) returns (CreateWorkspaceResponse);
+  rpc ListWorkspaces(ListWorkspacesRequest) returns (ListWorkspacesResponse);
+  rpc CreateProject(CreateProjectRequest) returns (CreateProjectResponse);
+  rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse);
+  rpc CreateEnvironment(CreateEnvironmentRequest) returns (CreateEnvironmentResponse);
+  rpc ListEnvironments(ListEnvironmentsRequest) returns (ListEnvironmentsResponse);
+  rpc GetEnvironment(GetEnvironmentRequest) returns (GetEnvironmentResponse);
+  rpc ListServices(ListServicesRequest) returns (ListServicesResponse);
+}

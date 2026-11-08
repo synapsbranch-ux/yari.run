@@ -1,0 +1,28 @@
+{
+  "id": "446ce29e-bb0e-4ff4-b860-3f5133f7f689",
+  "timestamp": "2026-11-08T14:48:44.420737",
+  "source": "environment",
+  "parent_id": "71d7a380-074a-4516-a1a0-cc2c112626dc",
+  "key": "stats",
+  "value": {
+    "usage_to_metrics": {
+      "yari-session": {
+        "model_name": "openai/yari-fake-model",
+        "accumulated_cost": 0.0,
+        "max_budget_per_task": null,
+        "accumulated_token_usage": {
+          "model": "openai/yari-fake-model",
+          "prompt_tokens": 10,
+          "completion_tokens": 5,
+          "cache_read_tokens": 0,
+          "cache_write_tokens": 0,
+          "reasoning_tokens": 0,
+          "context_window": 0,
+          "per_turn_token": 15,
+          "response_id": ""
+        }
+      }
+    }
+  },
+  "kind": "ConversationStateUpdateEvent"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "e79df778-0add-4ba9-8f36-75a8e1fd2ead",
+  "timestamp": "2026-11-08T14:48:44.381175",
+  "source": "agent",
+  "system_prompt": {
+    "cache_prompt": false,
+    "type": "text",
+    "text": "[system prompt text omitted from testdata]"
+  },
+  "tools": [
+    {
+      "_note": "tool schemas omitted from testdata",
+      "count": 5
+    }
+  ],
+  "kind": "SystemPromptEvent"
+}

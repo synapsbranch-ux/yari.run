@@ -1,0 +1,17 @@
+{
+  "name": "@yari/fixtures",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Typed fake data for the yari.run clients. Plain TypeScript, independent of protobuf.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./catalog.json": "./src/catalog.json"
+  },
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

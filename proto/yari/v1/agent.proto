@@ -1,0 +1,151 @@
+syntax = "proto3";
+
+package yari.v1;
+
+import "google/protobuf/timestamp.proto";
+
+enum SessionStatus {
+  SESSION_STATUS_UNSPECIFIED = 0;
+  SESSION_STATUS_QUEUED = 1;
+  SESSION_STATUS_RUNNING = 2;
+  SESSION_STATUS_WAITING_APPROVAL = 3;
+  SESSION_STATUS_SUCCEEDED = 4;
+  SESSION_STATUS_FAILED = 5;
+  SESSION_STATUS_STOPPED = 6;
+}
+
+enum StepKind {
+  STEP_KIND_UNSPECIFIED = 0;
+  STEP_KIND_MESSAGE = 1;
+  STEP_KIND_ACTION = 2;
+  STEP_KIND_OBSERVATION = 3;
+  STEP_KIND_ERROR = 4;
+  STEP_KIND_GUARDRAIL = 5;
+  STEP_KIND_STATUS = 6;
+}
+
+// StepLocation says where an action ran.
+enum StepLocation {
+  STEP_LOCATION_UNSPECIFIED = 0;
+  // Built-in harness tools inside the isolated container.
+  STEP_LOCATION_SANDBOX = 1;
+  // yari.run tools reached over MCP.
+  STEP_LOCATION_YARI = 2;
+  STEP_LOCATION_NONE = 3;
+}
+
+// AgentSession is one run of the DevOps agent in its own Sandbox.
+message AgentSession {
+  string id = 1;
+  string organization_id = 2;
+  string environment_id = 3;
+  string agent_principal_id = 4;
+  string started_by = 5;
+  string goal = 6;
+  // "openhands" or "fake".
+  string runtime = 7;
+  string model = 8;
+  SessionStatus status = 9;
+  string sandbox_id = 10;
+  string external_conversation_id = 11;
+  int64 budget_usd_micros = 12;
+  int64 spend_usd_micros = 13;
+  int32 max_iterations = 14;
+  google.protobuf.Timestamp started_at = 15;
+  google.protobuf.Timestamp ended_at = 16;
+  google.protobuf.Timestamp created_at = 17;
+}
+
+// AgentStep is one entry of the tamper-evident step log.
+message AgentStep {
+  int64 id = 1;
+  string session_id = 2;
+  int32 seq = 3;
+  StepKind kind = 4;
+  string tool = 5;
+  StepLocation location = 6;
+  string summary = 7;
+  // The harness event as JSON, with secrets redacted.
+  string raw_event_json = 8;
+  string plan_id = 9;
+  google.protobuf.Timestamp created_at = 10;
+}
+
+// ModelInfo is a model alias allowed by the model gateway.
+message ModelInfo {
+  string alias = 1;
+  string display_name = 2;
+  string provider = 3;
+}
+
+message StartSessionRequest {
+  string environment_id = 1;
+  string goal = 2;
+  // Optional. Must be one of ListModels. Defaults to the configured default model.
+  string model = 3;
+}
+
+message StartSessionResponse {
+  AgentSession session = 1;
+}
+
+message GetSessionRequest {
+  string session_id = 1;
+}
+
+message GetSessionResponse {
+  AgentSession session = 1;
+}
+
+message ListSessionsRequest {
+  // Optional filter.
+  string environment_id = 1;
+  int32 page_size = 2;
+}
+
+message ListSessionsResponse {
+  repeated AgentSession sessions = 1;
+}
+
+message SendMessageRequest {
+  string session_id = 1;
+  string message = 2;
+}
+
+message SendMessageResponse {}
+
+message StopSessionRequest {
+  string session_id = 1;
+}
+
+message StopSessionResponse {
+  AgentSession session = 1;
+}
+
+message ListModelsRequest {}
+
+message ListModelsResponse {
+  repeated ModelInfo models = 1;
+}
+
+message WatchSessionRequest {
+  string session_id = 1;
+  // Only steps with seq greater than this are sent. Zero replays the whole log.
+  int32 after_seq = 2;
+}
+
+message WatchSessionResponse {
+  AgentStep step = 1;
+  // Set when the session status changes.
+  SessionStatus status = 2;
+}
+
+service AgentService {
+  rpc StartSession(StartSessionRequest) returns (StartSessionResponse);
+  rpc GetSession(GetSessionRequest) returns (GetSessionResponse);
+  rpc ListSessions(ListSessionsRequest) returns (ListSessionsResponse);
+  rpc SendMessage(SendMessageRequest) returns (SendMessageResponse);
+  rpc StopSession(StopSessionRequest) returns (StopSessionResponse);
+  rpc ListModels(ListModelsRequest) returns (ListModelsResponse);
+  rpc WatchSession(WatchSessionRequest) returns (stream WatchSessionResponse);
+}

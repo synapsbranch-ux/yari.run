@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package yari.v1;
+
+// ProviderInfo is one entry of the Provider Catalog.
+message ProviderInfo {
+  string id = 1;
+  string name = 2;
+  // paas, cloud, database, storage, cdn_dns, email, messaging, search, observability, auth, source.
+  string category = 3;
+  // Service kinds the provider can run, for example "web" or "postgres".
+  repeated string kinds = 4;
+  // oauth, api_token, api_key, access_key, iam_role, workload_identity.
+  repeated string auth_methods = 5;
+  // native, s3compat, pulumi, none.
+  string adapter_family = 6;
+  // alpha or planned.
+  string status = 7;
+  string docs_url = 8;
+}
+
+message ListProvidersRequest {
+  // Optional filter.
+  string category = 1;
+  // Optional filter: only providers that support this kind.
+  string kind = 2;
+}
+
+message ListProvidersResponse {
+  repeated ProviderInfo providers = 1;
+}
+
+service CatalogService {
+  rpc ListProviders(ListProvidersRequest) returns (ListProvidersResponse);
+}

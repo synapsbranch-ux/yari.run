@@ -1,0 +1,143 @@
+syntax = "proto3";
+
+package yari.v1;
+
+import "google/protobuf/timestamp.proto";
+
+enum PlanStatus {
+  PLAN_STATUS_UNSPECIFIED = 0;
+  PLAN_STATUS_DRAFT = 1;
+  PLAN_STATUS_PENDING_APPROVAL = 2;
+  PLAN_STATUS_APPROVED = 3;
+  PLAN_STATUS_APPLYING = 4;
+  PLAN_STATUS_APPLIED = 5;
+  PLAN_STATUS_FAILED = 6;
+  PLAN_STATUS_CANCELLED = 7;
+}
+
+enum Risk {
+  RISK_UNSPECIFIED = 0;
+  RISK_LOW = 1;
+  RISK_MEDIUM = 2;
+  RISK_HIGH = 3;
+}
+
+enum ChangeAction {
+  CHANGE_ACTION_UNSPECIFIED = 0;
+  CHANGE_ACTION_CREATE = 1;
+  CHANGE_ACTION_UPDATE = 2;
+  CHANGE_ACTION_DELETE = 3;
+  CHANGE_ACTION_NOOP = 4;
+}
+
+// OutputRef points at an output of another service in the same plan.
+message OutputRef {
+  string service = 1;
+  string key = 2;
+}
+
+// EnvValue is a literal value or a reference to another service's output.
+message EnvValue {
+  // Ignored when from_output is set. Never set for secrets in responses.
+  string value = 1;
+  OutputRef from_output = 2;
+  bool secret = 3;
+}
+
+// ServiceSpec is the desired state of one Service.
+message ServiceSpec {
+  string name = 1;
+  string kind = 2;
+  // Provider Catalog id.
+  string provider = 3;
+  map<string, string> config = 4;
+  map<string, EnvValue> env = 5;
+}
+
+// PlanChange is one reviewable change.
+message PlanChange {
+  string service = 1;
+  ChangeAction action = 2;
+  ServiceSpec after = 3;
+  Risk risk = 4;
+  int64 cost_delta_cents = 5;
+  string description = 6;
+}
+
+message Plan {
+  string id = 1;
+  string organization_id = 2;
+  string environment_id = 3;
+  string created_by = 4;
+  // Set when an Agent Session proposed the plan.
+  string agent_session_id = 5;
+  PlanStatus status = 6;
+  repeated PlanChange changes = 7;
+  int64 cost_delta_cents = 8;
+  Risk risk = 9;
+  string approved_by = 10;
+  google.protobuf.Timestamp created_at = 11;
+  google.protobuf.Timestamp updated_at = 12;
+}
+
+message CreatePlanRequest {
+  string environment_id = 1;
+  // Desired changes. The server computes risk and cost, and validates providers against the catalog.
+  repeated PlanChange changes = 2;
+  // Set by the agent path only. Ignored for other callers.
+  string agent_session_id = 3;
+}
+
+message CreatePlanResponse {
+  Plan plan = 1;
+}
+
+message GetPlanRequest {
+  string plan_id = 1;
+}
+
+message GetPlanResponse {
+  Plan plan = 1;
+}
+
+message ListPendingApprovalsRequest {}
+
+message ListPendingApprovalsResponse {
+  // Plans in pending_approval across every Organization the caller belongs to.
+  repeated Plan plans = 1;
+}
+
+message ApprovePlanRequest {
+  string plan_id = 1;
+}
+
+message ApprovePlanResponse {
+  Plan plan = 1;
+}
+
+message CancelPlanRequest {
+  string plan_id = 1;
+}
+
+message CancelPlanResponse {
+  Plan plan = 1;
+}
+
+message ApplyPlanRequest {
+  string plan_id = 1;
+}
+
+message ApplyPlanResponse {
+  Plan plan = 1;
+  // True when the plan moved to pending_approval instead of applying.
+  bool requires_approval = 2;
+}
+
+service PlanService {
+  rpc CreatePlan(CreatePlanRequest) returns (CreatePlanResponse);
+  rpc GetPlan(GetPlanRequest) returns (GetPlanResponse);
+  rpc ListPendingApprovals(ListPendingApprovalsRequest) returns (ListPendingApprovalsResponse);
+  rpc ApprovePlan(ApprovePlanRequest) returns (ApprovePlanResponse);
+  rpc CancelPlan(CancelPlanRequest) returns (CancelPlanResponse);
+  rpc ApplyPlan(ApplyPlanRequest) returns (ApplyPlanResponse);
+}

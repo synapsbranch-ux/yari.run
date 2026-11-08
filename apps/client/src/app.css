@@ -1,0 +1,197 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '@xyflow/svelte/dist/style.css';
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design tokens. Calm and neutral, dark by default, one accent.
+ * Light theme is the :root block, dark theme is .dark (set on <html>).
+ */
+:root {
+  --radius: 0.5rem;
+
+  --background: oklch(0.985 0.002 270);
+  --foreground: oklch(0.22 0.01 270);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.01 270);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.01 270);
+  --primary: oklch(0.55 0.17 277);
+  --primary-foreground: oklch(0.99 0.002 270);
+  --secondary: oklch(0.955 0.004 270);
+  --secondary-foreground: oklch(0.28 0.01 270);
+  --muted: oklch(0.955 0.004 270);
+  --muted-foreground: oklch(0.5 0.012 270);
+  --accent: oklch(0.945 0.006 270);
+  --accent-foreground: oklch(0.22 0.01 270);
+  --destructive: oklch(0.55 0.18 25);
+  --border: oklch(0.9 0.004 270);
+  --input: oklch(0.9 0.004 270);
+  --ring: oklch(0.55 0.17 277 / 55%);
+
+  --surface: oklch(0.97 0.003 270);
+  --canvas: oklch(0.975 0.003 270);
+  --canvas-dot: oklch(0.8 0.006 270);
+
+  --status-online: oklch(0.62 0.12 160);
+  --status-sleeping: oklch(0.62 0.03 250);
+  --status-deploying: oklch(0.7 0.12 80);
+  --status-failed: oklch(0.58 0.15 25);
+  --status-draft: oklch(0.6 0.12 277);
+}
+
+.dark {
+  --background: oklch(0.16 0.006 270);
+  --foreground: oklch(0.95 0.004 270);
+  --card: oklch(0.195 0.007 270);
+  --card-foreground: oklch(0.95 0.004 270);
+  --popover: oklch(0.205 0.007 270);
+  --popover-foreground: oklch(0.95 0.004 270);
+  --primary: oklch(0.7 0.12 277);
+  --primary-foreground: oklch(0.15 0.01 277);
+  --secondary: oklch(0.245 0.008 270);
+  --secondary-foreground: oklch(0.92 0.004 270);
+  --muted: oklch(0.225 0.007 270);
+  --muted-foreground: oklch(0.68 0.011 270);
+  --accent: oklch(0.255 0.009 270);
+  --accent-foreground: oklch(0.95 0.004 270);
+  --destructive: oklch(0.68 0.14 25);
+  --border: oklch(1 0 0 / 8.5%);
+  --input: oklch(1 0 0 / 11%);
+  --ring: oklch(0.7 0.12 277 / 55%);
+
+  --surface: oklch(0.185 0.007 270);
+  --canvas: oklch(0.14 0.005 270);
+  --canvas-dot: oklch(0.32 0.008 270);
+
+  --status-online: oklch(0.72 0.11 160);
+  --status-sleeping: oklch(0.65 0.03 250);
+  --status-deploying: oklch(0.78 0.11 80);
+  --status-failed: oklch(0.68 0.14 25);
+  --status-draft: oklch(0.72 0.11 277);
+}
+
+@theme inline {
+  --font-sans:
+    ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Inter, Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-mono:
+    ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-canvas: var(--canvas);
+
+  --color-status-online: var(--status-online);
+  --color-status-sleeping: var(--status-sleeping);
+  --color-status-deploying: var(--status-deploying);
+  --color-status-failed: var(--status-failed);
+  --color-status-draft: var(--status-draft);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    color-scheme: light;
+  }
+  html.dark {
+    color-scheme: dark;
+  }
+  body {
+    @apply bg-background font-sans text-[13px] leading-5 text-foreground antialiased;
+    overscroll-behavior: none;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 35%, transparent);
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+}
+
+/* Svelte Flow, themed with the tokens above. */
+.svelte-flow {
+  --xy-background-color: var(--canvas);
+  --xy-background-pattern-dots-color-default: var(--canvas-dot);
+  --xy-edge-stroke-default: color-mix(in oklch, var(--muted-foreground) 75%, transparent);
+  --xy-edge-stroke-selected-default: var(--primary);
+  --xy-node-boxshadow-selected-default: none;
+  --xy-controls-button-background-color-default: var(--card);
+  --xy-controls-button-background-color-hover-default: var(--accent);
+  --xy-controls-button-color-default: var(--muted-foreground);
+  --xy-controls-button-color-hover-default: var(--foreground);
+  --xy-controls-button-border-color-default: var(--border);
+  --xy-controls-box-shadow-default: none;
+  --xy-attribution-background-color-default: transparent;
+  --xy-minimap-background-color-default: var(--card);
+  --xy-handle-background-color-default: var(--muted-foreground);
+  --xy-handle-border-color-default: var(--canvas);
+}
+.svelte-flow__controls {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.svelte-flow__controls-button {
+  border-bottom-color: var(--border);
+}
+.svelte-flow__attribution {
+  display: none;
+}
+.svelte-flow__edge-path {
+  stroke-dasharray: 5 5;
+}
+.svelte-flow__handle {
+  width: 6px;
+  height: 6px;
+  min-width: 0;
+  min-height: 0;
+  opacity: 0;
+}
+.svelte-flow__node {
+  cursor: pointer;
+}
+
+/* Mobile shells: respect safe areas. */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.pb-safe-4 {
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
