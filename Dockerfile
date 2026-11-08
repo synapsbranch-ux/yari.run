@@ -1,14 +1,9 @@
-# Builds one Go service of this repository: docker build --build-arg CMD=mcp .
-# Used by docker-compose.yml for the MCP server. Not a production image.
-FROM golang:1.27.3-bookworm AS build
-ARG CMD
-WORKDIR /src
-COPY go.mod go.sum ./
-RUN go mod download
-COPY . .
-RUN test -n "$CMD" && CGO_ENABLED=0 go build -trimpath -o /out/service ./cmd/${CMD}
-
+# Packages one prebuilt Go service of this repository: make service-binaries, then
+#   docker build --build-arg CMD=mcp .
+# docker-compose.yml uses it for the MCP server. Not a production image.
+# The binary is built on the host (CGO off, linux) so the build needs no network access.
 FROM gcr.io/distroless/static-debian12:nonroot
-COPY --from=build /out/service /service
+ARG CMD
+COPY bin/linux/${CMD} /service
 USER nonroot:nonroot
 ENTRYPOINT ["/service"]

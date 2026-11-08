@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
@@ -39,4 +40,31 @@ func PrincipalForToken(ctx context.Context, pool *pgxpool.Pool, tokenHash []byte
 		return TokenOwner{}, err
 	}
 	return o, nil
+}
+
+// StuckSession is an Agent Session whose worker is presumed dead.
+type StuckSession struct {
+	OrganizationID uuid.UUID
+	SessionID      uuid.UUID
+	GatewayAlias   string
+	SandboxID      string
+}
+
+// StuckAgentSessions lists queued or running sessions created before the cutoff, across
+// Organizations, through a SECURITY DEFINER function.
+func StuckAgentSessions(ctx context.Context, pool *pgxpool.Pool, createdBefore time.Time) ([]StuckSession, error) {
+	rows, err := pool.Query(ctx, `SELECT organization_id, session_id, COALESCE(gateway_key_alias, ''), COALESCE(sandbox_id, '') FROM stuck_agent_sessions($1)`, createdBefore)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var out []StuckSession
+	for rows.Next() {
+		var s StuckSession
+		if err := rows.Scan(&s.OrganizationID, &s.SessionID, &s.GatewayAlias, &s.SandboxID); err != nil {
+			return nil, err
+		}
+		out = append(out, s)
+	}
+	return out, rows.Err()
 }

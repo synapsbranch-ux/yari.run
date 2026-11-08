@@ -9,7 +9,7 @@ include .env
 export
 endif
 
-.PHONY: help setup up down migrate gen lint test build api worker mcp agent-image client desktop mobile
+.PHONY: service-binaries help setup up down migrate gen lint test build api worker mcp agent-image client desktop mobile
 
 help: ## List targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  %-14s %s\n", $$1, $$2}'
@@ -66,9 +66,15 @@ mcp: ## Run the MCP server (talks only to the Connect API)
 	@echo ">> mcp: MCP server on $${YARI_MCP_ADDR:-:8090}"
 	go run ./cmd/mcp
 
-agent-image: ## Build the hardened agent sandbox image (yari-agent:dev)
+service-binaries: ## Cross-build the Go services for the compose images (bin/linux)
+	@echo ">> service-binaries: linux binaries for the yari-mcp container"
+	mkdir -p bin/linux
+	GOOS=linux CGO_ENABLED=0 go build -trimpath -o bin/linux/mcp ./cmd/mcp
+
+agent-image: service-binaries ## Build the hardened agent sandbox image (yari-agent:dev) and the MCP image
 	@echo ">> agent-image: building yari-agent:dev from the pinned OpenHands agent server"
 	docker build -t yari-agent:dev agent/image
+	$(COMPOSE) --profile agent build yari-mcp
 
 client: ## Run the Svelte client dev server on :5173
 	@echo ">> client: Vite dev server on http://localhost:5173"

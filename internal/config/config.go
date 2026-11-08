@@ -34,7 +34,10 @@ type Config struct {
 
 	MCPURL  string // MCP URL as seen from inside the sandbox network
 	MCPAddr string // listen address of cmd/mcp
-	APIURL  string // Connect API base URL used by cmd/mcp and the CLI
+	// MCPWorkerURL is the MCP URL as seen from the worker, for the scripted fake runtime that runs
+	// outside the sandbox network.
+	MCPWorkerURL string
+	APIURL       string // Connect API base URL used by cmd/mcp and the CLI
 
 	LiteLLMURL       string
 	LiteLLMMasterKey string // worker side only, never forwarded anywhere
@@ -67,9 +70,10 @@ func FromEnv() Config {
 		AgentSessionTTL:    time.Duration(getenvInt("YARI_AGENT_SESSION_TTL_MINUTES", 30)) * time.Minute,
 		SandboxRuntime:     getenv("YARI_SANDBOX_RUNTIME", "runsc"),
 
-		MCPURL:  getenv("YARI_MCP_URL", "http://yari-mcp:8090/mcp"),
-		MCPAddr: getenv("YARI_MCP_ADDR", ":8090"),
-		APIURL:  getenv("YARI_API_URL", "http://localhost:8080"),
+		MCPURL:       getenv("YARI_MCP_URL", "http://yari-mcp:8090/mcp"),
+		MCPAddr:      getenv("YARI_MCP_ADDR", ":8090"),
+		MCPWorkerURL: getenv("YARI_MCP_WORKER_URL", "http://127.0.0.1:8090/mcp"),
+		APIURL:       getenv("YARI_API_URL", "http://localhost:8080"),
 
 		LiteLLMURL:       getenv("LITELLM_URL", "http://localhost:4000"),
 		LiteLLMMasterKey: os.Getenv("LITELLM_MASTER_KEY"),

@@ -97,7 +97,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        CMD: mcp
+        CMD: mcp # needs bin/linux/mcp: run `make service-binaries` first
     restart: unless-stopped
     environment:
       YARI_ENV: ${YARI_ENV:-dev}
@@ -106,6 +106,8 @@ services:
       YARI_API_URL: ${YARI_MCP_API_URL:-http://host.docker.internal:8080}
     extra_hosts:
       - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:8090:8090" # for the worker's scripted fake runtime and external MCP clients
     networks:
       - default # reaches the API
       - yari-agent-net # reachable by sandboxes

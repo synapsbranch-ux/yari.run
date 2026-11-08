@@ -1,7 +1,8 @@
 .git
 node_modules
+**/node_modules
 apps
 packages
-**/node_modules
 .env
-bin
+bin/*
+!bin/linux
