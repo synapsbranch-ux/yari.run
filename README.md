@@ -167,7 +167,74 @@ Intended capabilities were checked against each provider's current documentation
 
 ## AI agent and sandboxes
 
-@@AGENT_SECTION@@
+Every Agent Session runs the DevOps agent in **its own isolated container**. The harness is the **OpenHands Software Agent SDK**: OpenHands owns planning, tool calling, file editing, shell, context management and the agent loop. yari.run owns everything around it: the hardened sandbox, the model gateway with per-session keys and budgets, the yari tools exposed over MCP, the event log and the approvals. There is no agent loop, no tool-calling loop and no model client in this repository.
+
+```mermaid
+flowchart LR
+  W["Worker (outside)"]
+  subgraph net["yari-agent-net (internal, no internet)"]
+    SB["Sandbox container<br/>OpenHands agent server<br/>read-only root, non-root, no capabilities"]
+    L["LiteLLM gateway<br/>holds the real model keys"]
+    M["yari MCP server"]
+  end
+  A["Connect API"]
+  P["Model providers"]
+
+  W -- "REST + WebSocket (session key)" --> SB
+  W -- "admin API (master key)" --> L
+  SB -- "session virtual key" --> L
+  SB -- "session token" --> M
+  M -- "session token" --> A
+  L --> P
+```
+
+**Integration path (decided in step 6.0): Path A, pure Go.** The agent server image is pinned to `ghcr.io/openhands/agent-server:1.60.1-python` by tag and digest (never `latest`). A Go client is generated with `oapi-codegen` from a trimmed copy of the server's OpenAPI spec (`internal/agent/openhands/client`, regenerate with the recipe in its `doc.go`), plus a WebSocket consumer. The worker creates a conversation (`POST /api/conversations`) with the default tool preset (`terminal`, `file_editor`, `task_tracker`), the yari MCP server with `Authorization: Bearer <session token>`, the LLM pointed at LiteLLM with the session key, and the iteration limit. It sends the goal as the first message with `run: false`, then starts the loop, and streams events from `/sockets/events/{id}`. Follow-ups, pause, resume and stop use `/events`, `/pause`, `/run` and `/interrupt`. The server is protected by `OH_SESSION_API_KEYS_0` and the `X-Session-API-Key` header. Everything verified about the server, with the exact JSON and the hardening matrix, is in [`agent/image/README.md`](agent/image/README.md). No Python runner was needed.
+
+Things worth knowing about the upstream server, all handled:
+
+- It runs as user `openhands` (uid 10001) on port 8000 and needs writable `/tmp` (with exec, it is a bundled binary that unpacks there), `/home/openhands` and `/workspace`.
+- The base image gives that user passwordless `sudo` and starts a VS Code server on port 8001 that uses the session key as its token. Our image purges `sudo` and disables the VS Code server.
+- An MCP server it cannot reach is skipped silently. The runtime checks that the yari tools appear in the agent's system prompt and ends the session with an error if they do not.
+
+### Sandbox hardening
+
+Created by `internal/sandbox/docker` with the Docker Engine Go SDK (`github.com/moby/moby/client`). All of it is mandatory:
+
+- the `runsc` (gVisor) runtime when the daemon has it. Without it, development falls back to the default runtime with a loud warning; outside `YARI_ENV=dev` the worker refuses to start. **gVisor was not available where this scaffold was built, so that path is untested.**
+- a non-root user (an image that would run as root is refused), read-only root filesystem, and tmpfs for `/workspace`, `/tmp` and `/home/openhands`
+- `cap-drop ALL`, `no-new-privileges`, not privileged, init process
+- CPU, memory (swap equals memory) and pids limits, 2 CPUs, 4 GB and 512 pids by default
+- attached **only** to `yari-agent-net`, a Docker network created with `internal: true` (no internet egress, no published ports), or to no network at all
+- no host mounts, never the Docker socket, labels `yari.session` and `yari.expires` so the reaper can find expired sandboxes
+
+One item is relaxed, with the reason: **tmpfs mounts allow `exec`** (Docker defaults to `noexec`). The agent server is a bundled binary that unpacks its shared libraries into `/tmp` and cannot start otherwise. `nosuid` and `nodev` stay on. Network isolation, credentials, root and the Docker socket are not relaxed.
+
+The worker reaches the agent server on the sandbox's address inside `yari-agent-net`, which works from a Linux host (the bridge is routable from the host). On Docker Desktop that network is not routable from the host; run the worker as a container attached to `yari-agent-net` there. The sandbox itself gets no route out.
+
+### What enters a sandbox
+
+No provider credential, no real model API key, no LiteLLM master key and no database URL ever enters a sandbox. `sandbox.ValidateEnv` rejects any variable whose name or value looks like a long-lived credential. Exactly three **session-scoped, short-lived, revocable** secrets exist, and all three die when the session ends:
+
+| Secret | Where it lives | Revoked by |
+| --- | --- | --- |
+| Agent server session key (`ohs_...`) | container env `OH_SESSION_API_KEYS_0`, the only secret allowed there | the container is destroyed |
+| LiteLLM virtual key | sent through the agent server API when the conversation is created, never as container env. Restricted to one model, with a budget and an expiry | `Revoke` on the gateway |
+| yari API token | sent the same way, as the MCP header. Expires with the session | revoked in the database |
+
+The agent can read its own session key from the container environment; it is useless once the container is gone. The token plaintext travels in the job arguments of the session job and is not returned or logged; River keeps job rows, which is acceptable only because the token is dead by then. All three values and anything shaped like a credential are redacted from events before they reach the step log.
+
+### Budgets, guardrails and the step log
+
+- **Budget**: each session key has `max_budget` (default 2 USD, `YARI_AGENT_SESSION_BUDGET_USD`). The worker watches spend; when it is exhausted it records a `guardrail` step and ends the session as `failed` with reason "budget exhausted".
+- **Limits**: an iteration limit and a session time limit end a session as `failed` the same way.
+- **Deny list, in code not in prompts**: an agent cannot propose a `delete` on a `postgres`, `mysql`, `mongodb`, `sqlite`, `redis` or `bucket` service. It is refused in the MCP server and again in the API, where the refusal is also written to the audit log.
+- **Protected environments**: an agent's `plan.apply` on a protected environment only ever reaches `pending_approval`; it cannot approve plans, read secrets or start sessions. When the last plan of a session is waiting, the session ends as `waiting_approval`.
+- **Step log**: every event becomes an `agent_steps` row, written by the worker as the only writer, append-only and hash-chained. `audit.VerifyChain` detects edits, removals and reordering.
+- **Cleanup**: the sandbox is always destroyed, the key and the token always revoked, even on error or panic. A scheduled job reaps expired sandboxes and cleans up sessions whose worker died.
+
+### How to switch models
+
+Models are the aliases in [`agent/litellm/config.yaml`](agent/litellm/config.yaml): `claude-sonnet-5-5` and `gpt-6.1-sol` ship enabled, and a commented Ollama example shows a local model. Add an entry, restart the `litellm` container, and the alias appears in the client's model picker (`ListModels` reads that file). Pick it per session in the client or with `yari agent start --model <alias>`, or change the default with `YARI_AGENT_DEFAULT_MODEL`. Provider keys go in `.env` and are read only by the LiteLLM container.
 
 ## Repository layout
 
@@ -189,11 +256,100 @@ Intended capabilities were checked against each provider's current documentation
 
 ## Prerequisites
 
-@@PREREQ@@
+| Tool | Version used | Needed for |
+| --- | --- | --- |
+| Go | 1.27.3 (the `go` line in `go.mod` downloads it automatically) | everything backend |
+| Node.js | 22.23 (22.12 or newer) | client, shells |
+| pnpm | 12.18.0 | workspace |
+| Docker Engine with Compose | 29.9 | Postgres, sandboxes, LiteLLM, MCP image |
+| gVisor (`runsc`) | optional | stronger sandbox isolation. Required outside dev |
+| A model provider key | optional | only for the real agent (`openhands` runtime). The `fake` runtime needs none |
+| Rust | 1.97 | desktop shell |
+| Tauri Linux libraries | `libwebkit2gtk-4.1-dev build-essential curl wget file libxdo-dev libssl-dev libayatana-appindicator3-dev librsvg2-dev` | desktop shell on Linux |
+| Android SDK (platform 36) and JDK 21, or Xcode | | building the mobile app. Syncing the project needs neither |
+
+Pinned versions of the main pieces, checked against the registries and docs on the day the scaffold was written:
+
+| Area | Versions |
+| --- | --- |
+| Database and infra | PostgreSQL 18.6, Zitadel v4.20.1, LiteLLM `v1.83.14-stable.patch.3` (`litellm-database`), OpenHands agent server 1.60.1 |
+| Go libraries | connect 1.21.1, pgx 5.12.0, River 0.51.1, go-oidc 3.21.0, MCP go-sdk 1.8.0, Docker SDK (`moby/moby/client`) 0.6.2, cobra 1.10, oapi-codegen 2.8.2 |
+| Go tools (`tool` directives) | buf 1.75.0, sqlc 1.31.1, goose 3.29.0, protoc-gen-go, protoc-gen-connect-go. buf requires an unreleased `google.golang.org/protobuf` snapshot, which `go.mod` therefore pins |
+| TypeScript | Svelte 5.57.3, SvelteKit 3.1.1, adapter-static 4.0.1, Vite 8.3.6, Tailwind 4.3.5, shadcn-svelte 1.8.0, @xyflow/svelte 1.7.1, TanStack Svelte Query 6.4.1, TypeScript 6.0.3, protobuf-es and Connect-ES 2.x |
+| Shells | Tauri 2.12.5 (plugin-notification 2.8.0), Capacitor 8.6.0 (local-notifications 8.3.1, `@aparajita/capacitor-secure-storage` 8.0.1) |
+
+Mobile secure storage uses `@aparajita/capacitor-secure-storage` (Android Keystore with AES-GCM, iOS Keychain), chosen over `capacitor-secure-storage-plugin` because it is more recently maintained and typed. Tokens never go to Preferences or localStorage.
 
 ## Quickstart
 
-@@QUICKSTART@@
+```bash
+git clone https://github.com/synapsbranch-ux/yari.run && cd yari.run
+make setup          # creates .env from .env.example, downloads Go modules, installs the pnpm workspace
+make up migrate gen agent-image
+```
+
+`make up` starts Postgres, `make migrate` applies goose then River migrations, `make gen` regenerates Go, TypeScript and SQL code (no diff expected), and `make agent-image` builds the hardened agent image `yari-agent:dev` and the MCP image.
+
+Run the services, each in its own terminal:
+
+```bash
+make api            # Connect API on :8080
+make worker         # River worker: plan applies and agent sessions
+make client         # the web client on http://localhost:5173
+```
+
+Open <http://localhost:5173>. The client starts on fake data (`PUBLIC_USE_FAKE_DATA=true`): a canvas, the Provider Catalog, approvals, the agent panel and the mobile routes at `/m`. Set `PUBLIC_USE_FAKE_DATA=false` in `.env` to use the API; in dev builds the Settings page lets you set a dev subject.
+
+`make mcp` runs the MCP server on the host for external MCP clients. Agent sandboxes reach the one in the compose stack instead.
+
+### Try the agent without any model key
+
+The `fake` runtime plays the agent from a script. It still runs in a real hardened container, runs real commands there, and calls the yari MCP server with a real session token.
+
+```bash
+docker compose --profile agent up -d --wait    # LiteLLM and the MCP server (no provider key needed)
+make demo                                       # org, protected production environment, agent session
+```
+
+Or by hand with the CLI:
+
+```bash
+export YARI_API_URL=http://localhost:8080 YARI_DEV_SUBJECT=demo
+go run ./cmd/yari orgs create acme
+go run ./cmd/yari agent start --env <production-environment-id> "Make the sample build pass and deploy it"
+go run ./cmd/yari agent watch <session-id>
+```
+
+You will see the agent read the spec, watch `make build` fail in the sandbox, fix the Makefile, rerun it, propose a plan and apply it. Because the environment is `production`, the apply only reaches `pending_approval` and the session ends as `waiting_approval`. The agent proposed the plan, so a person can approve it in the client's approvals page (with `PUBLIC_USE_FAKE_DATA=false`).
+
+### Switch to the real agent
+
+1. Put a provider key in `.env` (`ANTHROPIC_API_KEY` or `OPENAI_API_KEY`) and set `LITELLM_MASTER_KEY` to your own value in `.env`.
+2. `docker compose --profile agent up -d --force-recreate litellm yari-mcp`
+3. Set `YARI_AGENT_RUNTIME=openhands` in `.env` and restart `make worker`.
+
+Optional identity provider: `docker compose --profile auth up -d` starts Zitadel on port 8081 (single container, local only). OIDC verification is implemented in the API but this compose profile has not been exercised end to end in this scaffold.
+
+### Desktop
+
+Install the Tauri Linux libraries above, then:
+
+```bash
+make client           # or build the SPA once: pnpm --filter client build
+make desktop          # Tauri dev shell, loads the client dev server
+pnpm --filter client build && pnpm --filter desktop tauri build
+```
+
+The shell has a tray (open, pending approvals, running agent sessions, quit) and a native notification at startup. Its CSP allows only `http://localhost:8080` for the API; change it in `apps/desktop/src-tauri/tauri.conf.json` for another API URL. The counts in the tray are fake for now. See `apps/desktop/README.md`.
+
+### Mobile
+
+```bash
+make mobile                                   # builds the client and runs cap sync android
+pnpm --filter mobile exec cap open android    # needs Android Studio
+```
+
+The app starts on `/m`. A phone cannot use `http://localhost:8080`, so mobile builds need an `https` `PUBLIC_API_URL` and the API's `YARI_CORS_ORIGINS` already allows `https://localhost` (Android) and `capacitor://localhost` (iOS). iOS: on macOS run `pnpm --filter mobile add @capacitor/ios@8.6.0` and `pnpm --filter mobile exec cap add ios`. See `apps/mobile/README.md`.
 
 ## Make targets
 

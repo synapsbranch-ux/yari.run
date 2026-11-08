@@ -12,6 +12,9 @@ else ifneq (,$(wildcard .env.example))
 include .env.example
 export
 endif
+# Provider keys are for the LiteLLM container only (docker compose reads .env itself).
+# yari services started from make never see them.
+unexport ANTHROPIC_API_KEY OPENAI_API_KEY
 
 .PHONY: demo catalog-table service-binaries help setup up down migrate gen lint test build api worker mcp agent-image client desktop mobile
 
