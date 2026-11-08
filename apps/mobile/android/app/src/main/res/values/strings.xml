@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">yari.run</string>
+    <string name="title_activity_main">yari.run</string>
+    <string name="package_name">run.yari.app</string>
+    <string name="custom_url_scheme">run.yari.app</string>
+</resources>
