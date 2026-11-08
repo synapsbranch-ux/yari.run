@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding · Welcome</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+input::placeholder,textarea::placeholder{color:#8C8F9C}
+</style>
+</helmet>
+<div style="width: 100%; height: 900px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 900px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR (minimal, onboarding) -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 10px">
+<span style="font-size: 13px; color: #8C8F9C">Sami Joseph</span>
+<span aria-hidden="true" style="width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">SJ</span>
+<a href="Main.dc.html" class="hv" style="display: inline-flex; align-items: center; height: 26px; padding: 0 8px; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 12px; font-weight: 500">Sign out</a>
+</div>
+</header>
+
+<!-- STEPPER -->
+<nav aria-label="Setup progress" style="flex: none; padding: 28px 40px 0">
+<ol style="max-width: 880px; margin: 0 auto; padding: 0; list-style: none; display: flex; align-items: center; gap: 12px">
+<li style="flex: 1; display: flex; align-items: center; gap: 12px">
+<span aria-current="step" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">1</span>Welcome</span>
+<span aria-hidden="true" style="flex: 1; min-width: 24px; height: 1px; background: #2F323D"></span>
+</li>
+<li style="flex: 1; display: flex; align-items: center; gap: 12px">
+<span style="display: inline-flex; align-items: center; gap: 8px; color: #8C8F9C; font-size: 13px; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: transparent; border: 1px solid #2F323D; color: #8C8F9C; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">2</span>Connect a provider</span>
+<span aria-hidden="true" style="flex: 1; min-width: 24px; height: 1px; background: #2F323D"></span>
+</li>
+<li style="flex: 1; display: flex; align-items: center; gap: 12px">
+<span style="display: inline-flex; align-items: center; gap: 8px; color: #8C8F9C; font-size: 13px; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: transparent; border: 1px solid #2F323D; color: #8C8F9C; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">3</span>Create a project</span>
+<span aria-hidden="true" style="flex: 1; min-width: 24px; height: 1px; background: #2F323D"></span>
+</li>
+<li style="flex: none; display: flex; align-items: center">
+<span style="display: inline-flex; align-items: center; gap: 8px; color: #8C8F9C; font-size: 13px; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: transparent; border: 1px solid #2F323D; color: #8C8F9C; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">4</span>Review</span>
+</li>
+</ol>
+</nav>
+
+<!-- CONTENT -->
+<main style="flex: 1; min-height: 0; overflow-y: auto; padding: 0 40px">
+<div style="max-width: 880px; margin: 0 auto; padding: 40px 0 48px; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Step 1 of 4</span>
+<h1 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Welcome to yari.run</h1>
+<p style="margin: 0; font-size: 13px; color: #8C8F9C; max-width: 620px">yari.run deploys to the provider accounts you already have. Nothing runs on our servers.</p>
+</div>
+
+<!-- personal org card -->
+<section aria-labelledby="personal-h" style="background: #121319; border: 1px solid #24262F; border-radius: 10px">
+<div style="display: flex; align-items: center; gap: 10px; padding: 16px 20px; border-bottom: 1px solid #24262F">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<h2 id="personal-h" style="margin: 0; font-size: 14px; font-weight: 500">Your personal organization is ready</h2>
+<span style="margin-left: auto; display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(61,214,140,0.12); color: #3DD68C"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Created</span>
+</div>
+<div style="display: flex; align-items: center; gap: 14px; padding: 20px">
+<span aria-hidden="true" style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; color: #E8E9EE">SJ</span>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 14px; font-weight: 500">Sami Joseph</span>
+<span style="font-size: 12px; color: #8C8F9C">Personal · 1 member · created just now</span>
+</div>
+</div>
+<dl style="margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid #24262F">
+<div style="padding: 14px 20px; display: flex; flex-direction: column; gap: 2px">
+<dt style="font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Owner</dt>
+<dd style="margin: 0; font-size: 13px">Sami Joseph (you)</dd>
+</div>
+<div style="padding: 14px 20px; display: flex; flex-direction: column; gap: 2px; border-left: 1px solid #24262F">
+<dt style="font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Projects</dt>
+<dd style="margin: 0; font-size: 13px; color: #8C8F9C">None yet</dd>
+</div>
+<div style="padding: 14px 20px; display: flex; flex-direction: column; gap: 2px; border-left: 1px solid #24262F">
+<dt style="font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Provider connections</dt>
+<dd style="margin: 0; font-size: 13px; color: #8C8F9C">None yet</dd>
+</div>
+</dl>
+</section>
+
+<!-- secondary option -->
+<sc-if value="{{personal}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; align-items: center; gap: 12px">
+<button type="button" onClick="{{showTeam}}" aria-expanded="{{team}}" aria-controls="team-form" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; color: #E8E9EE; border: 1px solid #24262F; font-size: 13px; font-weight: 500; cursor: pointer">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Create a team organization instead
+</button>
+<span style="font-size: 12px; color: #8C8F9C">For agencies and teams that share projects.</span>
+</div>
+</sc-if>
+
+<!-- team org form -->
+<sc-if value="{{team}}" hint-placeholder-val="{{ false }}">
+<section id="team-form" aria-labelledby="team-h" style="background: #121319; border: 1px solid #2F323D; border-radius: 10px; animation: yr-in .16s ease-out">
+<div style="display: flex; align-items: center; gap: 10px; padding: 16px 20px; border-bottom: 1px solid #24262F">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+<h2 id="team-h" style="margin: 0; font-size: 14px; font-weight: 500">Team organization</h2>
+<button type="button" onClick="{{hideTeam}}" class="hv" title="Keep the personal organization only" style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 12px; font-weight: 500; cursor: pointer">Keep personal only</button>
+</div>
+<div style="padding: 20px; display: flex; flex-direction: column; gap: 18px">
+<p style="margin: 0; font-size: 13px; color: #8C8F9C; max-width: 640px">An organization holds workspaces, projects, people and provider connections. Roles and billing live here.</p>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="org-name" style="font-size: 12px; font-weight: 500">Organization name</label>
+<input id="org-name" type="text" value="{{org}}" onInput="{{onOrg}}" autocomplete="organization" class="hvb" style="height: 32px; box-sizing: border-box; width: 100%; background: #181A22; border: 1px solid #24262F; border-radius: 8px; padding: 0 10px; color: #E8E9EE; font-size: 13px">
+<sc-if value="{{orgOk}}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 12px; color: #8C8F9C">Address <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE">yari.run/{{slug}}</span></span>
+</sc-if>
+<sc-if value="{{orgMissing}}" hint-placeholder-val="{{ false }}">
+<span role="status" style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #E8E9EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>Name the organization to continue.</span>
+</sc-if>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="ws-name" style="font-size: 12px; font-weight: 500">First workspace</label>
+<input id="ws-name" type="text" value="{{ws}}" onInput="{{onWs}}" class="hvb" style="height: 32px; box-sizing: border-box; width: 100%; background: #181A22; border: 1px solid #24262F; border-radius: 8px; padding: 0 10px; color: #E8E9EE; font-size: 13px">
+<sc-if value="{{wsOk}}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 12px; color: #8C8F9C">A workspace groups projects, for example one per client.</span>
+</sc-if>
+<sc-if value="{{wsMissing}}" hint-placeholder-val="{{ false }}">
+<span role="status" style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #E8E9EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>Name the first workspace to continue.</span>
+</sc-if>
+</div>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; padding: 10px 12px; border: 1px solid #24262F; border-radius: 8px; background: #181A22; font-size: 12px; color: #8C8F9C">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+<span>You can invite people after setup.</span>
+<span style="margin-left: auto">You will be the Owner.</span>
+</div>
+</div>
+</section>
+</sc-if>
+
+</div>
+</main>
+
+<!-- FOOTER -->
+<footer style="flex: none; border-top: 1px solid #24262F; padding: 14px 40px; background: #0B0C10">
+<div style="max-width: 880px; margin: 0 auto; display: flex; align-items: center; gap: 12px">
+<button type="button" disabled title="This is the first step" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 13px; font-weight: 500; opacity: .45; cursor: not-allowed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Back</button>
+<span aria-live="polite" style="margin-left: auto; font-size: 12px; color: #8C8F9C">{{footNote}}</span>
+<sc-if value="{{canContinue}}" hint-placeholder-val="{{ true }}">
+<a href="Onboarding2.dc.html" title="Continue (⌘↵)" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500">Continue<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+</sc-if>
+<sc-if value="{{cannotContinue}}" hint-placeholder-val="{{ false }}">
+<button type="button" disabled style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500; opacity: .45; cursor: not-allowed">Continue<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+</sc-if>
+</div>
+</footer>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"mode":{"editor":"enum","options":["personal","team"],"default":"personal"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { team: !!(props && props.mode === 'team'), org: 'Kestrel Studio', ws: 'Mango Market' };
+  }
+  renderVals() {
+    const s = this.state;
+    const org = s.org.trim();
+    const ws = s.ws.trim();
+    const slug = org.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '') || 'organization';
+    const valid = !s.team || (org.length > 0 && ws.length > 0);
+    let foot = 'Continuing with your personal organization. You can add a team one later.';
+    if (s.team && valid) foot = 'Creating ' + org + ' with the workspace ' + ws + '.';
+    if (s.team && !valid) foot = 'Fill in both names to continue.';
+    return {
+      team: s.team,
+      personal: !s.team,
+      showTeam: () => this.setState({ team: true }),
+      hideTeam: () => this.setState({ team: false }),
+      org: s.org,
+      ws: s.ws,
+      onOrg: (e) => this.setState({ org: e.target.value }),
+      onWs: (e) => this.setState({ ws: e.target.value }),
+      slug: slug,
+      orgOk: org.length > 0,
+      orgMissing: org.length === 0,
+      wsOk: ws.length > 0,
+      wsMissing: ws.length === 0,
+      canContinue: valid,
+      cannotContinue: !valid,
+      footNote: foot
+    };
+  }
+}
+</script>
+</body>
+</html>

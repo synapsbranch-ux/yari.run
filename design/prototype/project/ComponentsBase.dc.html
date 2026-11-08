@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Components · basics</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 1900px; overflow-x: auto; overflow-y: auto; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5; box-sizing: border-box; padding: 32px 48px; color-scheme: dark">
+<div style="min-width: 1200px; max-width: 1344px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px">
+
+<!-- HEADER -->
+<header style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 4px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 10px">
+<a href="Main.dc.html" aria-label="yari.run prototype index" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; margin-left: -6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<h1 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Components · basics</h1>
+</div>
+<p style="margin: 0; color: #8C8F9C; font-size: 13px">Building blocks shared by every screen. Each specimen is labeled with its component and variant.</p>
+</div>
+<nav aria-label="Foundations" style="display: flex; align-items: center; gap: 4px">
+<a href="Tokens.dc.html" class="hv" style="display: inline-flex; align-items: center; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Tokens</a>
+<a href="ComponentsProduct.dc.html" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500">Components · product<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+</nav>
+</header>
+
+<!-- BUTTONS -->
+<section aria-labelledby="h-btn" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-btn" style="margin: 0; font-size: 14px; font-weight: 500">Buttons</h2>
+<span style="font-size: 12px; color: #8C8F9C">Height 32, radius 8, 13 px medium. Small is 26. One primary per view; destructive lives behind a confirmation.</span>
+</div>
+<div style="display: grid; grid-template-columns: 150px repeat(7, minmax(0, 1fr)); gap: 12px 12px; align-items: center">
+<span></span>
+<span style="font-size: 11px; color: #8C8F9C">Default</span>
+<span style="font-size: 11px; color: #8C8F9C">Hover look</span>
+<span style="font-size: 11px; color: #8C8F9C">Focus ring look</span>
+<span style="font-size: 11px; color: #8C8F9C">Disabled</span>
+<span style="font-size: 11px; color: #8C8F9C">Small</span>
+<span style="font-size: 11px; color: #8C8F9C">With kbd</span>
+<span style="font-size: 11px; color: #8C8F9C">Icon only</span>
+
+<span style="font-size: 11px; color: #8C8F9C">Button · primary</span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF">Deploy</button></span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #96A2FF; color: #0B0C10; border: 1px solid #96A2FF">Deploy</button></span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; outline: 2px solid #7C8CFF; outline-offset: 2px">Deploy</button></span>
+<span><button type="button" disabled="disabled" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: not-allowed; box-sizing: border-box; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; opacity: .45">Deploy</button></span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF">Review plan</button></span>
+<span><button type="button" title="Deploy (⌘↵)" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF">Deploy<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid rgba(11,12,16,0.25); border-radius: 4px; color: rgba(11,12,16,0.7)">⌘↵</kbd></button></span>
+<span><button type="button" aria-label="New project" title="New project (N)" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; cursor: pointer; box-sizing: border-box; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button></span>
+
+<span style="font-size: 11px; color: #8C8F9C">Button · secondary</span>
+<span><button type="button" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #181A22; color: #E8E9EE; border: 1px solid #24262F">Cancel</button></span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #181A22; color: #E8E9EE; border: 1px solid #2F323D">Cancel</button></span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #181A22; color: #E8E9EE; border: 1px solid #24262F; outline: 2px solid #7C8CFF; outline-offset: 2px">Cancel</button></span>
+<span><button type="button" disabled="disabled" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: not-allowed; box-sizing: border-box; background: #181A22; color: #E8E9EE; border: 1px solid #24262F; opacity: .45">Cancel</button></span>
+<span><button type="button" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #181A22; color: #E8E9EE; border: 1px solid #24262F"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Rollback</button></span>
+<span><button type="button" class="hvb" title="Add a service (⌘K)" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #181A22; color: #E8E9EE; border: 1px solid #24262F"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>Add<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">⌘K</kbd></button></span>
+<span><button type="button" class="hvb" aria-label="Retry" title="Retry (R)" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; cursor: pointer; box-sizing: border-box; background: #181A22; color: #E8E9EE; border: 1px solid #24262F"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg></button></span>
+
+<span style="font-size: 11px; color: #8C8F9C">Button · ghost</span>
+<span><button type="button" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: transparent; color: #8C8F9C; border: 1px solid transparent">Dismiss</button></span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #181A22; color: #8C8F9C; border: 1px solid transparent">Dismiss</button></span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: transparent; color: #8C8F9C; border: 1px solid transparent; outline: 2px solid #7C8CFF; outline-offset: 2px">Dismiss</button></span>
+<span><button type="button" disabled="disabled" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: not-allowed; box-sizing: border-box; background: transparent; color: #8C8F9C; border: 1px solid transparent; opacity: .45">Dismiss</button></span>
+<span><button type="button" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: transparent; color: #8C8F9C; border: 1px solid transparent">Show output<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button></span>
+<span><button type="button" class="hv" title="Agent (⌘J)" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: transparent; color: #8C8F9C; border: 1px solid transparent"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Agent<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">⌘J</kbd></button></span>
+<span><button type="button" class="hv" aria-label="Close (Esc)" title="Close (Esc)" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; cursor: pointer; box-sizing: border-box; background: transparent; color: #8C8F9C; border: 1px solid transparent"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button></span>
+
+<span style="font-size: 11px; color: #8C8F9C">Button · destructive</span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #F26D6D; color: #0B0C10; border: 1px solid #F26D6D">Delete api</button></span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #F58A8A; color: #0B0C10; border: 1px solid #F58A8A">Delete api</button></span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #F26D6D; color: #0B0C10; border: 1px solid #F26D6D; outline: 2px solid #7C8CFF; outline-offset: 2px">Delete api</button></span>
+<span><button type="button" disabled="disabled" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: not-allowed; box-sizing: border-box; background: #F26D6D; color: #0B0C10; border: 1px solid #F26D6D; opacity: .45">Delete api</button></span>
+<span><button type="button" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #F26D6D; color: #0B0C10; border: 1px solid #F26D6D">Reject</button></span>
+<span><button type="button" title="Delete api (⌘↵)" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; box-sizing: border-box; background: #F26D6D; color: #0B0C10; border: 1px solid #F26D6D">Delete api<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid rgba(11,12,16,0.25); border-radius: 4px; color: rgba(11,12,16,0.7)">⌘↵</kbd></button></span>
+<span><button type="button" aria-label="Remove member" title="Remove member" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; cursor: pointer; box-sizing: border-box; background: #F26D6D; color: #0B0C10; border: 1px solid #F26D6D"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></button></span>
+</div>
+</section>
+
+<!-- ROW 2: CHIPS | DOTS + AVATARS -->
+<div style="display: grid; grid-template-columns: 1.7fr 1fr; gap: 20px; align-items: stretch">
+
+<section aria-labelledby="h-chips" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px; min-width: 0">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-chips" style="margin: 0; font-size: 14px; font-weight: 500">Chips</h2>
+<span style="font-size: 12px; color: #8C8F9C">22 px, radius 6, 11 px medium. Status always pairs a dot or icon with a label.</span>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px">
+
+<div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #8C8F9C">Chip · status</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(61,214,140,0.12); color: #3DD68C"><span style="width: 6px; height: 6px; border-radius: 50%; background: #3DD68C"></span>Online</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(233,185,73,0.12); color: #E9B949"><span style="width: 6px; height: 6px; border-radius: 50%; background: #E9B949; animation: yr-pulse 1.6s ease-in-out infinite"></span>Deploying</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(242,109,109,0.12); color: #F26D6D"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>Failed</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(107,111,125,0.16); color: #8C8F9C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B6F7D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Sleeping</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(233,185,73,0.12); color: #E9B949"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Pending approval</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #8C8F9C">Chip · provider</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; font-size: 11px; font-weight: 500; border: 1px solid #24262F; color: #8C8F9C; background: transparent">Railway</span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; font-size: 11px; font-weight: 500; border: 1px solid #24262F; color: #8C8F9C; background: transparent">Vercel</span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; font-size: 11px; font-weight: 500; border: 1px solid #24262F; color: #8C8F9C; background: transparent">Supabase</span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; font-size: 11px; font-weight: 500; border: 1px solid #24262F; color: #8C8F9C; background: transparent">Backblaze B2</span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; font-size: 11px; font-weight: 500; border: 1px solid #24262F; color: #8C8F9C; background: transparent">Resend</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #8C8F9C">Chip · plan action</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(61,214,140,0.12); color: #3DD68C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>Create</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(124,140,255,0.12); color: #7C8CFF"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>Update</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(242,109,109,0.12); color: #F26D6D"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>Delete</span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; font-size: 11px; font-weight: 500; border: 1px solid #24262F; color: #8C8F9C; background: transparent">No change</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #8C8F9C">Chip · location (agent actions)</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; font-size: 11px; font-weight: 500; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE; font-family: 'JetBrains Mono', monospace"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Sandbox</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(124,140,255,0.12); color: #7C8CFF; font-family: 'JetBrains Mono', monospace"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="2" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>yari</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #8C8F9C">Chip · risk</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(61,214,140,0.12); color: #3DD68C">Low risk</span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(233,185,73,0.12); color: #E9B949">Medium risk</span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(242,109,109,0.12); color: #F26D6D">High risk</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #8C8F9C">Chip · environment</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(233,185,73,0.12); color: #E9B949"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Protected"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span style="font-family: 'JetBrains Mono', monospace">production</span></span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; font-size: 11px; font-weight: 500; border: 1px solid #24262F; color: #8C8F9C; font-family: 'JetBrains Mono', monospace">staging</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; font-size: 11px; font-weight: 500; border: 1px solid #24262F; color: #8C8F9C"><span style="font-family: 'JetBrains Mono', monospace; color: #E8E9EE">pr-42</span>Preview</span>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #8C8F9C">Chip · masked secret</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 4px; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; border: 1px solid #24262F; background: #0B0C10; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-label="Secret"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>RESEND_API_KEY ••••</span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; border: 1px solid #24262F; background: #0B0C10; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">DATABASE_URL</span>
+</div>
+</div>
+</div>
+</section>
+
+<div style="display: flex; flex-direction: column; gap: 20px; min-width: 0">
+<section aria-labelledby="h-dots" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-dots" style="margin: 0; font-size: 14px; font-weight: 500">Status dots</h2>
+<span style="font-size: 12px; color: #8C8F9C">On node cards and rows. Never without a label.</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 16px">
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 11px; color: #8C8F9C">Dot · online</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #3DD68C"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>Online</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 11px; color: #8C8F9C">Dot · deploying, pulses</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #E9B949"><span style="width: 8px; height: 8px; border-radius: 50%; background: #E9B949; animation: yr-pulse 1.6s ease-in-out infinite"></span>Deploying</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 11px; color: #8C8F9C">Icon · failed</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #F26D6D"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>Failed</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 11px; color: #8C8F9C">Icon · sleeping</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #8C8F9C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B6F7D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Sleeping</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 11px; color: #8C8F9C">Icon · pending approval</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #E9B949"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Pending approval</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><span style="font-size: 11px; color: #8C8F9C">Dot · summary</span><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #E8E9EE"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>5 of 6 online</span></div>
+</div>
+</section>
+
+<section aria-labelledby="h-av" style="flex: 1; background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-av" style="margin: 0; font-size: 14px; font-weight: 500">Avatars</h2>
+<span style="font-size: 12px; color: #8C8F9C">28 px. Humans by initials, others by icon.</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 12px">
+<div style="display: flex; align-items: center; gap: 8px; min-width: 0"><span style="flex: none; width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #E8E9EE">SJ</span><span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.3"><span style="font-size: 12px; white-space: nowrap">Sami Joseph</span><span style="font-size: 11px; color: #8C8F9C">Owner</span></span></div>
+<div style="display: flex; align-items: center; gap: 8px; min-width: 0"><span style="flex: none; width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #E8E9EE">LP</span><span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.3"><span style="font-size: 12px; white-space: nowrap">Lina Pierre</span><span style="font-size: 11px; color: #8C8F9C">Admin</span></span></div>
+<div style="display: flex; align-items: center; gap: 8px; min-width: 0"><span style="flex: none; width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #E8E9EE">ME</span><span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.3"><span style="font-size: 12px; white-space: nowrap">Marc Etienne</span><span style="font-size: 11px; color: #8C8F9C">Developer</span></span></div>
+<div style="display: flex; align-items: center; gap: 8px; min-width: 0"><span style="flex: none; width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #E8E9EE">AR</span><span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.3"><span style="font-size: 12px; white-space: nowrap">Ana Ruiz</span><span style="font-size: 11px; color: #8C8F9C">Viewer</span></span></div>
+<div style="display: flex; align-items: center; gap: 8px; min-width: 0"><span style="flex: none; width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center; color: #7C8CFF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span><span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.3"><span style="font-size: 12px; white-space: nowrap">Agent</span><span style="font-size: 11px; color: #8C8F9C">Developer</span></span></div>
+<div style="display: flex; align-items: center; gap: 8px; min-width: 0"><span style="flex: none; width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M3 12h6M15 12h6"/></svg></span><span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.3"><span style="font-size: 12px; white-space: nowrap; font-family: 'JetBrains Mono', monospace">github-actions</span><span style="font-size: 11px; color: #8C8F9C">CI</span></span></div>
+<div style="display: flex; align-items: center; gap: 8px; min-width: 0; grid-column: span 2"><span style="flex: none; width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg></span><span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.3"><span style="font-size: 12px; white-space: nowrap; font-family: 'JetBrains Mono', monospace">deploy-bot</span><span style="font-size: 11px; color: #8C8F9C">API key · key_…9f2c</span></span></div>
+</div>
+</section>
+</div>
+</div>
+
+<!-- ROW 3: BREADCRUMB | TABS + KBD -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch">
+
+<section aria-labelledby="h-bc" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-bc" style="margin: 0; font-size: 14px; font-weight: 500">Breadcrumb</h2>
+<span style="font-size: 12px; color: #8C8F9C">Organization / Workspace / Project / Environment, each a dropdown.</span>
+</div>
+<span style="font-size: 11px; color: #8C8F9C">Breadcrumb · closed</span>
+<div style="background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; height: 48px; display: flex; align-items: center; padding: 0 10px">
+<nav aria-label="Breadcrumb example, closed" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<button type="button" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">mango-shop<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<button type="button" aria-haspopup="menu" aria-expanded="false" title="Switch environment (⌘E)" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Protected"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">production</span>
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+</nav>
+</div>
+
+<span style="font-size: 11px; color: #8C8F9C">Breadcrumb · environment menu open</span>
+<div style="position: relative; height: 222px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; padding: 10px 10px 0; box-sizing: border-box">
+<nav aria-label="Breadcrumb example, open" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<button type="button" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">mango-shop<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<div style="position: relative">
+<button type="button" aria-haspopup="menu" aria-expanded="true" title="Switch environment (⌘E)" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: #181A22; border: none; cursor: pointer">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Protected"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">production</span>
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+<div role="menu" style="position: absolute; top: 34px; left: 0; width: 260px; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 6px; z-index: 20">
+<div style="padding: 6px 8px 4px; font-size: 11px; font-weight: 500; color: #8C8F9C">Environments of mango-shop</div>
+<a href="Canvas.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; background: #181A22"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">production</span><span style="color: #8C8F9C; font-size: 11px">Protected</span><svg style="margin-left: auto" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Current"><path d="M20 6 9 17l-5-5"/></svg></a>
+<a href="CanvasStaging.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE"><span style="width: 13px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">staging</span><span style="margin-left: auto; display: inline-flex; align-items: center; gap: 4px; color: #F26D6D; font-size: 11px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>1 failed</span></a>
+<a href="CanvasPR42.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE"><span style="width: 13px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">pr-42</span><span style="color: #8C8F9C; font-size: 11px">Preview</span></a>
+<div style="height: 1px; background: #24262F; margin: 6px 0"></div>
+<button type="button" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 32px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New environment</button>
+</div>
+</div>
+</nav>
+</div>
+</section>
+
+<div style="display: flex; flex-direction: column; gap: 20px; min-width: 0">
+<section aria-labelledby="h-tabs" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-tabs" style="margin: 0; font-size: 14px; font-weight: 500">Tabs</h2>
+<span style="font-size: 12px; color: #8C8F9C">Try them: both rows switch.</span>
+</div>
+<span style="font-size: 11px; color: #8C8F9C">Tabs · top, active underline</span>
+<div role="tablist" aria-label="Service panel tabs" style="display: flex; border-bottom: 1px solid #24262F">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="6">
+<button type="button" role="tab" aria-selected="{{t.selected}}" onClick="{{t.pick}}" style="{{t.style}}">{{t.label}}</button>
+</sc-for>
+</div>
+<span style="font-size: 11px; color: #8C8F9C">Tabs · sub-tab pills</span>
+<div role="tablist" aria-label="Log source" style="display: flex; gap: 4px">
+<sc-for list="{{subs}}" as="s" hint-placeholder-count="3">
+<button type="button" role="tab" aria-selected="{{s.selected}}" onClick="{{s.pick}}" class="hv" style="{{s.style}}">{{s.label}}</button>
+</sc-for>
+</div>
+<span style="font-size: 12px; color: #8C8F9C" aria-live="polite">{{tabNote}}</span>
+</section>
+
+<section aria-labelledby="h-kbd" style="flex: 1; background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-kbd" style="margin: 0; font-size: 14px; font-weight: 500">Keyboard hints</h2>
+<span style="font-size: 12px; color: #8C8F9C">kbd · 11 px mono, radius 4. Shown in tooltips and menus.</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 6px"><kbd style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">⌘K</kbd><span style="font-size: 12px">Command palette</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><kbd style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">⌘↵</kbd><span style="font-size: 12px">Deploy or apply</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><kbd style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">Esc</kbd><span style="font-size: 12px">Close drawer or palette</span></div>
+<div style="display: flex; flex-direction: column; gap: 6px"><kbd style="align-self: flex-start; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">⌘J</kbd><span style="font-size: 12px">Open the agent</span></div>
+</div>
+</section>
+</div>
+</div>
+
+<!-- ROW 4: INPUTS | TOASTS -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch">
+
+<section aria-labelledby="h-in" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-in" style="margin: 0; font-size: 14px; font-weight: 500">Inputs</h2>
+<span style="font-size: 12px; color: #8C8F9C">Height 32, radius 8, always with a label.</span>
+</div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px 20px">
+
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<span style="font-size: 11px; color: #8C8F9C">Input · text with label</span>
+<label for="in-name" style="font-size: 12px; font-weight: 500; color: #E8E9EE">Service name</label>
+<input id="in-name" type="text" value="{{nameVal}}" onInput="{{onName}}" style="height: 32px; box-sizing: border-box; width: 100%; background: #181A22; border: 1px solid #24262F; border-radius: 8px; padding: 0 10px; color: #E8E9EE; font-size: 13px">
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<span style="font-size: 11px; color: #8C8F9C">Input · search with ⌘K</span>
+<label for="in-search" style="font-size: 12px; font-weight: 500; color: #E8E9EE">Search</label>
+<div style="position: relative">
+<svg style="position: absolute; left: 10px; top: 9px; color: #8C8F9C" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+<input id="in-search" type="search" placeholder="Search projects and services" value="{{searchVal}}" onInput="{{onSearch}}" style="height: 32px; box-sizing: border-box; width: 100%; background: #181A22; border: 1px solid #24262F; border-radius: 8px; padding: 0 44px 0 32px; color: #E8E9EE; font-size: 13px">
+<kbd style="position: absolute; right: 8px; top: 7px; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">⌘K</kbd>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<span style="font-size: 11px; color: #8C8F9C">Select</span>
+<label for="in-region" style="font-size: 12px; font-weight: 500; color: #E8E9EE">Region</label>
+<div style="position: relative">
+<select id="in-region" value="{{regionVal}}" onChange="{{onRegion}}" style="appearance: none; -webkit-appearance: none; height: 32px; box-sizing: border-box; width: 100%; background: #181A22; border: 1px solid #24262F; border-radius: 8px; padding: 0 32px 0 10px; color: #E8E9EE; font-size: 13px; cursor: pointer">
+<option value="eu-central-1">eu-central-1 (Frankfurt) · same region as api</option>
+<option value="eu-west">eu-west (Amsterdam)</option>
+<option value="us-east-1">us-east-1 (N. Virginia)</option>
+</select>
+<svg style="position: absolute; right: 10px; top: 9px; pointer-events: none; color: #8C8F9C" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<span style="font-size: 11px; color: #8C8F9C">Input · focused</span>
+<label for="in-var" style="font-size: 12px; font-weight: 500; color: #E8E9EE">Variable name</label>
+<input id="in-var" type="text" value="{{varVal}}" onInput="{{onVar}}" spellcheck="false" style="height: 32px; box-sizing: border-box; width: 100%; background: #181A22; border: 1px solid #7C8CFF; box-shadow: 0 0 0 3px rgba(124,140,255,0.18); border-radius: 8px; padding: 0 10px; color: #E8E9EE; font-size: 12px; font-family: 'JetBrains Mono', monospace">
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<span style="font-size: 11px; color: #8C8F9C">Input · error with message</span>
+<label for="in-confirm" style="font-size: 12px; font-weight: 500; color: #E8E9EE">Type <span style="font-family: 'JetBrains Mono', monospace">api</span> to confirm</label>
+<input id="in-confirm" type="text" value="{{confirmVal}}" onInput="{{onConfirm}}" aria-invalid="{{confirmInvalid}}" aria-describedby="in-confirm-msg" spellcheck="false" style="{{confirmStyle}}">
+<span id="in-confirm-msg" aria-live="polite" style="{{confirmMsgStyle}}">
+<sc-if value="{{confirmErr}}" hint-placeholder-val="{{ true }}"><svg style="flex: none" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg></sc-if>
+<sc-if value="{{confirmOk}}" hint-placeholder-val="{{ false }}"><svg style="flex: none" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></sc-if>
+{{confirmMsg}}</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+<span style="font-size: 11px; color: #8C8F9C">Input · with helper text</span>
+<label for="in-budget" style="font-size: 12px; font-weight: 500; color: #E8E9EE">Budget per session</label>
+<input id="in-budget" type="text" inputmode="decimal" value="{{budgetVal}}" onInput="{{onBudget}}" aria-describedby="in-budget-help" style="height: 32px; box-sizing: border-box; width: 100%; background: #181A22; border: 1px solid #24262F; border-radius: 8px; padding: 0 10px; color: #E8E9EE; font-size: 12px; font-family: 'JetBrains Mono', monospace">
+<span id="in-budget-help" style="font-size: 12px; color: #8C8F9C">The agent stops when it reaches this amount.</span>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="h-toast" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-toast" style="margin: 0; font-size: 14px; font-weight: 500">Toasts</h2>
+<span style="font-size: 12px; color: #8C8F9C">Bottom right, subtle, one line. Errors carry the next step.</span>
+</div>
+
+<span style="font-size: 11px; color: #8C8F9C">Toast · success</span>
+<div role="status" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; background: #181A22; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 10px 10px 10px 14px; font-size: 13px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<span>Deployed to production in 2 min 14 s.</span>
+<a href="PlanApply.dc.html" style="font-size: 13px; font-weight: 500">View</a>
+<button type="button" aria-label="Dismiss" title="Dismiss (Esc)" class="hv" style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+
+<span style="font-size: 11px; color: #8C8F9C">Toast · info</span>
+<div role="status" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; background: #181A22; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 10px 10px 10px 14px; font-size: 13px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+<span>Plan sent to Lina Pierre for approval.</span>
+<a href="Approvals.dc.html" style="font-size: 13px; font-weight: 500">View</a>
+<button type="button" aria-label="Dismiss" title="Dismiss (Esc)" class="hv" style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+
+<span style="font-size: 11px; color: #8C8F9C">Toast · error with action</span>
+<div role="alert" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 10px; background: #181A22; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 8px 10px 8px 14px; font-size: 13px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F26D6D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+<span>Couldn't reach Railway.</span>
+<a href="Connections.dc.html" class="hvb" style="display: inline-flex; align-items: center; height: 26px; padding: 0 8px; box-sizing: border-box; border-radius: 8px; background: #121319; border: 1px solid #24262F; color: #E8E9EE; font-size: 12px; font-weight: 500">Reconnect</a>
+<button type="button" aria-label="Dismiss" title="Dismiss (Esc)" class="hv" style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+</section>
+</div>
+
+<!-- ROW 5: TABLE | EMPTY -->
+<div style="display: grid; grid-template-columns: 1.7fr 1fr; gap: 20px; align-items: stretch">
+
+<section aria-labelledby="h-table" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-table" style="margin: 0; font-size: 14px; font-weight: 500">Table</h2>
+<span style="font-size: 12px; color: #8C8F9C">Header 32, rows 44, 1px dividers, hover row.</span>
+</div>
+<span style="font-size: 11px; color: #8C8F9C">Table · members of Kestrel Studio</span>
+<table style="width: 100%; border-collapse: collapse; font-size: 13px">
+<thead>
+<tr style="height: 32px">
+<th scope="col" style="text-align: left; font-size: 11px; font-weight: 500; color: #8C8F9C; padding: 0 12px; border-bottom: 1px solid #24262F">Member</th>
+<th scope="col" style="text-align: left; font-size: 11px; font-weight: 500; color: #8C8F9C; padding: 0 12px; border-bottom: 1px solid #24262F">Kind</th>
+<th scope="col" style="text-align: left; font-size: 11px; font-weight: 500; color: #8C8F9C; padding: 0 12px; border-bottom: 1px solid #24262F">Role</th>
+<th scope="col" style="text-align: left; font-size: 11px; font-weight: 500; color: #8C8F9C; padding: 0 12px; border-bottom: 1px solid #24262F">Scope</th>
+<th scope="col" style="text-align: right; font-size: 11px; font-weight: 500; color: #8C8F9C; padding: 0 12px; border-bottom: 1px solid #24262F">Last active</th>
+</tr>
+</thead>
+<tbody>
+<sc-for list="{{members}}" as="m" hint-placeholder-count="4">
+<tr class="hv" style="height: 44px">
+<td style="padding: 0 12px; border-bottom: 1px solid #24262F">
+<span style="display: flex; align-items: center; gap: 10px">
+<span style="flex: none; width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #E8E9EE">{{m.initials}}</span>
+<span style="display: flex; flex-direction: column; line-height: 1.3"><span style="font-weight: 500">{{m.name}}</span><span style="font-size: 12px; color: #8C8F9C">{{m.email}}</span></span>
+</span>
+</td>
+<td style="padding: 0 12px; border-bottom: 1px solid #24262F; color: #8C8F9C"><span style="display: inline-flex; align-items: center; gap: 6px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>Human</span></td>
+<td style="padding: 0 12px; border-bottom: 1px solid #24262F">{{m.role}}</td>
+<td style="padding: 0 12px; border-bottom: 1px solid #24262F; color: #8C8F9C">{{m.scope}}</td>
+<td style="padding: 0 12px; border-bottom: 1px solid #24262F; color: #8C8F9C; text-align: right; white-space: nowrap">{{m.active}}</td>
+</tr>
+</sc-for>
+</tbody>
+</table>
+</section>
+
+<section aria-labelledby="h-empty" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; min-width: 0">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-empty" style="margin: 0; font-size: 14px; font-weight: 500">Empty state</h2>
+</div>
+<span style="font-size: 11px; color: #8C8F9C">Empty state · no connections</span>
+<div style="flex: 1; display: flex; align-items: center; justify-content: center; background: #0B0C10; border: 1px solid #24262F; border-radius: 10px; padding: 28px 20px">
+<div style="max-width: 360px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px">
+<span style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a6 6 0 0 1-12 0V8z"/></svg></span>
+<span style="font-size: 14px; font-weight: 500; margin-top: 4px">No connections yet</span>
+<span style="font-size: 13px; color: #8C8F9C">Connections are the provider accounts yari.run deploys to, like Railway or Vercel. You keep the accounts and the bills.</span>
+<a href="Connections.dc.html" style="margin-top: 6px; display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500; box-sizing: border-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>Connect a provider</a>
+</div>
+</div>
+</section>
+</div>
+
+<!-- ROW 6: BUDGET METER -->
+<section aria-labelledby="h-budget" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; gap: 12px">
+<h2 id="h-budget" style="margin: 0; font-size: 14px; font-weight: 500">Budget meter</h2>
+<span style="font-size: 12px; color: #8C8F9C">Agent credit per session. Accent until 90%, then deploying, then failed at 100%. The state is also written out.</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px">
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #8C8F9C">Budget meter · 42%</span>
+<div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px"><span>$0.84 of $2.00</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">42%</span></div>
+<div role="meter" aria-label="Agent budget used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="42" aria-valuetext="$0.84 of $2.00" style="height: 4px; border-radius: 2px; background: #24262F; overflow: hidden"><div style="width: 42%; height: 4px; background: #7C8CFF"></div></div>
+<span style="font-size: 12px; color: #8C8F9C"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">ses_2c91</span> · claude-sonnet-5-5</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #8C8F9C">Budget meter · 92% warning</span>
+<div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px"><span>$1.84 of $2.00</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E9B949">92%</span></div>
+<div role="meter" aria-label="Agent budget used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="92" aria-valuetext="$1.84 of $2.00, almost reached" style="height: 4px; border-radius: 2px; background: #24262F; overflow: hidden"><div style="width: 92%; height: 4px; background: #E9B949"></div></div>
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #8C8F9C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>$0.16 left in this session</span>
+</div>
+
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; color: #8C8F9C">Budget meter · 100% exhausted</span>
+<div style="display: flex; justify-content: space-between; align-items: baseline; font-size: 12px"><span>$2.00 of $2.00</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #F26D6D">100%</span></div>
+<div role="meter" aria-label="Agent budget used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" aria-valuetext="$2.00 of $2.00, budget reached" style="height: 4px; border-radius: 2px; background: #24262F; overflow: hidden"><div style="width: 100%; height: 4px; background: #F26D6D"></div></div>
+<span style="display: inline-flex; align-items: flex-start; gap: 6px; font-size: 12px; color: #8C8F9C"><svg style="flex: none; margin-top: 2px" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F26D6D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>This session reached its $2.00 budget. Raise it or start a new session.</span>
+</div>
+</div>
+</section>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: 'Deployments',
+      sub: 'Deploy logs',
+      nameVal: 'api',
+      searchVal: '',
+      regionVal: 'eu-central-1',
+      varVal: 'QUEUE_CONCURRENCY',
+      confirmVal: 'apx',
+      budgetVal: '$2.00'
+    };
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var tabBase = 'padding: 10px 2px; margin-right: 20px; background: transparent; border: none; cursor: pointer; font-size: 13px; ';
+    var tabs = ['Deployments', 'Variables', 'Logs', 'Metrics', 'Access', 'Settings'].map(function (label) {
+      var on = st.tab === label;
+      return {
+        label: label,
+        selected: on ? 'true' : 'false',
+        style: tabBase + (on ? 'color: #E8E9EE; font-weight: 500; box-shadow: inset 0 -2px 0 #7C8CFF' : 'color: #8C8F9C; font-weight: 400'),
+        pick: function () { self.setState({ tab: label }); }
+      };
+    });
+    var subBase = 'height: 26px; padding: 0 10px; border-radius: 8px; border: none; cursor: pointer; font-size: 12px; font-weight: 500; ';
+    var subs = ['Deploy logs', 'Build logs', 'HTTP logs'].map(function (label) {
+      var on = st.sub === label;
+      return {
+        label: label,
+        selected: on ? 'true' : 'false',
+        style: subBase + (on ? 'background: #181A22; color: #E8E9EE' : 'background: transparent; color: #8C8F9C'),
+        pick: function () { self.setState({ sub: label }); }
+      };
+    });
+    var match = st.confirmVal === 'api';
+    var empty = st.confirmVal === '';
+    var inputBase = 'height: 32px; box-sizing: border-box; width: 100%; background: #181A22; border-radius: 8px; padding: 0 10px; color: #E8E9EE; font-size: 12px; font-family: \'JetBrains Mono\', monospace; ';
+    return {
+      tabs: tabs,
+      subs: subs,
+      tabNote: st.tab + ' · ' + st.sub + ' for api on production',
+      nameVal: st.nameVal,
+      onName: function (e) { self.setState({ nameVal: e.target.value }); },
+      searchVal: st.searchVal,
+      onSearch: function (e) { self.setState({ searchVal: e.target.value }); },
+      regionVal: st.regionVal,
+      onRegion: function (e) { self.setState({ regionVal: e.target.value }); },
+      varVal: st.varVal,
+      onVar: function (e) { self.setState({ varVal: e.target.value }); },
+      budgetVal: st.budgetVal,
+      onBudget: function (e) { self.setState({ budgetVal: e.target.value }); },
+      confirmVal: st.confirmVal,
+      onConfirm: function (e) { self.setState({ confirmVal: e.target.value }); },
+      confirmErr: !match && !empty,
+      confirmOk: match,
+      confirmInvalid: (!match && !empty) ? 'true' : 'false',
+      confirmStyle: inputBase + (match ? 'border: 1px solid #24262F' : (empty ? 'border: 1px solid #24262F' : 'border: 1px solid #F26D6D')),
+      confirmMsgStyle: 'display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: ' + (match ? '#3DD68C' : (empty ? '#8C8F9C' : '#F26D6D')),
+      confirmMsg: match ? 'Name matches. Delete api is now enabled.' : (empty ? 'Type the service name exactly.' : 'The name doesn’t match. Type api exactly.'),
+      members: [
+        { initials: 'SJ', name: 'Sami Joseph', email: 'sami@kestrel.studio', role: 'Owner', scope: 'Organization', active: '2 min ago' },
+        { initials: 'LP', name: 'Lina Pierre', email: 'lina@kestrel.studio', role: 'Admin', scope: 'Organization', active: '14 min ago' },
+        { initials: 'ME', name: 'Marc Etienne', email: 'marc@kestrel.studio', role: 'Developer', scope: 'Workspace: Mango Market', active: 'now' },
+        { initials: 'AR', name: 'Ana Ruiz', email: 'ana@mangomarket.co', role: 'Viewer (client contact)', scope: 'Project: mango-shop', active: '3 days ago' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

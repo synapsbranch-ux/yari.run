@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Drift review · api staging</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 900px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 900px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<span style="width: 1px; height: 20px; background: #24262F"></span>
+<nav aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<button type="button" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">mango-shop<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<div style="position: relative">
+<button type="button" onClick="{{toggleEnv}}" aria-haspopup="menu" aria-expanded="{{envOpen}}" title="Switch environment (⌘E)" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">staging</span>
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+<sc-if value="{{envOpen}}" hint-placeholder-val="{{ false }}">
+<div role="menu" style="position: absolute; top: 34px; left: 0; width: 260px; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 6px; z-index: 20; animation: yr-in .14s ease-out">
+<div style="padding: 6px 8px 4px; font-size: 11px; font-weight: 500; color: #8C8F9C">Environments of mango-shop</div>
+<a href="Canvas.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">production</span><span style="color: #8C8F9C; font-size: 11px">Protected</span></a>
+<a href="CanvasStaging.dc.html" role="menuitem" aria-current="true" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; background: #181A22"><span style="width: 13px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">staging</span><span style="margin-left: auto; display: inline-flex; align-items: center; gap: 4px; color: #F26D6D; font-size: 11px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>1 failed</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Current"><path d="M20 6 9 17l-5-5"/></svg></a>
+<a href="CanvasPR42.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE"><span style="width: 13px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">pr-42</span><span style="color: #8C8F9C; font-size: 11px">Preview</span></a>
+<div style="height: 1px; background: #24262F; margin: 6px 0"></div>
+<button type="button" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 32px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New environment</button>
+</div>
+</sc-if>
+</div>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<a href="Approvals.dc.html" aria-label="Approvals, 2 waiting" title="Approvals (G I)" class="hv" style="position: relative; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+<span style="position: absolute; top: 3px; right: 2px; min-width: 15px; height: 15px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center">2</span>
+</a>
+<a href="AgentOps.dc.html" title="Agent (⌘J)" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border-radius: 8px; color: #E8E9EE; border: 1px solid transparent; font-size: 13px; font-weight: 500">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Agent
+</a>
+<a href="PlanReview.dc.html" title="Deploy (⌘↵)" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500">Deploy<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid rgba(11,12,16,0.25); border-radius: 4px; color: rgba(11,12,16,0.7)">⌘↵</kbd></a>
+<button type="button" aria-label="Account: Marc Etienne" title="Marc Etienne" style="width: 28px; height: 28px; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; cursor: pointer; margin-left: 4px">ME</button>
+</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<!-- LEFT RAIL -->
+<nav aria-label="Project" style="width: 48px; flex: none; border-right: 1px solid #24262F; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 0; background: #0B0C10">
+<a href="CanvasStaging.dc.html" aria-label="Canvas" aria-current="page" title="Canvas (G C)" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: #181A22; color: #E8E9EE"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg></a>
+<a href="CodeStart.dc.html" aria-label="Code" title="Code (G D)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></a>
+<a href="AgentOps.dc.html" aria-label="Agent sessions" title="Agent sessions (G A)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></a>
+<button type="button" aria-label="Logs" title="Logs (G L)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button>
+<button type="button" aria-label="Metrics" title="Metrics (G M)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></button>
+<a href="AuditLog.dc.html" aria-label="Activity" title="Activity (G V)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></a>
+<span style="flex: 1"></span>
+<button type="button" aria-label="Project settings" title="Settings (G S)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></button>
+</nav>
+
+<!-- CANVAS AREA -->
+<main aria-label="Canvas of mango-shop, staging, with drift review open" style="flex: 1; position: relative; overflow: hidden; background-color: #0B0C10; background-image: radial-gradient(#24262F 1px, transparent 1px); background-size: 20px 20px">
+
+<!-- graph group (shifted left so the selected api stays visible beside the drawer) -->
+<div style="position: absolute; left: 40px; top: 90px; width: 1140px; height: 620px; transform-origin: 0 0; transform: scale({{scale}})">
+
+<svg width="1140" height="620" viewBox="0 0 1140 620" fill="none" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+<defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 7 4 1 7" stroke="#4A4E5C" stroke-width="1.25" fill="none"/></marker></defs>
+<path d="M320 314 H480" stroke="#3A3D4A" stroke-width="1.25" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+<path d="M720 290 H800 V114 H900" stroke="#3A3D4A" stroke-width="1.25" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+<path d="M720 302 H900" stroke="#3A3D4A" stroke-width="1.25" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+<path d="M720 338 H840 V474 H900" stroke="#3A3D4A" stroke-width="1.25" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+<path d="M720 574 H780 V500 H900" stroke="#3A3D4A" stroke-width="1.25" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+</svg>
+
+<!-- edge labels -->
+<span title="web reads API_URL, injected from api" style="position: absolute; left: 400px; top: 314px; transform: translate(-50%,-50%); background: #0B0C10; border: 1px solid #24262F; border-radius: 6px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C; white-space: nowrap">API_URL</span>
+<span style="position: absolute; left: 800px; top: 200px; transform: translate(-50%,-50%); background: #0B0C10; border: 1px solid #24262F; border-radius: 6px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C; white-space: nowrap">BUCKET_ENDPOINT</span>
+<span style="position: absolute; left: 810px; top: 302px; transform: translate(-50%,-50%); background: #0B0C10; border: 1px solid #24262F; border-radius: 6px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-label="Secret"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>RESEND_API_KEY ••••</span>
+<span style="position: absolute; left: 840px; top: 406px; transform: translate(-50%,-50%); background: #0B0C10; border: 1px solid #24262F; border-radius: 6px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C; white-space: nowrap">DATABASE_URL</span>
+<span style="position: absolute; left: 840px; top: 500px; transform: translate(-50%,-50%); background: #0B0C10; border: 1px solid #24262F; border-radius: 6px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C; white-space: nowrap">DATABASE_URL</span>
+
+<!-- web -->
+<a href="ServicePanel.dc.html" class="hvb" aria-label="web, Vercel, Online" style="position: absolute; left: 80px; top: 260px; width: 240px; box-sizing: border-box; background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 14px; color: #E8E9EE; display: flex; flex-direction: column; gap: 4px">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span style="font-size: 14px; font-weight: 500">web</span><span style="margin-left: auto; height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Vercel</span></span>
+<span style="padding-left: 38px; font-size: 12px; color: #8C8F9C">staging.mango.shop</span>
+<span style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #3DD68C"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>Online</span>
+</a>
+
+<!-- api (selected) -->
+<div role="group" aria-label="api, Railway, Failed, selected" style="position: absolute; left: 480px; top: 260px; width: 240px; box-sizing: border-box; background: #121319; border: 1px solid #7C8CFF; box-shadow: 0 0 0 3px rgba(124,140,255,0.18); border-radius: 10px; padding: 14px; color: #E8E9EE; display: flex; flex-direction: column; gap: 4px; z-index: 2">
+<a href="ServicePanel.dc.html" aria-label="Open api" class="hv" style="display: flex; flex-direction: column; gap: 4px; margin: -4px; padding: 4px; border-radius: 8px; color: #E8E9EE">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span style="font-size: 14px; font-weight: 500">api</span><span style="margin-left: auto; height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Railway</span></span>
+<span style="padding-left: 38px; font-size: 12px; color: #8C8F9C">api.staging.mango.shop</span>
+</a>
+<span style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #F26D6D"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>Failed · build <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">c41e9a2</span> · 15:12</span>
+<span style="padding-left: 18px; font-size: 12px; color: #8C8F9C">Previous version still serving</span>
+<span style="margin-top: 10px; display: flex; align-items: center; gap: 6px">
+<a href="AgentOps.dc.html" title="Ask the agent to fix this build" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #7C8CFF; font-size: 12px; font-weight: 500"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Ask the agent</a>
+<a href="ServicePanel.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #8C8F9C; font-size: 12px; font-weight: 500"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg>View logs</a>
+</span>
+<sc-if value="{{showBadge}}" hint-placeholder-val="{{ true }}">
+<span style="position: absolute; top: -12px; left: 12px; display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; background: #241F16; border: 1px solid rgba(233,185,73,0.35); color: #E9B949; font-size: 11px; font-weight: 500; white-space: nowrap"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>Changed outside yari.run</span>
+</sc-if>
+</div>
+
+<!-- worker -->
+<a href="ServicePanel.dc.html" class="hvb" aria-label="worker, Railway, Sleeping" style="position: absolute; left: 480px; top: 520px; width: 240px; box-sizing: border-box; background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 14px; color: #E8E9EE; display: flex; flex-direction: column; gap: 4px">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></span><span style="font-size: 14px; font-weight: 500">worker</span><span style="margin-left: auto; height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Railway</span></span>
+<span style="padding-left: 38px; font-size: 12px; color: #8C8F9C">Private network</span>
+<span style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #8C8F9C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B6F7D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Sleeping</span>
+</a>
+
+<!-- media -->
+<a href="ServicePanel.dc.html" class="hvb" aria-label="media, Backblaze B2, Online" style="position: absolute; left: 900px; top: 60px; width: 240px; box-sizing: border-box; background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 14px; color: #E8E9EE; display: flex; flex-direction: column; gap: 4px">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg></span><span style="font-size: 14px; font-weight: 500">media</span><span style="margin-left: auto; height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Backblaze B2</span></span>
+<span style="padding-left: 38px; font-size: 12px; color: #8C8F9C">mango-media-staging</span>
+<span style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #3DD68C"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>Online</span>
+</a>
+
+<!-- email -->
+<a href="ServicePanel.dc.html" class="hvb" aria-label="email, Resend, Online" style="position: absolute; left: 900px; top: 248px; width: 240px; box-sizing: border-box; background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 14px; color: #E8E9EE; display: flex; flex-direction: column; gap: 4px">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.970 5.700a1.940 1.940 0 0 1-2.060 0L2 7"/></svg></span><span style="font-size: 14px; font-weight: 500">email</span><span style="margin-left: auto; height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Resend</span></span>
+<span style="padding-left: 38px; font-size: 12px; color: #8C8F9C">mail.mango.shop</span>
+<span style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #3DD68C"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>Online</span>
+</a>
+
+<!-- postgres + volume strip -->
+<div style="position: absolute; left: 900px; top: 420px; width: 240px">
+<a href="ServicePanel.dc.html" class="hvb" aria-label="postgres, Supabase, Online" style="width: 240px; box-sizing: border-box; background: #121319; border: 1px solid #24262F; border-radius: 10px 10px 0 0; padding: 14px; color: #E8E9EE; display: flex; flex-direction: column; gap: 4px">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span><span style="font-size: 14px; font-weight: 500">postgres</span><span style="margin-left: auto; height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Supabase</span></span>
+<span style="padding-left: 38px; font-size: 12px; color: #8C8F9C">Postgres 16 · eu-central-1</span>
+<span style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #3DD68C"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>Online</span>
+</a>
+<div style="box-sizing: border-box; width: 240px; border: 1px solid #24262F; border-top: none; border-radius: 0 0 10px 10px; background: #0F1015; padding: 8px 14px; font-size: 12px; color: #8C8F9C; display: flex; align-items: center; gap: 8px">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/><path d="M6 16h.01M10 16h.01"/></svg>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">postgres-data</span><span style="margin-left: auto">2 GB of 8 GB</span>
+</div>
+</div>
+</div>
+
+<!-- top-left: env summary -->
+<div style="position: absolute; top: 16px; left: 16px; display: inline-flex; align-items: center; gap: 10px; height: 32px; padding: 0 12px; border-radius: 8px; background: #121319; border: 1px solid #24262F; font-size: 12px; color: #8C8F9C">
+<span style="display: inline-flex; align-items: center; gap: 6px; color: #E8E9EE"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>4 of 6 online</span>
+<span>·</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; color: #F26D6D"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>1 failed</span>
+<span>·</span>
+<span style="display: inline-flex; align-items: center; gap: 5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B6F7D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>1 sleeping</span>
+</div>
+
+<!-- bottom-left controls -->
+<div style="position: absolute; left: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start">
+<div style="display: flex; flex-direction: column; background: #121319; border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<button type="button" onClick="{{zoomIn}}" aria-label="Zoom in" title="Zoom in (+)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button>
+<button type="button" onClick="{{zoomOut}}" aria-label="Zoom out" title="Zoom out (−)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; border-top: 1px solid #24262F; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+<button type="button" onClick="{{fit}}" aria-label="Fit to screen" title="Fit to screen (⇧1)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; border-top: 1px solid #24262F; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</div>
+<div style="display: flex; flex-direction: column; background: #121319; border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<button type="button" aria-label="Undo" title="Undo (⌘Z)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+<button type="button" aria-label="Redo" title="Redo (⇧⌘Z)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; border-top: 1px solid #24262F; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C; padding-left: 4px" aria-live="polite">{{zoomLabel}}</span>
+</div>
+
+<!-- DRIFT DRAWER -->
+<aside role="dialog" aria-labelledby="drift-title" style="position: absolute; top: 0; right: 0; bottom: 0; width: 560px; background: #121319; border-left: 1px solid #24262F; box-shadow: 0 12px 40px rgba(0,0,0,0.45); display: flex; flex-direction: column; z-index: 10; animation: yr-in .16s ease-out">
+
+<!-- header -->
+<div style="padding: 20px 24px; border-bottom: 1px solid #24262F; display: flex; align-items: flex-start; gap: 12px">
+<span style="width: 32px; height: 32px; flex: none; border-radius: 8px; background: #241F16; border: 1px solid rgba(233,185,73,0.35); display: inline-flex; align-items: center; justify-content: center; color: #E9B949"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg></span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 8px">
+<h2 id="drift-title" style="margin: 0; font-size: 16px; font-weight: 600">Drift on api</h2>
+<span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border: 1px solid #24262F; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">staging</span>
+<span style="display: inline-flex; align-items: center; height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C">Railway</span>
+</div>
+<span style="font-size: 12px; color: #8C8F9C">Detected 11:02 by yari.run</span>
+</div>
+<a href="CanvasStaging.dc.html" aria-label="Close (Esc)" title="Close (Esc)" class="hv" style="width: 32px; height: 32px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></a>
+</div>
+
+<!-- review body -->
+<sc-if value="{{reviewing}}" hint-placeholder-val="{{ true }}">
+<div style="flex: 1; overflow-y: auto; padding: 20px 24px 24px; display: flex; flex-direction: column; gap: 20px">
+<p style="margin: 0; font-size: 13px; color: #E8E9EE">These settings were changed in the Railway dashboard, outside yari.run.</p>
+
+<div style="border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<table style="width: 100%; border-collapse: collapse; font-size: 13px">
+<caption style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Settings that differ between yari.run and Railway</caption>
+<thead>
+<tr style="background: #0F1015">
+<th scope="col" style="text-align: left; height: 32px; padding: 0 14px; font-size: 11px; font-weight: 500; color: #8C8F9C; border-bottom: 1px solid #24262F">Setting</th>
+<th scope="col" style="text-align: left; height: 32px; padding: 0 14px; font-size: 11px; font-weight: 500; color: #8C8F9C; border-bottom: 1px solid #24262F">In yari.run</th>
+<th scope="col" style="width: 20px; border-bottom: 1px solid #24262F"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">changed to</span></th>
+<th scope="col" style="text-align: left; height: 32px; padding: 0 14px; font-size: 11px; font-weight: 500; color: #8C8F9C; border-bottom: 1px solid #24262F">In Railway now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th scope="row" style="text-align: left; height: 44px; padding: 0 14px; font-weight: 500; border-bottom: 1px solid #24262F">Replicas</th>
+<td style="padding: 0 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C; border-bottom: 1px solid #24262F">1</td>
+<td style="color: #8C8F9C; border-bottom: 1px solid #24262F" aria-hidden="true">→</td>
+<td style="padding: 0 14px; border-bottom: 1px solid #24262F"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-family: 'JetBrains Mono', monospace; font-size: 12px">2</span></td>
+</tr>
+<tr>
+<th scope="row" style="text-align: left; height: 44px; padding: 0 14px; font-weight: 500">Variable <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 400">LOG_LEVEL</span></th>
+<td style="padding: 0 14px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">not set</td>
+<td style="color: #8C8F9C" aria-hidden="true">→</td>
+<td style="padding: 0 14px"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-family: 'JetBrains Mono', monospace; font-size: 12px">debug</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+<span>Running 2 replicas costs about <span style="font-family: 'JetBrains Mono', monospace; color: #E8E9EE">+$5.00</span> per month.</span>
+</div>
+
+<fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 10px">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 11px; font-weight: 500; letter-spacing: .02em; color: #8C8F9C">What should yari.run do?</legend>
+
+<label style="{{keepStyle}}">
+<input type="radio" name="drift-choice" value="keep" checked="{{keepChecked}}" onChange="{{pickKeep}}" style="margin: 2px 0 0; width: 16px; height: 16px; flex: none; accent-color: #7C8CFF">
+<span style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<span style="font-size: 13px; font-weight: 500; color: #E8E9EE">Keep these changes</span>
+<span style="font-size: 12px; color: #8C8F9C">yari.run records them as the new desired state. Nothing changes on Railway.</span>
+<span style="margin-top: 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 11px; color: #8C8F9C">
+<span style="display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border: 1px solid #24262F; border-radius: 6px; font-weight: 500">No infrastructure change</span>
+<span>Keeps about <span style="font-family: 'JetBrains Mono', monospace">+$5.00</span> per month</span>
+</span>
+</span>
+</label>
+
+<label style="{{restoreStyle}}">
+<input type="radio" name="drift-choice" value="restore" checked="{{restoreChecked}}" onChange="{{pickRestore}}" style="margin: 2px 0 0; width: 16px; height: 16px; flex: none; accent-color: #7C8CFF">
+<span style="display: flex; flex-direction: column; gap: 4px; min-width: 0">
+<span style="font-size: 13px; font-weight: 500; color: #E8E9EE">Restore yari.run version</span>
+<span style="font-size: 12px; color: #8C8F9C">Creates a plan: replicas back to 1, remove <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">LOG_LEVEL</span>.</span>
+<span style="margin-top: 4px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 11px; color: #8C8F9C">
+<span style="font-family: 'JetBrains Mono', monospace; color: #E8E9EE">about −$5.00 per month</span>
+<span>·</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 8px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-weight: 500"><span style="width: 6px; height: 6px; border-radius: 50%; background: #3DD68C"></span>Low risk</span>
+<span>·</span>
+<span><span style="font-family: 'JetBrains Mono', monospace">staging</span>, no approval</span>
+</span>
+</span>
+</label>
+</fieldset>
+
+<div style="display: flex; gap: 10px; padding: 12px 14px; border: 1px solid #24262F; border-radius: 10px; background: #181A22; font-size: 12px; color: #8C8F9C">
+<svg style="flex: none; margin-top: 2px" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+<span>Until you decide, yari.run keeps the current Railway settings and won't deploy over them. Your choice is recorded in the audit log.</span>
+</div>
+</div>
+
+<!-- footer -->
+<div style="flex: none; border-top: 1px solid #24262F; padding: 16px 24px; display: flex; align-items: center; justify-content: flex-end; gap: 8px">
+<span style="margin-right: auto; font-size: 12px; color: #8C8F9C">{{footerHint}}</span>
+<a href="CanvasStaging.dc.html" class="hvb" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500">Cancel</a>
+<button type="button" onClick="{{confirm}}" disabled="{{noChoice}}" title="{{primaryTitle}}" style="{{primaryStyle}}">{{primaryLabel}}</button>
+</div>
+</sc-if>
+
+<!-- resolved -->
+<sc-if value="{{resolved}}" hint-placeholder-val="{{ false }}">
+<div style="flex: 1; overflow-y: auto; padding: 32px 24px; display: flex; flex-direction: column; gap: 20px; animation: yr-in .18s ease-out" role="status">
+<div style="display: flex; align-items: flex-start; gap: 12px">
+<svg style="flex: none" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 14px; font-weight: 500">Drift resolved. api matches yari.run again.</span>
+<span style="font-size: 13px; color: #8C8F9C">{{resolvedDetail}}</span>
+</div>
+</div>
+<div style="border: 1px solid #24262F; border-radius: 10px; padding: 4px 14px">
+<div style="display: flex; justify-content: space-between; height: 36px; align-items: center; border-bottom: 1px solid #24262F; font-size: 12px"><span style="color: #8C8F9C">Replicas</span><span style="font-family: 'JetBrains Mono', monospace">{{resolvedReplicas}}</span></div>
+<div style="display: flex; justify-content: space-between; height: 36px; align-items: center; border-bottom: 1px solid #24262F; font-size: 12px"><span style="color: #8C8F9C">Variable <span style="font-family: 'JetBrains Mono', monospace">LOG_LEVEL</span></span><span style="font-family: 'JetBrains Mono', monospace">{{resolvedLogLevel}}</span></div>
+<div style="display: flex; justify-content: space-between; height: 36px; align-items: center; font-size: 12px"><span style="color: #8C8F9C">Resolved by</span><span>Marc Etienne · just now</span></div>
+</div>
+<div style="display: flex; align-items: center; gap: 8px">
+<a href="CanvasStaging.dc.html" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg>Back to canvas</a>
+<a href="AuditLog.dc.html" class="hv" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; border: 1px solid transparent; color: #8C8F9C; font-size: 13px; font-weight: 500">View in audit log</a>
+</div>
+</div>
+</sc-if>
+</aside>
+
+</main>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"view":{"editor":"enum","options":["review","resolved"],"default":"review"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const resolved = (props && props.view) === 'resolved';
+    this.state = { envOpen: false, zoom: 100, choice: resolved ? 'keep' : null, resolved: resolved };
+  }
+  renderVals() {
+    const z = this.state.zoom;
+    const c = this.state.choice;
+    const card = (on) => 'display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: 10px; cursor: pointer; ' +
+      (on ? 'background: rgba(124,140,255,0.12); border: 1px solid #7C8CFF' : 'background: #121319; border: 1px solid #24262F');
+    const btn = 'display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500; ';
+    const keep = c === 'keep';
+    return {
+      envOpen: this.state.envOpen,
+      toggleEnv: () => this.setState({ envOpen: !this.state.envOpen }),
+      scale: String(z / 100),
+      zoomLabel: z + '%',
+      zoomIn: () => this.setState({ zoom: Math.min(150, z + 10) }),
+      zoomOut: () => this.setState({ zoom: Math.max(60, z - 10) }),
+      fit: () => this.setState({ zoom: 100 }),
+      reviewing: !this.state.resolved,
+      resolved: this.state.resolved,
+      showBadge: !this.state.resolved,
+      keepChecked: keep,
+      restoreChecked: c === 'restore',
+      keepStyle: card(keep),
+      restoreStyle: card(c === 'restore'),
+      pickKeep: () => this.setState({ choice: 'keep' }),
+      pickRestore: () => this.setState({ choice: 'restore' }),
+      noChoice: !c,
+      primaryLabel: c === 'restore' ? 'Create plan' : (keep ? 'Keep changes' : 'Choose an option'),
+      primaryTitle: c ? 'Confirm (⌘↵)' : 'Choose what yari.run should do first',
+      primaryStyle: btn + (c ? 'cursor: pointer' : 'opacity: .45; cursor: not-allowed'),
+      footerHint: c === 'restore' ? 'Applies on staging. No approval needed.' : (keep ? 'Nothing changes on Railway.' : 'Pick one to continue.'),
+      confirm: () => { if (this.state.choice) this.setState({ resolved: true }); },
+      resolvedDetail: c === 'restore'
+        ? 'The plan ran on staging in 21 s: replicas back to 1 and LOG_LEVEL removed. About −$5.00 per month.'
+        : 'yari.run now expects 2 replicas and LOG_LEVEL=debug on staging. Nothing changed on Railway.',
+      resolvedReplicas: c === 'restore' ? '1' : '2',
+      resolvedLogLevel: c === 'restore' ? 'not set' : 'debug'
+    };
+  }
+}
+</script>
+</body>
+</html>

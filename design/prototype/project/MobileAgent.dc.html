@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mobile · Agent</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column">
+
+<!-- APP BAR -->
+<header style="height: 52px; flex: none; display: flex; align-items: center; gap: 4px; padding: 0 6px 0 16px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<h1 style="margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em">Agent</h1>
+<span style="margin-left: 8px; font-size: 12px; color: #8C8F9C">Mango Market</span>
+<span style="flex: 1"></span>
+<button type="button" onClick="{{openNew}}" aria-label="New session" title="New session (⌘J)" class="hv" style="width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; background: transparent; border: none; color: #E8E9EE; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>
+</button>
+<button type="button" aria-label="Account: Lina Pierre" title="Lina Pierre" style="width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; cursor: pointer; padding: 0">
+<span style="width: 30px; height: 30px; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box">LP</span>
+</button>
+</header>
+
+<!-- CONTENT -->
+<main aria-label="Agent sessions" style="flex: 1; min-height: 0; overflow-y: auto; padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 20px">
+
+<sc-if value="{{started}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: #181A22; border: 1px solid #24262F; border-radius: 12px; font-size: 13px; animation: yr-in .16s ease-out">
+<svg style="flex: none; margin-top: 2px" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<span style="flex: 1">Session starting on mango-shop. You get a notification when it needs you.</span>
+<button type="button" onClick="{{dismissStarted}}" aria-label="Dismiss" title="Dismiss" class="hv" style="flex: none; width: 32px; height: 32px; margin: -6px -8px -6px 0; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+</sc-if>
+
+<!-- Running -->
+<section aria-label="Running" style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 4px">
+<h2 style="margin: 0; font-size: 12px; font-weight: 500; color: #8C8F9C; letter-spacing: .02em">Running</h2>
+<span style="font-size: 12px; color: #8C8F9C">1</span>
+</div>
+<a href="MobileAgentSession.dc.html" class="hvb" aria-label="ses_7f3a, Code, Add product reviews, started by Marc Etienne, 46 min, $1.36 of $3.00, working" style="display: flex; flex-direction: column; gap: 10px; padding: 14px 14px 14px 16px; background: #121319; border: 1px solid #24262F; border-radius: 12px; color: #E8E9EE">
+<span style="display: flex; align-items: center; gap: 8px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">ses_7f3a</span>
+<span style="height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center; gap: 4px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>Code</span>
+<span style="margin-left: auto; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #7C8CFF; animation: yr-pulse 1.6s ease-in-out infinite"></span>Working</span>
+</span>
+<span style="font-size: 15px; font-weight: 500">Add product reviews</span>
+<span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #8C8F9C">
+<span style="width: 20px; height: 20px; flex: none; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 9px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box">ME</span>
+Marc Etienne<span aria-hidden="true">·</span>46 min<span aria-hidden="true">·</span>mango-shop
+</span>
+<span style="display: flex; align-items: center; gap: 10px">
+<span style="font-size: 12px; color: #E8E9EE; white-space: nowrap">$1.36 of $3.00</span>
+<span aria-hidden="true" style="flex: 1; height: 4px; border-radius: 2px; background: #24262F; overflow: hidden"><span style="display: block; width: 45%; height: 4px; background: #7C8CFF"></span></span>
+<span style="font-size: 12px; color: #8C8F9C">45%</span>
+<svg style="flex: none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+</span>
+</a>
+</section>
+
+<!-- Waiting -->
+<section aria-label="Waiting for approval" style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 4px">
+<h2 style="margin: 0; font-size: 12px; font-weight: 500; color: #8C8F9C; letter-spacing: .02em">Waiting for approval</h2>
+<span style="font-size: 12px; color: #8C8F9C">1</span>
+</div>
+<a href="MobileApproval.dc.html" class="hvb" aria-label="ses_b410, Ops, Wake worker for Monday's sale, waiting for approval on production" style="display: flex; flex-direction: column; gap: 10px; padding: 14px 14px 14px 16px; background: #121319; border: 1px solid #24262F; border-radius: 12px; color: #E8E9EE">
+<span style="display: flex; align-items: center; gap: 8px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">ses_b410</span>
+<span style="height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center; gap: 4px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6M12 19h8"/></svg>Ops</span>
+<span style="margin-left: auto; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; gap: 5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Waiting for approval</span>
+</span>
+<span style="font-size: 15px; font-weight: 500">Wake worker for Monday’s sale</span>
+<span style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: #8C8F9C">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">plan_9KD1</span><span aria-hidden="true">·</span>
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-label="Protected"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">production</span><span aria-hidden="true">·</span>12 min ago
+<span style="margin-left: auto; color: #7C8CFF; font-weight: 500">Review</span>
+<svg style="flex: none" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+</span>
+</a>
+</section>
+
+<!-- Recent -->
+<section aria-label="Recent" style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 4px">
+<h2 style="margin: 0; font-size: 12px; font-weight: 500; color: #8C8F9C; letter-spacing: .02em">Recent</h2>
+<span style="font-size: 12px; color: #8C8F9C">Today</span>
+</div>
+<div role="list" style="background: #121319; border: 1px solid #24262F; border-radius: 12px; overflow: hidden">
+<sc-for list="{{recent}}" as="r" hint-placeholder-count="3">
+<div role="listitem" style="{{r.rowStyle}}">
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+<span style="display: flex; align-items: center; gap: 8px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">{{r.id}}</span>
+<span style="font-size: 11px; color: #8C8F9C">{{r.mode}}</span>
+</span>
+<span style="font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.title}}</span>
+<span style="font-size: 12px; color: #8C8F9C">{{r.meta}}</span>
+</span>
+<sc-if value="{{r.ok}}" hint-placeholder-val="{{ true }}">
+<span style="flex: none; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; gap: 5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{r.status}}</span>
+</sc-if>
+<sc-if value="{{r.budget}}" hint-placeholder-val="{{ false }}">
+<span style="flex: none; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(242,109,109,0.12); color: #F26D6D; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; gap: 5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>{{r.status}}</span>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</section>
+
+<p style="margin: 0; padding: 0 4px; display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #8C8F9C"><svg style="flex: none; margin-top: 2px" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>The agent works in its own sandbox. It cannot see your provider keys.</p>
+
+</main>
+
+<!-- NEW SESSION SHEET -->
+<sc-if value="{{newOpen}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{closeNew}}" aria-label="Close" style="position: absolute; inset: 0; background: rgba(11,12,16,0.6); border: none; z-index: 8; cursor: default"></button>
+<div role="dialog" aria-modal="true" aria-label="New agent session" style="position: absolute; left: 0; right: 0; bottom: 0; z-index: 9; background: #121319; border-top: 1px solid #24262F; border-radius: 16px 16px 0 0; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 10px 16px 24px; display: flex; flex-direction: column; gap: 12px; animation: yr-in .18s ease-out">
+<span aria-hidden="true" style="align-self: center; width: 36px; height: 4px; border-radius: 2px; background: #2F323D; margin-bottom: 4px"></span>
+<span style="font-size: 17px; font-weight: 600; letter-spacing: -0.01em">New session on mango-shop</span>
+<div role="group" aria-label="Mode" style="display: flex; gap: 4px; padding: 3px; background: #0B0C10; border: 1px solid #24262F; border-radius: 12px">
+<sc-for list="{{modes}}" as="m" hint-placeholder-count="2">
+<button type="button" onClick="{{m.pick}}" aria-pressed="{{m.pressed}}" style="{{m.style}}"><span style="font-weight: 500">{{m.label}}</span><span style="font-size: 12px; color: #8C8F9C">{{m.hint}}</span></button>
+</sc-for>
+</div>
+<label for="new-goal" style="font-size: 13px; font-weight: 500">Goal</label>
+<textarea id="new-goal" rows="3" value="{{goal}}" onInput="{{onGoal}}" placeholder="Why is api failing on staging?" class="hvb" style="box-sizing: border-box; width: 100%; resize: none; background: #0B0C10; border: 1px solid #24262F; border-radius: 10px; padding: 10px 12px; color: #E8E9EE; font-size: 15px; line-height: 1.45"></textarea>
+<span style="font-size: 12px; color: #8C8F9C">Budget $2.00 · claude-sonnet-5-5 · production changes still need approval</span>
+<button type="button" onClick="{{start}}" disabled="{{startDisabled}}" style="{{startStyle}}">Start session</button>
+<button type="button" onClick="{{closeNew}}" class="hvb" style="width: 100%; height: 48px; border-radius: 10px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 15px; font-weight: 500; cursor: pointer">Cancel</button>
+</div>
+</sc-if>
+
+<!-- BOTTOM TABS -->
+<nav aria-label="Main" style="height: 64px; flex: none; display: flex; border-top: 1px solid #24262F; background: #0B0C10; padding: 0 4px">
+<a href="MobileProjects.dc.html" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #8C8F9C; font-size: 11px; font-weight: 500">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Projects
+</a>
+<a href="MobileApprovals.dc.html" aria-label="Approvals, 2 waiting" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #8C8F9C; font-size: 11px; font-weight: 500">
+<span style="position: relative; display: inline-flex">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+<span style="position: absolute; top: -5px; right: -9px; min-width: 16px; height: 16px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 16px; text-align: center">2</span>
+</span>Approvals
+</a>
+<a href="MobileAgent.dc.html" aria-current="page" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #E8E9EE; font-size: 11px; font-weight: 500">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Agent
+</a>
+<button type="button" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #8C8F9C; font-size: 11px; font-weight: 500; background: transparent; border: none; cursor: pointer; padding: 0">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Activity
+</button>
+<button type="button" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #8C8F9C; font-size: 11px; font-weight: 500; background: transparent; border: none; cursor: pointer; padding: 0">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg>Settings
+</button>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { newOpen: false, mode: 'ops', goal: '', started: false };
+  }
+  renderVals() {
+    const s = this.state;
+    const RECENT = [
+      { id: 'ses_2c91', mode: 'Ops', title: 'Why is api failing on staging?', meta: 'Marc Etienne · 9 min · $0.84', status: 'Fixed', kind: 'ok' },
+      { id: 'ses_91ee', mode: 'Ops', title: 'Add a staging copy of postgres', meta: 'Marc Etienne · 4 min · $0.22', status: 'Applied', kind: 'ok' },
+      { id: 'ses_60ab', mode: 'Code', title: 'Harbor: booking reminders page', meta: 'Lina Pierre · 1 h 12 min · $2.00 of $2.00', status: 'Budget reached', kind: 'budget' }
+    ];
+    const MODES = [
+      { id: 'ops', label: 'Ops', hint: 'Operate infrastructure' },
+      { id: 'code', label: 'Code', hint: 'Write and ship code' }
+    ];
+    const hasGoal = s.goal.trim().length > 0;
+    return {
+      recent: RECENT.map((r, i) => ({
+        id: r.id, mode: r.mode, title: r.title, meta: r.meta, status: r.status,
+        ok: r.kind === 'ok', budget: r.kind === 'budget',
+        rowStyle: 'display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 12px 14px 12px 16px; ' + (i === 0 ? '' : 'border-top: 1px solid #24262F;')
+      })),
+      newOpen: s.newOpen,
+      openNew: () => this.setState({ newOpen: true }),
+      closeNew: () => this.setState({ newOpen: false }),
+      modes: MODES.map(m => {
+        const on = s.mode === m.id;
+        return {
+          label: m.label, hint: m.hint,
+          pressed: on ? 'true' : 'false',
+          pick: () => this.setState({ mode: m.id }),
+          style: 'flex: 1; min-height: 52px; border-radius: 9px; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; padding: 6px 12px; cursor: pointer; color: #E8E9EE; font-size: 14px; text-align: left; ' + (on ? 'background: #181A22; border: 1px solid #2F323D;' : 'background: transparent; border: 1px solid transparent;')
+        };
+      }),
+      goal: s.goal,
+      onGoal: (e) => this.setState({ goal: e.target.value }),
+      startDisabled: !hasGoal,
+      start: () => { if (hasGoal) this.setState({ newOpen: false, goal: '', started: true }); },
+      startStyle: 'width: 100%; height: 48px; border-radius: 10px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 15px; font-weight: 500; ' + (hasGoal ? 'cursor: pointer;' : 'opacity: .45; cursor: not-allowed;'),
+      started: s.started,
+      dismissStarted: () => this.setState({ started: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Roles · Kestrel Studio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 900px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 900px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR (organization) -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<span style="width: 1px; height: 20px; background: #24262F"></span>
+<nav aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<button type="button" title="Switch organization" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<div style="position: relative">
+<button type="button" onClick="{{toggleWs}}" aria-haspopup="menu" aria-expanded="{{wsOpen}}" title="Switch workspace" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px; background: transparent; border: none; cursor: pointer">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<sc-if value="{{wsOpen}}" hint-placeholder-val="{{ false }}">
+<div role="menu" style="position: absolute; top: 34px; left: 0; width: 240px; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 6px; z-index: 20; animation: yr-in .14s ease-out">
+<div style="padding: 6px 8px 4px; font-size: 11px; font-weight: 500; color: #8C8F9C">Workspaces of Kestrel Studio</div>
+<a href="OrgHome.dc.html#ws-mango" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; background: #181A22">Mango Market<span style="color: #8C8F9C; font-size: 11px">Client</span><svg style="margin-left: auto" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Current"><path d="M20 6 9 17l-5-5"/></svg></a>
+<a href="OrgHome.dc.html#ws-harbor" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE">Harbor Clinic<span style="color: #8C8F9C; font-size: 11px">Client</span></a>
+<a href="OrgHome.dc.html#ws-internal" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE">Internal</a>
+<div style="height: 1px; background: #24262F; margin: 6px 0"></div>
+<button type="button" role="menuitem" onClick="{{closeWs}}" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 32px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New workspace</button>
+</div>
+</sc-if>
+</div>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<a href="Approvals.dc.html" aria-label="Approvals, 2 waiting" title="Approvals (G I)" class="hv" style="position: relative; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+<span style="position: absolute; top: 3px; right: 2px; min-width: 15px; height: 15px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center">2</span>
+</a>
+<button type="button" aria-label="Account: Marc Etienne" title="Marc Etienne" style="width: 28px; height: 28px; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; cursor: pointer; margin-left: 4px">ME</button>
+</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<!-- ORG SIDEBAR -->
+<aside aria-label="Organization" style="width: 240px; flex: none; box-sizing: border-box; border-right: 1px solid #24262F; background: #0B0C10; padding: 12px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto">
+<button type="button" class="hv" title="Switch organization" style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #E8E9EE; cursor: pointer; text-align: left">
+<span style="width: 28px; height: 28px; flex: none; box-sizing: border-box; border-radius: 8px; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">KS</span>
+<span style="display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.35"><span style="font-size: 13px; font-weight: 500">Kestrel Studio</span><span style="font-size: 11px; color: #8C8F9C">Organization · 4 members</span></span>
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></svg>
+</button>
+<nav aria-label="Organization sections" style="display: flex; flex-direction: column; gap: 2px">
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Projects</a>
+<a href="Approvals.dc.html" title="Approvals (G I)" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>Approvals<span style="margin-left: auto; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; justify-content: center">2<span style="position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap"> waiting</span></span></a>
+<a href="Connections.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a6 6 0 0 1-12 0V8z"/></svg>Connections</a>
+<a href="Members.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Members &amp; Teams</a>
+<a href="Roles.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; background: #181A22; color: #E8E9EE; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Roles</a>
+<a href="AuditLog.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M9 12h6M9 16h4"/></svg>Audit log</a>
+<a href="Usage.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>Usage</a>
+<button type="button" class="hv" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px; background: transparent; border: none; cursor: pointer; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg>Settings</button>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="padding: 0 10px 6px; font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Workspaces</div>
+<a href="OrgHome.dc.html#ws-mango" aria-current="true" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #E8E9EE; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #7C8CFF"></span>Mango Market<span style="margin-left: auto; font-size: 11px; color: #8C8F9C">2</span></a>
+<a href="OrgHome.dc.html#ws-harbor" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; box-sizing: border-box; border-radius: 50%; border: 1px solid #3A3D4A"></span>Harbor Clinic<span style="margin-left: auto; font-size: 11px">2</span></a>
+<a href="OrgHome.dc.html#ws-internal" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; box-sizing: border-box; border-radius: 50%; border: 1px solid #3A3D4A"></span>Internal<span style="margin-left: auto; font-size: 11px">2</span></a>
+<button type="button" class="hv" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 12px; background: transparent; border: none; cursor: pointer; text-align: left"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New workspace</button>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 2px; font-size: 12px">
+<a href="https://docs.yari.run" class="hv" style="display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; border-radius: 8px; color: #8C8F9C">Docs<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+<button type="button" class="hv" title="Keyboard shortcuts (?)" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 28px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px; text-align: left">Keyboard shortcuts<kbd style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">?</kbd></button>
+</div>
+</aside>
+
+<!-- CONTENT -->
+<main style="flex: 1; min-width: 0; overflow-y: auto">
+<div style="max-width: 1120px; margin: 0 auto; padding: 32px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+
+<!-- page header -->
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h1 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Roles</h1>
+<p style="margin: 0; font-size: 13px; color: #8C8F9C">Four built-in roles. Each one in a sentence.</p>
+</div>
+<div role="group" aria-label="View" style="display: inline-flex; padding: 2px; gap: 2px; border: 1px solid #24262F; border-radius: 8px; background: #0B0C10">
+<button type="button" onClick="{{setByRole}}" aria-pressed="{{byRolePressed}}" title="By role (V R)" style="{{byRoleStyle}}">By role</button>
+<button type="button" onClick="{{setCompare}}" aria-pressed="{{comparePressed}}" title="Compare all roles (V C)" style="{{compareStyle}}">Compare</button>
+</div>
+</div>
+
+<!-- role cards -->
+<div role="group" aria-label="Built-in roles" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{roleCards}}" as="r" hint-placeholder-count="4">
+<button type="button" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}" class="{{r.cls}}" style="{{r.style}}">
+<span style="display: flex; align-items: center; gap: 8px; width: 100%">
+<span aria-hidden="true" style="{{r.iconStyle}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></span>
+<span style="font-size: 14px; font-weight: 500; color: #E8E9EE">{{r.name}}</span>
+<sc-if value="{{r.selected}}" hint-placeholder-val="{{ false }}"><svg style="margin-left: auto" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+</span>
+<span style="font-size: 12px; color: #8C8F9C; line-height: 1.5; text-align: left; flex: 1">{{r.sentence}}</span>
+<span style="display: flex; align-items: center; gap: 8px; width: 100%; padding-top: 10px; border-top: 1px solid #24262F">
+<span aria-hidden="true" style="display: inline-flex; align-items: center">
+<sc-for list="{{r.avatars}}" as="a" hint-placeholder-count="2">
+<sc-if value="{{a.isInitials}}" hint-placeholder-val="{{ true }}"><span style="{{a.humanStyle}}">{{a.initials}}</span></sc-if>
+<sc-if value="{{a.isAgent}}" hint-placeholder-val="{{ false }}"><span style="{{a.agentStyle}}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span></sc-if>
+<sc-if value="{{a.isCI}}" hint-placeholder-val="{{ false }}"><span style="{{a.iconStyle}}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3 12h6M15 12h6"/></svg></span></sc-if>
+<sc-if value="{{a.isKey}}" hint-placeholder-val="{{ false }}"><span style="{{a.iconStyle}}"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg></span></sc-if>
+</sc-for>
+</span>
+<span style="font-size: 12px; color: #8C8F9C">{{r.countLabel}}</span>
+</span>
+</button>
+</sc-for>
+</div>
+
+<!-- ============ BY ROLE ============ -->
+<sc-if value="{{showByRole}}" hint-placeholder-val="{{ true }}">
+<div style="display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 16px; align-items: start">
+
+<section aria-labelledby="cap-h" style="border: 1px solid #24262F; border-radius: 10px; background: #121319">
+<div style="display: flex; align-items: baseline; gap: 8px; padding: 12px 16px 10px">
+<h2 id="cap-h" style="margin: 0; font-size: 14px; font-weight: 500">{{selHeading}}</h2>
+<span style="font-size: 12px; color: #8C8F9C">{{selSummary}}</span>
+</div>
+<sc-for list="{{checklist}}" as="c" hint-placeholder-count="10">
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 136px; gap: 12px; align-items: center; min-height: 36px; padding: 4px 16px; box-sizing: border-box; border-top: 1px solid #24262F">
+<span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.4">
+<span style="font-size: 13px">{{c.label}}</span>
+<sc-if value="{{c.hasNote}}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; color: #8C8F9C">{{c.note}}</span></sc-if>
+</span>
+<span title="{{c.title}}" style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; white-space: nowrap">
+<sc-if value="{{c.isAllowed}}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+<sc-if value="{{c.isApproval}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></sc-if>
+<sc-if value="{{c.isNo}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></sc-if>
+<span style="{{c.textStyle}}">{{c.word}}</span>
+</span>
+</div>
+</sc-for>
+</section>
+
+<div style="display: flex; flex-direction: column; gap: 16px">
+<section aria-labelledby="who-h" style="border: 1px solid #24262F; border-radius: 10px; background: #121319">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 12px 10px 16px">
+<h2 id="who-h" style="margin: 0; font-size: 14px; font-weight: 500">{{selCountLabel}}</h2>
+<a href="Members.dc.html" class="hv" style="margin-left: auto; display: inline-flex; align-items: center; gap: 4px; height: 26px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 12px; font-weight: 500">Manage<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+</div>
+<sc-for list="{{selMembers}}" as="m" hint-placeholder-count="4">
+<div style="display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 6px 16px; box-sizing: border-box; border-top: 1px solid #24262F">
+<sc-if value="{{m.isHuman}}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="width: 26px; height: 26px; flex: none; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600">{{m.initials}}</span></sc-if>
+<sc-if value="{{m.isAgent}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width: 26px; height: 26px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center; color: #7C8CFF"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span></sc-if>
+<sc-if value="{{m.isCI}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width: 26px; height: 26px; flex: none; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3 12h6M15 12h6"/></svg></span></sc-if>
+<sc-if value="{{m.isKey}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width: 26px; height: 26px; flex: none; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg></span></sc-if>
+<span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.4">
+<span style="font-weight: 500">{{m.name}}</span>
+<span style="font-size: 12px; color: #8C8F9C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{m.detail}}</span>
+</span>
+</div>
+</sc-for>
+</section>
+
+<section aria-label="About the agent" style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; border: 1px solid #24262F; border-radius: 10px; background: #121319">
+<span style="display: flex; align-items: flex-start; gap: 10px">
+<span aria-hidden="true" style="width: 26px; height: 26px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center; color: #7C8CFF"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<span style="font-size: 13px; line-height: 1.5">The agent joins as Developer or lower. It can never read secrets or approve.</span>
+</span>
+<span style="font-size: 12px; color: #8C8F9C; padding-left: 36px">Custom roles are planned.</span>
+</section>
+</div>
+
+</div>
+</sc-if>
+
+<!-- ============ COMPARE ============ -->
+<sc-if value="{{showCompare}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<div role="table" aria-label="Capabilities by role" style="border: 1px solid #24262F; border-radius: 10px; background: #121319">
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 1.8fr) repeat(4, minmax(0, 1fr)); align-items: stretch; min-height: 40px; font-size: 11px; font-weight: 500; color: #8C8F9C">
+<span role="columnheader" style="display: flex; align-items: center; padding: 0 16px">Capability</span>
+<sc-for list="{{compareHeads}}" as="h" hint-placeholder-count="4">
+<span role="columnheader" style="{{h.style}}"><button type="button" onClick="{{h.pick}}" aria-pressed="{{h.pressed}}" title="{{h.title}}" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; margin-left: -8px; border-radius: 6px; background: transparent; border: none; cursor: pointer; font-size: 12px; font-weight: 500; color: #E8E9EE">{{h.name}}<span style="font-weight: 400; color: #8C8F9C">{{h.count}}</span></button></span>
+</sc-for>
+</div>
+<sc-for list="{{compareRows}}" as="row" hint-placeholder-count="10">
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 1.8fr) repeat(4, minmax(0, 1fr)); align-items: stretch; min-height: 38px; border-top: 1px solid #24262F">
+<span role="rowheader" style="display: flex; align-items: center; padding: 4px 16px; font-size: 13px">{{row.label}}</span>
+<sc-for list="{{row.cells}}" as="c" hint-placeholder-count="4">
+<span role="cell" title="{{c.title}}" style="{{c.style}}">
+<sc-if value="{{c.isAllowed}}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+<sc-if value="{{c.isApproval}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></sc-if>
+<sc-if value="{{c.isNo}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></sc-if>
+<span style="{{c.textStyle}}">{{c.word}}</span>
+</span>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; padding: 10px 14px; border: 1px solid #24262F; border-radius: 10px; background: #121319">
+<span aria-hidden="true" style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center; color: #7C8CFF"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<span>The agent joins as Developer or lower. It can never read secrets or approve.</span>
+<span style="margin-left: auto; font-size: 12px; color: #8C8F9C">Custom roles are planned.</span>
+</div>
+</div>
+</sc-if>
+
+<!-- link to per-environment permissions -->
+<a href="Permissions.dc.html" class="hvb" style="display: flex; align-items: center; gap: 14px; padding: 14px 16px; background: #121319; border: 1px solid #24262F; border-radius: 10px; color: #E8E9EE">
+<span aria-hidden="true" style="width: 32px; height: 32px; flex: none; box-sizing: border-box; border-radius: 8px; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+<span style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-size: 14px; font-weight: 500">See per-environment permissions for mango-shop →</span>
+<span style="font-size: 12px; color: #8C8F9C">Roles apply everywhere. Protected environments add approvals on top.</span>
+</span>
+<svg style="margin-left: auto; flex: none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+</a>
+
+</div>
+</main>
+</div>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"role":{"editor":"enum","options":["owner","admin","developer","viewer"],"default":"developer"},"view":{"editor":"enum","options":["byRole","compare"],"default":"byRole"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var p = props || {};
+    var ok = { owner: 1, admin: 1, developer: 1, viewer: 1 };
+    this.state = { role: ok[p.role] ? p.role : 'developer', view: p.view === 'compare' ? 'compare' : 'byRole', wsOpen: false };
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var ROLES = [
+      { id: 'owner', name: 'Owner', sentence: 'Everything, including billing, deleting the organization and transferring ownership.',
+        members: [{ name: 'Sami Joseph', kind: 'human', initials: 'SJ', detail: 'Human · Organization' }] },
+      { id: 'admin', name: 'Admin', sentence: 'Manages people, connections and protected environments, and approves production changes.',
+        members: [{ name: 'Lina Pierre', kind: 'human', initials: 'LP', detail: 'Human · Organization' }] },
+      { id: 'developer', name: 'Developer', sentence: 'Builds and deploys. Production changes wait for an admin’s approval.',
+        members: [
+          { name: 'Marc Etienne', kind: 'human', initials: 'ME', detail: 'Human · Workspace Mango Market' },
+          { name: 'Agent', kind: 'agent', detail: 'Agent · Workspace Mango Market · own sandbox' },
+          { name: 'github-actions', kind: 'ci', detail: 'CI · Environment mango-shop/staging' },
+          { name: 'deploy-bot', kind: 'key', detail: 'API key · Project mango-shop' }
+        ] },
+      { id: 'viewer', name: 'Viewer', sentence: 'Sees projects, canvases and logs. Cannot change anything or read secrets.',
+        members: [{ name: 'Ana Ruiz', kind: 'human', initials: 'AR', detail: 'Human · Project mango-shop · Client contact' }] }
+    ];
+    var IDX = { owner: 0, admin: 1, developer: 2, viewer: 3 };
+    // A allowed, W with approval, N no
+    var CAPS = [
+      { label: 'See projects, canvases and logs', v: ['A', 'A', 'A', 'A'] },
+      { label: 'Deploy to staging and previews', v: ['A', 'A', 'A', 'N'] },
+      { label: 'Deploy to production', v: ['A', 'A', 'W', 'N'], devNote: 'The agent too: its production plans wait for an approval.' },
+      { label: 'Read secrets in staging and previews', v: ['A', 'A', 'A', 'N'], devNote: 'Never for the agent, whatever its role.' },
+      { label: 'Read production secrets', v: ['A', 'A', 'N', 'N'], adminNote: 'Revealing a secret asks to re-authenticate and is logged.' },
+      { label: 'Run the agent', v: ['A', 'A', 'A', 'N'] },
+      { label: 'Approve production changes', v: ['A', 'A', 'N', 'N'] },
+      { label: 'Manage connections and protected environments', v: ['A', 'A', 'N', 'N'] },
+      { label: 'Invite people and manage teams', v: ['A', 'A', 'N', 'N'] },
+      { label: 'Billing, delete the organization, transfer ownership', v: ['A', 'N', 'N', 'N'] }
+    ];
+    var WORD = { A: 'Allowed', W: 'With approval', N: 'No' };
+    var TITLE = { A: 'Allowed', W: 'Waits for an approval from an Admin or Owner', N: 'Not allowed for this role' };
+    var textStyle = function (v) { return v === 'A' ? 'color: #3DD68C; font-weight: 500' : (v === 'W' ? 'color: #E9B949; font-weight: 500' : 'color: #8C8F9C'); };
+    var countLabel = function (n) { return n + (n === 1 ? ' member' : ' members'); };
+
+    var avBase = 'width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600; box-shadow: 0 0 0 2px #121319; ';
+    var cardBase = 'display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 14px 12px 16px; border-radius: 10px; background: #121319; cursor: pointer; text-align: left; color: #E8E9EE; min-height: 168px; box-sizing: border-box; ';
+    var cardOn = cardBase + 'border: 1px solid #7C8CFF; box-shadow: 0 0 0 3px rgba(124,140,255,0.18)';
+    var cardOff = cardBase + 'border: 1px solid #24262F';
+    var iconBase = 'width: 26px; height: 26px; flex: none; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; ';
+
+    var roleCards = ROLES.map(function (r) {
+      var on = s.role === r.id;
+      return {
+        name: r.name, sentence: r.sentence, selected: on, pressed: on ? 'true' : 'false', cls: on ? '' : 'hvb',
+        style: on ? cardOn : cardOff,
+        iconStyle: iconBase + (on ? 'background: rgba(124,140,255,0.12); color: #7C8CFF' : 'background: #181A22; color: #8C8F9C'),
+        countLabel: countLabel(r.members.length),
+        avatars: r.members.map(function (m, i) {
+          var ml = i === 0 ? '' : 'margin-left: -5px; ';
+          return {
+            isInitials: m.kind === 'human', isAgent: m.kind === 'agent', isCI: m.kind === 'ci', isKey: m.kind === 'key',
+            initials: m.initials || '',
+            humanStyle: avBase + ml + 'background: #181A22; border: 1px solid #24262F; color: #E8E9EE',
+            agentStyle: avBase + ml + 'background: #1A1D2E; border: 1px solid rgba(124,140,255,0.35)',
+            iconStyle: avBase + ml + 'background: #181A22; border: 1px solid #24262F'
+          };
+        }),
+        pick: function () { self.setState({ role: r.id }); }
+      };
+    });
+
+    var sel = ROLES[IDX[s.role]];
+    var si = IDX[s.role];
+    var allowedCount = CAPS.filter(function (c) { return c.v[si] !== 'N'; }).length;
+    var checklist = CAPS.map(function (c) {
+      var v = c.v[si];
+      var note = '';
+      if (s.role === 'developer' && c.devNote) note = c.devNote;
+      if ((s.role === 'admin' || s.role === 'owner') && c.adminNote) note = c.adminNote;
+      return {
+        label: c.label, word: WORD[v], title: sel.name + ' · ' + c.label + ': ' + TITLE[v],
+        isAllowed: v === 'A', isApproval: v === 'W', isNo: v === 'N', textStyle: textStyle(v),
+        hasNote: !!note, note: note
+      };
+    });
+    var selMembers = sel.members.map(function (m) {
+      return { name: m.name, detail: m.detail, initials: m.initials || '', isHuman: m.kind === 'human', isAgent: m.kind === 'agent', isCI: m.kind === 'ci', isKey: m.kind === 'key' };
+    });
+
+    var headBase = 'display: flex; align-items: center; padding: 0 16px; ';
+    var compareHeads = ROLES.map(function (r, i) {
+      var on = s.role === r.id;
+      return { name: r.name, count: String(r.members.length), pressed: on ? 'true' : 'false', title: 'Highlight ' + r.name,
+        style: headBase + (on ? 'background: rgba(124,140,255,0.08); box-shadow: inset 0 -2px 0 #7C8CFF' : ''),
+        pick: function () { self.setState({ role: r.id }); } };
+    });
+    var cellBase = 'display: flex; align-items: center; gap: 6px; padding: 4px 16px; font-size: 12px; white-space: nowrap; ';
+    var compareRows = CAPS.map(function (c) {
+      return {
+        label: c.label,
+        cells: c.v.map(function (v, i) {
+          var on = i === si;
+          return { word: WORD[v], title: ROLES[i].name + ' · ' + c.label + ': ' + TITLE[v],
+            isAllowed: v === 'A', isApproval: v === 'W', isNo: v === 'N', textStyle: textStyle(v),
+            style: cellBase + (on ? 'background: rgba(124,140,255,0.08)' : '') };
+        })
+      };
+    });
+
+    var segOn = 'display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 6px; border: none; cursor: pointer; background: #181A22; color: #E8E9EE; font-size: 12px';
+    var segOff = 'display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 6px; border: none; cursor: pointer; background: transparent; color: #8C8F9C; font-size: 12px';
+    var isBy = s.view !== 'compare';
+
+    return {
+      wsOpen: s.wsOpen,
+      toggleWs: function () { self.setState({ wsOpen: !self.state.wsOpen }); },
+      closeWs: function () { self.setState({ wsOpen: false }); },
+      setByRole: function () { self.setState({ view: 'byRole' }); },
+      setCompare: function () { self.setState({ view: 'compare' }); },
+      byRolePressed: isBy ? 'true' : 'false', comparePressed: isBy ? 'false' : 'true',
+      byRoleStyle: isBy ? segOn : segOff, compareStyle: isBy ? segOff : segOn,
+      showByRole: isBy, showCompare: !isBy,
+      roleCards: roleCards,
+      selHeading: 'What ' + (s.role === 'owner' || s.role === 'admin' ? 'an ' : 'a ') + sel.name + ' can do',
+      selSummary: allowedCount + ' of ' + CAPS.length + ' capabilities',
+      checklist: checklist,
+      selCountLabel: countLabel(sel.members.length) + ' with this role',
+      selMembers: selMembers,
+      compareHeads: compareHeads,
+      compareRows: compareRows
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,644 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Code · Promote to production</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 900px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 900px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<span style="width: 1px; height: 20px; background: #24262F"></span>
+<nav aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<button type="button" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">mango-shop<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<div style="position: relative">
+<button type="button" onClick="{{toggleEnv}}" aria-haspopup="menu" aria-expanded="{{envOpen}}" title="Switch environment (⌘E)" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">pr-42</span>
+<span style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C">Preview</span>
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+<sc-if value="{{envOpen}}" hint-placeholder-val="{{ false }}">
+<div role="menu" style="position: absolute; top: 34px; left: 0; width: 260px; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 6px; z-index: 20; animation: yr-in .14s ease-out">
+<div style="padding: 6px 8px 4px; font-size: 11px; font-weight: 500; color: #8C8F9C">Environments of mango-shop</div>
+<a href="Canvas.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">production</span><span style="color: #8C8F9C; font-size: 11px">Protected</span></a>
+<a href="CanvasStaging.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE"><span style="width: 13px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">staging</span><span style="margin-left: auto; display: inline-flex; align-items: center; gap: 4px; color: #F26D6D; font-size: 11px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>1 failed</span></a>
+<a href="CanvasPR42.dc.html" role="menuitem" aria-current="true" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; background: #181A22"><span style="width: 13px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">pr-42</span><span style="color: #8C8F9C; font-size: 11px">Preview</span><svg style="margin-left: auto" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Current"><path d="M20 6 9 17l-5-5"/></svg></a>
+</div>
+</sc-if>
+</div>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<a href="Approvals.dc.html" aria-label="Approvals, 2 waiting" title="Approvals (G I)" class="hv" style="position: relative; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+<span style="position: absolute; top: 3px; right: 2px; min-width: 15px; height: 15px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center">2</span>
+</a>
+<a href="AgentOps.dc.html" title="Agent (⌘J)" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border-radius: 8px; color: #E8E9EE; border: 1px solid transparent; font-size: 13px; font-weight: 500">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Agent
+</a>
+<a href="PlanReview.dc.html" title="Deploy (⌘↵)" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500">Deploy<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid rgba(11,12,16,0.25); border-radius: 4px; color: rgba(11,12,16,0.7)">⌘↵</kbd></a>
+<button type="button" aria-label="Account: Marc Etienne" title="Marc Etienne" style="width: 28px; height: 28px; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; cursor: pointer; margin-left: 4px">ME</button>
+</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<!-- LEFT RAIL (Code active) -->
+<nav aria-label="Project" style="width: 48px; flex: none; border-right: 1px solid #24262F; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 0; background: #0B0C10">
+<a href="Canvas.dc.html" aria-label="Canvas" title="Canvas (G C)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg></a>
+<a href="CodeStart.dc.html" aria-label="Code" aria-current="page" title="Code (G D)" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: #181A22; color: #E8E9EE"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></a>
+<a href="AgentOps.dc.html" aria-label="Agent sessions" title="Agent sessions (G A)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></a>
+<button type="button" aria-label="Logs" title="Logs (G L)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button>
+<button type="button" aria-label="Metrics" title="Metrics (G M)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></button>
+<a href="AuditLog.dc.html" aria-label="Activity" title="Activity (G V)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></a>
+<span style="flex: 1"></span>
+<button type="button" aria-label="Project settings" title="Settings (G S)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></button>
+</nav>
+
+<!-- CODE MODE -->
+<main aria-label="Code session ses_7f3a on yari/session-7f3a" style="flex: 1; min-width: 0; position: relative; display: flex; flex-direction: column; background: #0B0C10">
+
+<!-- session tab bar -->
+<div style="height: 44px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 16px; border-bottom: 1px solid #24262F; background: #0B0C10">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+<span style="font-size: 13px; color: #8C8F9C; white-space: nowrap">kestrel-studio/mango-shop</span>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE; white-space: nowrap">yari/session-7f3a</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; white-space: nowrap"><span style="width: 6px; height: 6px; border-radius: 50%; background: #7C8CFF"></span><span style="font-family: 'JetBrains Mono', monospace">ses_7f3a</span> · Ready to promote</span>
+<a href="CanvasPR42.dc.html" title="Open pr-42 on the canvas" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500; white-space: nowrap; border: 1px solid transparent"><span style="width: 6px; height: 6px; border-radius: 50%; background: #3DD68C"></span><span style="font-family: 'JetBrains Mono', monospace">pr-42</span> Live</a>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<button type="button" title="Open PR #42 on GitHub" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v12"/></svg>PR #42</button>
+<button type="button" title="5e7a0b1 is live on pr-42" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Deployed"><path d="M20 6 9 17l-5-5"/></svg>Deploy to preview (pr-42)</button>
+<button type="button" onClick="{{openDrawer}}" aria-expanded="{{drawerOpen}}" title="Promote to production (⇧⌘↵)" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500; cursor: pointer; white-space: nowrap"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7M12 19V5"/></svg>Promote to production</button>
+</div>
+</div>
+
+<!-- three panes -->
+<div style="flex: 1; min-height: 0; display: flex">
+
+<!-- left: files + changes -->
+<aside aria-label="Files" style="width: 240px; flex: none; border-right: 1px solid #24262F; display: flex; flex-direction: column; min-height: 0; overflow-y: auto; padding: 10px 8px; box-sizing: border-box; gap: 2px">
+<div style="padding: 4px 8px 6px; font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Files</div>
+<sc-for list="{{tree}}" as="t" hint-placeholder-count="12">
+<sc-if value="{{t.isLink}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{t.pick}}" aria-current="{{t.current}}" class="hv" style="{{t.style}}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; color: #8C8F9C"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg><span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{t.name}}</span><span aria-label="{{t.statusLabel}}" style="{{t.badgeStyle}}">{{t.status}}</span></button>
+</sc-if>
+<sc-if value="{{t.isFolder}}" hint-placeholder-val="{{ true }}">
+<div style="{{t.style}}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg><span style="white-space: nowrap">{{t.name}}</span></div>
+</sc-if>
+<sc-if value="{{t.isPlain}}" hint-placeholder-val="{{ false }}">
+<div style="{{t.style}}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg><span style="white-space: nowrap">{{t.name}}</span></div>
+</sc-if>
+</sc-for>
+
+<div style="margin-top: 14px; padding: 10px 8px 6px; border-top: 1px solid #24262F; display: flex; align-items: center; font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Changes<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace">6 files</span></div>
+<sc-for list="{{changes}}" as="c" hint-placeholder-count="6">
+<button type="button" onClick="{{c.pick}}" aria-current="{{c.current}}" title="{{c.path}}" class="hv" style="{{c.style}}"><span aria-label="{{c.statusLabel}}" style="{{c.badgeStyle}}">{{c.status}}</span><span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{c.name}}</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #3DD68C">{{c.plus}}</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #F26D6D">{{c.minus}}</span></button>
+</sc-for>
+</aside>
+
+<!-- center: viewer + terminal -->
+<section aria-label="Code viewer" style="flex: 1; min-width: 0; display: flex; flex-direction: column; min-height: 0">
+<div style="height: 36px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-bottom: 1px solid #24262F; background: #0F1015">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{file.path}}</span>
+<span style="{{file.chipStyle}}">{{file.chip}}</span>
+<span style="margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: #8C8F9C; white-space: nowrap"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>Read-only</span>
+</div>
+<div style="flex: 1; min-height: 0; overflow: auto; padding: 10px 0; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 20px; color: #E8E9EE">
+<sc-for list="{{file.lines}}" as="l" hint-placeholder-count="20">
+<div style="{{l.rowStyle}}"><span style="display: inline-block; width: 40px; padding-right: 12px; box-sizing: border-box; text-align: right; color: #6B6F7D; user-select: none">{{l.n}}</span><span style="{{l.markStyle}}">{{l.mark}}</span><span><sc-for list="{{l.segs}}" as="sg" hint-placeholder-count="3"><span style="{{sg.style}}">{{sg.t}}</span></sc-for></span></div>
+</sc-for>
+</div>
+
+<!-- terminal -->
+<div style="flex: none; border-top: 1px solid #24262F; background: #0F1015; display: flex; flex-direction: column">
+<div style="height: 34px; display: flex; align-items: center; gap: 10px; padding: 0 8px 0 16px">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6M12 19h8"/></svg>
+<span style="font-size: 12px; font-weight: 500">Terminal</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; background: #181A22; border: 1px solid #2F323D; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>Sandbox</span>
+<span style="font-size: 11px; color: #8C8F9C">Read-only</span>
+<button type="button" onClick="{{toggleTerm}}" aria-expanded="{{termOpen}}" aria-label="{{termLabel}}" title="Toggle terminal (⌃`)" class="hv" style="margin-left: auto; width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{termChev}}"><path d="m6 9 6 6 6-6"/></svg></button>
+</div>
+<sc-if value="{{termOpen}}" hint-placeholder-val="{{ true }}">
+<div style="padding: 2px 16px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 20px; color: #8C8F9C; white-space: pre">
+<div><span style="color: #E8E9EE">$ pnpm install</span>            <span style="color: #3DD68C">Done in 11.2s</span></div>
+<div><span style="color: #E8E9EE">$ pnpm --filter api test</span>   <span style="color: #3DD68C">14 passed</span> (14) · 3.8s</div>
+<div><span style="color: #E8E9EE">$ pnpm --filter web build</span>  <span style="color: #3DD68C">ok</span> · 9 routes built</div>
+<div><span style="color: #E8E9EE">$ pnpm dev</span></div>
+<div>  web  ready on http://localhost:3000</div>
+<div>  api  listening on http://localhost:4000</div>
+</div>
+</sc-if>
+</div>
+</section>
+
+<!-- right: agent -->
+<aside aria-label="Agent session ses_7f3a" style="width: 380px; flex: none; border-left: 1px solid #24262F; display: flex; flex-direction: column; min-height: 0; background: #0B0C10">
+<div style="padding: 12px 16px; border-bottom: 1px solid #24262F; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span aria-hidden="true" style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<span style="font-weight: 500">Agent</span>
+<span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C">Code</span>
+<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">claude-sonnet-5-5</span>
+</div>
+<div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #8C8F9C">
+<span style="white-space: nowrap">$1.36 of $3.00</span>
+<span style="flex: 1; height: 4px; border-radius: 2px; background: #24262F; overflow: hidden"><span style="display: block; width: 45%; height: 4px; background: #7C8CFF"></span></span>
+<span>45%</span>
+</div>
+</div>
+<div style="flex: 1; min-height: 0; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="align-self: flex-end; max-width: 300px; background: #181A22; border-radius: 10px; padding: 10px 12px">Add product reviews. Customers who bought a product can rate it and leave a short review. Email the shop owner when a new review arrives.</div>
+<div style="display: flex; gap: 10px; align-items: center">
+<span style="width: 24px; flex: none"></span>
+<div style="flex: 1; border: 1px solid #24262F; border-radius: 10px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px"><span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">pnpm --filter api test</span><span style="font-family: Inter, system-ui, sans-serif; font-size: 11px; color: #8C8F9C">3.8 s</span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></div>
+</div>
+<div style="display: flex; gap: 10px; align-items: center">
+<span style="width: 24px; flex: none"></span>
+<div style="flex: 1; border: 1px solid #24262F; border-radius: 10px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; font-size: 12px"><span style="font-family: 'JetBrains Mono', monospace">plan_P42D</span><span style="color: #8C8F9C; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">postgres added to pr-42</span><span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Applied</span></div>
+</div>
+<div style="display: flex; gap: 10px; align-items: flex-start">
+<span aria-hidden="true" style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<p style="margin: 0">Reviews are live on <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">pr-42</span>. Buyers can rate a product from 1 to 5 and leave up to 500 characters, and the shop owner gets an email for each new review. Promoting to production needs an admin's approval.</p>
+</div>
+</div>
+<div style="padding: 12px 16px 16px; border-top: 1px solid #24262F; display: flex; flex-direction: column; gap: 6px">
+<label for="cp-ask" style="font-size: 11px; font-weight: 500; color: #8C8F9C">Message the agent</label>
+<input id="cp-ask" type="text" placeholder="Ask for a change on yari/session-7f3a" class="hvb" style="box-sizing: border-box; height: 32px; width: 100%; background: #121319; border: 1px solid #24262F; border-radius: 8px; padding: 0 10px; color: #E8E9EE">
+</div>
+</aside>
+</div>
+
+<!-- PLAN REVIEW DRAWER: promote to production -->
+<sc-if value="{{drawerOpen}}" hint-placeholder-val="{{ true }}">
+<aside aria-label="Plan plan_C3PR for production" style="position: absolute; top: 44px; right: 0; bottom: 0; width: 560px; box-sizing: border-box; background: #121319; border-left: 1px solid #24262F; box-shadow: 0 12px 40px rgba(0,0,0,0.45); display: flex; flex-direction: column; z-index: 10; animation: yr-in .16s ease-out">
+
+<div style="padding: 20px 24px 16px; flex: none; border-bottom: 1px solid #24262F; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: flex-start; gap: 10px">
+<h2 style="margin: 0; font-size: 16px; font-weight: 600; line-height: 1.4">Promote <span style="font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 500">yari/session-7f3a</span> to production</h2>
+<button type="button" onClick="{{closeDrawer}}" aria-label="Close (Esc)" title="Close (Esc)" class="hv" style="margin-left: auto; margin-top: -4px; flex: none; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border: 1px solid #24262F; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Protected"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>production</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">plan_C3PR</span>
+<sc-if value="{{isRequested}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(233,185,73,0.12); color: #E9B949"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Pending approval</span></sc-if>
+</div>
+<div style="font-size: 12px; color: #8C8F9C">From <span style="font-family: 'JetBrains Mono', monospace">pr-42</span> · commit <span style="font-family: 'JetBrains Mono', monospace">5e7a0b1</span> · PR #42</div>
+</div>
+
+<div style="flex: 1; min-height: 0; overflow-y: auto; padding: 20px 24px 24px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+
+<!-- summary -->
+<div style="display: flex; flex-direction: column; gap: 10px">
+<p style="margin: 0; font-size: 16px; font-weight: 500; letter-spacing: -0.01em">3 changes across 3 providers. About +$0.00 per month.</p>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(233,185,73,0.12); color: #E9B949"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>Medium risk</span>
+<span>Includes a database migration</span>
+<span aria-hidden="true">·</span>
+<span>Tested on pr-42: 14 tests passed</span>
+</div>
+</div>
+
+<!-- changes by provider -->
+<section aria-labelledby="chg-h" style="display: flex; flex-direction: column; gap: 12px">
+<h3 id="chg-h" style="margin: 0; font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Changes</h3>
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="3">
+<div style="border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<div style="display: flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px; background: #0F1015; border-bottom: 1px solid #24262F">
+<span style="display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C">{{g.provider}}</span>
+<span style="font-size: 12px; color: #8C8F9C">{{g.count}}</span>
+<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">{{g.total}}</span>
+</div>
+<sc-for list="{{g.rows}}" as="r" hint-placeholder-count="1">
+<div style="{{r.wrapStyle}}">
+<div style="display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px">
+<span style="flex: none; margin-top: 1px; display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>Update</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+<span style="font-weight: 500">{{r.svc}}</span>
+<span style="font-size: 12px; color: #8C8F9C">{{r.desc}}</span>
+</div>
+<span style="flex: none; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE; margin-top: 1px">{{r.cost}}</span>
+<button type="button" onClick="{{r.toggle}}" aria-expanded="{{r.expanded}}" aria-label="{{r.detailsLabel}}" title="Details" class="hv" style="flex: none; display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 6px; margin-top: -2px; border-radius: 6px; background: transparent; border: 1px solid transparent; color: #8C8F9C; font-size: 12px; cursor: pointer">Details<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{r.chevStyle}}"><path d="m6 9 6 6 6-6"/></svg></button>
+</div>
+<sc-if value="{{r.open}}" hint-placeholder-val="{{ false }}">
+<pre style="margin: 0 14px 12px; padding: 10px 12px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #E8E9EE; white-space: pre-wrap; animation: yr-in .14s ease-out">{{r.detail}}</pre>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</sc-for>
+
+<div style="border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<button type="button" onClick="{{toggleUnchanged}}" aria-expanded="{{unchangedOpen}}" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 40px; padding: 0 14px; background: transparent; border: none; color: #8C8F9C; font-size: 12px; cursor: pointer; text-align: left">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{unchangedChev}}"><path d="m9 18 6-6-6-6"/></svg>
+<span>3 services unchanged: worker (Railway), media (Backblaze B2), email (Resend)</span>
+</button>
+<sc-if value="{{unchangedOpen}}" hint-placeholder-val="{{ false }}">
+<div style="border-top: 1px solid #24262F; display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px"><span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C">No change</span><span style="font-weight: 500">worker</span><span style="font-size: 12px; color: #8C8F9C">Railway · Private network</span><span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">$0.00</span></div>
+<div style="border-top: 1px solid #24262F; display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px"><span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C">No change</span><span style="font-weight: 500">media</span><span style="font-size: 12px; color: #8C8F9C">Backblaze B2 · bucket mango-media</span><span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">$0.00</span></div>
+<div style="border-top: 1px solid #24262F; display: flex; align-items: center; gap: 10px; height: 40px; padding: 0 14px"><span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C">No change</span><span style="font-weight: 500">email</span><span style="font-size: 12px; color: #8C8F9C">Resend · mail.mango.shop</span><span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">$0.00</span></div>
+</sc-if>
+</div>
+</section>
+
+<!-- apply order -->
+<section aria-labelledby="ord-h" style="display: flex; align-items: center; gap: 16px; padding: 12px 14px; background: #0F1015; border: 1px solid #24262F; border-radius: 10px">
+<h3 id="ord-h" style="margin: 0; flex: none; font-size: 12px; font-weight: 500; color: #8C8F9C">Apply order</h3>
+<span style="font-size: 13px">1. postgres · 2. api · 3. web</span>
+<span style="margin-left: auto; font-size: 12px; color: #8C8F9C">Stops on the first failure</span>
+</section>
+
+<!-- approval: review -->
+<sc-if value="{{isReview}}" hint-placeholder-val="{{ true }}">
+<section aria-labelledby="appr-h" style="border: 1px solid #2F323D; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 10px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+<h3 id="appr-h" style="margin: 0; font-size: 13px; font-weight: 500">Production is protected. An admin needs to approve this.</h3>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Approvers · any one of them</span>
+<div style="display: flex; gap: 20px">
+<span style="display: inline-flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">LP</span>Lina Pierre<span style="color: #8C8F9C">· Admin</span></span>
+<span style="display: inline-flex; align-items: center; gap: 8px"><span aria-hidden="true" style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">SJ</span>Sami Joseph<span style="color: #8C8F9C">· Owner</span></span>
+</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 8px; padding-top: 12px; border-top: 1px solid #24262F; font-size: 12px; color: #8C8F9C">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>
+<span>Proposed from an agent session. The agent can't apply production changes on its own.</span>
+</div>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="cp-note" style="font-size: 12px; color: #8C8F9C">Note for the approver (optional)</label>
+<textarea id="cp-note" rows="3" value="{{note}}" onInput="{{onNote}}" onKeyDown="{{noteKey}}" placeholder="What should Lina or Sami know before approving?" class="hvb" style="box-sizing: border-box; width: 100%; resize: vertical; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; padding: 8px 10px; color: #E8E9EE; font-size: 13px; line-height: 1.5"></textarea>
+</div>
+</section>
+</sc-if>
+
+<!-- approval: sending -->
+<sc-if value="{{isSending}}" hint-placeholder-val="{{ false }}">
+<section role="status" style="border: 1px solid #2F323D; border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 10px; color: #8C8F9C">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>
+Sending the plan to Lina Pierre and Sami Joseph…
+</section>
+</sc-if>
+
+<!-- approval: requested -->
+<sc-if value="{{isRequested}}" hint-placeholder-val="{{ false }}">
+<section role="status" aria-labelledby="req-h" style="border: 1px solid #2F323D; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 14px; animation: yr-in .16s ease-out">
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(233,185,73,0.12); color: #E9B949"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Pending approval</span>
+<span style="font-size: 12px; color: #8C8F9C">Requested just now by Marc Etienne</span>
+</div>
+<p id="req-h" style="margin: 0">Sent to Lina Pierre and Sami Joseph. You'll get a notification when one of them decides.</p>
+<div style="display: flex; flex-direction: column; border-top: 1px solid #24262F">
+<div style="display: flex; align-items: center; gap: 8px; height: 40px; border-bottom: 1px solid #24262F"><span aria-hidden="true" style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">LP</span>Lina Pierre<span style="color: #8C8F9C">· Admin</span><span style="margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #8C8F9C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>Notified on phone</span></div>
+<div style="display: flex; align-items: center; gap: 8px; height: 40px"><span aria-hidden="true" style="width: 26px; height: 26px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">SJ</span>Sami Joseph<span style="color: #8C8F9C">· Owner</span><span style="margin-left: auto; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; color: #8C8F9C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>Notified by email</span></div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #8C8F9C">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>
+<span>The agent keeps working on <span style="font-family: 'JetBrains Mono', monospace">pr-42</span> in the meantime. Nothing reaches production until it is approved.</span>
+</div>
+<sc-if value="{{hasNote}}" hint-placeholder-val="{{ false }}">
+<div style="padding: 10px 12px; background: #181A22; border-radius: 8px; font-size: 12px"><span style="color: #8C8F9C">Your note · </span>{{note}}</div>
+</sc-if>
+</section>
+</sc-if>
+</div>
+
+<!-- footer -->
+<div style="flex: none; display: flex; align-items: center; gap: 8px; padding: 16px 24px; border-top: 1px solid #24262F; background: #121319">
+<sc-if value="{{showReviewFooter}}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 12px; color: #8C8F9C">$0.00 / month · Medium risk</span>
+<a href="CodeWorking.dc.html" class="hvb" style="margin-left: auto; display: inline-flex; align-items: center; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500">Cancel</a>
+<sc-if value="{{isReview}}" hint-placeholder-val="{{ true }}"><button type="button" onClick="{{request}}" title="Request approval (⌘↵)" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500; cursor: pointer">Request approval<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid rgba(11,12,16,0.25); border-radius: 4px; color: rgba(11,12,16,0.7); background: transparent">⌘↵</kbd></button></sc-if>
+<sc-if value="{{isSending}}" hint-placeholder-val="{{ false }}"><button type="button" disabled aria-disabled="true" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500; cursor: not-allowed; opacity: .45">Requesting…</button></sc-if>
+</sc-if>
+<sc-if value="{{isRequested}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 12px; color: #8C8F9C">Nothing changes until it is approved.</span>
+<a href="CodeWorking.dc.html" class="hv" style="margin-left: auto; display: inline-flex; align-items: center; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #8C8F9C; font-size: 13px; font-weight: 500">Back to Code</a>
+<a href="Approvals.dc.html" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>Open Approvals</a>
+</sc-if>
+</div>
+</aside>
+</sc-if>
+
+</main>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"state":{"editor":"enum","options":["review","requested"],"default":"review"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var start = (props && props.state) === 'requested' ? 'requested' : 'review';
+    this.state = { envOpen: false, drawerOpen: true, phase: start, open: {}, unchangedOpen: false, note: '', sel: 'reviews', termOpen: true };
+    this.timer = null;
+  }
+  componentWillUnmount() {
+    if (this.timer) clearTimeout(this.timer);
+    this.timer = null;
+  }
+  request() {
+    var self = this;
+    if (this.state.phase !== 'review') return;
+    this.setState({ phase: 'sending' });
+    this.timer = setTimeout(function () {
+      self.timer = null;
+      self.setState({ phase: 'requested' });
+    }, 700);
+  }
+  tokenize(src, lang) {
+    var KW = lang === 'sql'
+      ? /^(create|table|primary|key|not|null|default|references|index|on|unique|check|between|and|uuid|text|smallint|timestamptz|desc)$/
+      : /^(import|from|export|const|let|async|await|return|function|if|new|type|default|true|false|null)$/;
+    var STY = { k: 'color: #A9B4FF', s: 'color: #3DD68C', c: 'color: #8C8F9C', p: '' };
+    var re = /(\/\/.*$|--.*$|'[^']*'|"[^"]*"|`[^`]*`|[A-Za-z_$][\w$]*|\s+|[\s\S])/g;
+    var out = [], m, last = null;
+    while ((m = re.exec(src)) !== null) {
+      var t = m[0], c = 'p';
+      if (lang !== 'sql' && t.indexOf('//') === 0) c = 'c';
+      else if (lang === 'sql' && t.indexOf('--') === 0) c = 'c';
+      else if (/^['"`]/.test(t)) c = 's';
+      else if (KW.test(t)) c = 'k';
+      if (last && (last.c === c || /^\s+$/.test(t))) { last.t += t; }
+      else { last = { c: c, t: t }; out.push(last); }
+    }
+    return out.map(function (x) { return { t: x.t, style: STY[x.c] }; });
+  }
+  files() {
+    return [
+      { id: 'sql', name: '0043_reviews.sql', path: 'apps/api/db/migrations/0043_reviews.sql', status: 'A', lang: 'sql', lines: [
+        '-- Product reviews from verified buyers',
+        'create table reviews (',
+        '  id          uuid primary key default gen_random_uuid(),',
+        '  product_id  uuid not null references products (id),',
+        '  customer_id uuid not null references customers (id),',
+        '  order_id    uuid not null references orders (id),',
+        '  rating      smallint not null check (rating between 1 and 5),',
+        '  body        text check (char_length(body) <= 500),',
+        '  created_at  timestamptz not null default now(),',
+        '  unique (order_id, product_id)',
+        ');',
+        'create index reviews_product on reviews (product_id, created_at desc);'
+      ] },
+      { id: 'notify', name: 'review-notification.ts', path: 'apps/api/src/email/review-notification.ts', status: 'A', lang: 'ts', lines: [
+        "import { resend } from './client';",
+        "import type { Review } from '../db/types';",
+        '',
+        '// One email to the shop owner per new review',
+        'export async function notifyOwner(review: Review) {',
+        '  await resend.emails.send({',
+        "    from: 'Mango Market <reviews@mail.mango.shop>',",
+        '    to: process.env.SHOP_OWNER_EMAIL,',
+        '    subject: `New ${review.rating}-star review`,',
+        "    text: review.body ?? '(no text)',",
+        '  });',
+        '}'
+      ] },
+      { id: 'reviews', name: 'reviews.ts', path: 'apps/api/src/routes/reviews.ts', status: 'A', lang: 'ts', lines: [
+        "import { Router } from 'express';",
+        "import { z } from 'zod';",
+        "import { db } from '../db';",
+        "import { notifyOwner } from '../email/review-notification';",
+        '',
+        'const ReviewInput = z.object({',
+        '  rating: z.number().int().min(1).max(5),',
+        '  body: z.string().max(500).optional(),',
+        '});',
+        '',
+        'export const reviews = Router();',
+        '',
+        '// Only customers who bought the product can review it',
+        "reviews.post('/products/:id/reviews', async (req, res) => {",
+        '  const input = ReviewInput.parse(req.body);',
+        '  const order = await db.orders.findPaidWithProduct(req.user.id, req.params.id);',
+        "  if (!order) return res.status(403).json({ error: 'not_a_buyer' });",
+        '',
+        '  const review = await db.reviews.insert({',
+        '    productId: req.params.id,',
+        '    customerId: req.user.id,',
+        '    orderId: order.id,',
+        '    ...input,',
+        '  });',
+        '  await notifyOwner(review);',
+        '  res.status(201).json(review);',
+        '});'
+      ] },
+      { id: 'server', name: 'server.ts', path: 'apps/api/src/server.ts', status: 'M', lang: 'ts', lines: [
+        " import { products } from './routes/products';",
+        " import { orders } from './routes/orders';",
+        "+import { reviews } from './routes/reviews';",
+        ' ',
+        " app.use('/api', products);",
+        " app.use('/api', orders);",
+        "+app.use('/api', reviews);",
+        ' ',
+        ' app.listen(Number(process.env.PORT ?? 4000));'
+      ] },
+      { id: 'form', name: 'ReviewForm.tsx', path: 'apps/web/src/components/ReviewForm.tsx', status: 'A', lang: 'ts', lines: [
+        "import { useState } from 'react';",
+        "import { Stars } from './Stars';",
+        '',
+        'export function ReviewForm({ productId }: { productId: string }) {',
+        '  const [rating, setRating] = useState(0);',
+        "  const [body, setBody] = useState('');",
+        '  return (',
+        '    <form onSubmit={(e) => submitReview(e, productId, rating, body)}>',
+        '      <Stars value={rating} onChange={setRating} />',
+        '      <textarea maxLength={500} value={body} onChange={(e) => setBody(e.target.value)} />',
+        '      <button type="submit" disabled={rating === 0}>Post review</button>',
+        '    </form>',
+        '  );',
+        '}'
+      ] },
+      { id: 'slug', name: '[slug].tsx', path: 'apps/web/src/pages/product/[slug].tsx', status: 'M', lang: 'ts', lines: [
+        " import { ProductGallery } from '../../components/ProductGallery';",
+        "+import { ReviewForm } from '../../components/ReviewForm';",
+        ' ',
+        ' export default function ProductPage({ product, canReview }: Props) {',
+        '   return (',
+        '     <main>',
+        '       <ProductGallery images={product.images} />',
+        '       <ProductDetails product={product} />',
+        '-      <p className="muted">Reviews are coming soon.</p>',
+        '+      {canReview && <ReviewForm productId={product.id} />}',
+        '     </main>',
+        '   );',
+        ' }'
+      ] }
+    ];
+  }
+  renderVals() {
+    var s = this.state, self = this;
+    var files = this.files();
+    var byId = {};
+    var changeOrder = ['reviews', 'sql', 'notify', 'form', 'slug', 'server'];
+    files.forEach(function (f) {
+      var plus = 0, minus = 0;
+      if (f.status === 'M') {
+        f.lines.forEach(function (l) { if (l.charAt(0) === '+') plus++; if (l.charAt(0) === '-') minus++; });
+      } else {
+        plus = f.lines.filter(function (l) { return l.length > 0; }).length;
+      }
+      f.plus = '+' + plus;
+      f.minus = minus ? '−' + minus : '';
+      byId[f.id] = f;
+    });
+    var badge = function (st) {
+      return 'flex: none; width: 16px; text-align: center; font-family: \'JetBrains Mono\', monospace; font-size: 11px; font-weight: 500; color: ' + (st === 'A' ? '#3DD68C' : '#7C8CFF');
+    };
+    var statusLabel = function (st) { return st === 'A' ? 'Added' : 'Modified'; };
+    var pick = function (id) { return function () { self.setState({ sel: id }); }; };
+    var rowBase = 'display: flex; align-items: center; gap: 6px; width: 100%; height: 26px; box-sizing: border-box; border-radius: 6px; border: none; font-size: 12px; text-align: left; ';
+
+    var treeDef = [
+      { d: 0, name: 'apps' },
+      { d: 1, name: 'api' },
+      { d: 2, name: 'db/migrations' },
+      { d: 3, file: 'sql' },
+      { d: 2, name: 'src' },
+      { d: 3, name: 'email' },
+      { d: 4, file: 'notify' },
+      { d: 3, name: 'routes' },
+      { d: 4, plain: 'products.ts' },
+      { d: 4, file: 'reviews' },
+      { d: 3, file: 'server' },
+      { d: 1, name: 'web' },
+      { d: 2, name: 'src/components' },
+      { d: 3, file: 'form' },
+      { d: 2, name: 'src/pages/product' },
+      { d: 3, file: 'slug' },
+      { d: 0, plain: 'package.json' },
+      { d: 0, plain: 'pnpm-workspace.yaml' }
+    ];
+    var tree = treeDef.map(function (t) {
+      var pad = 'padding: 0 8px 0 ' + (8 + t.d * 12) + 'px; ';
+      if (t.file) {
+        var f = byId[t.file], on = s.sel === t.file;
+        return { isLink: true, isFolder: false, isPlain: false, name: f.name, status: f.status, statusLabel: statusLabel(f.status), badgeStyle: badge(f.status),
+          current: on ? 'true' : 'false', pick: pick(t.file),
+          style: rowBase + pad + 'cursor: pointer; color: #E8E9EE; background: ' + (on ? 'rgba(124,140,255,0.12)' : 'transparent') };
+      }
+      return { isLink: false, isFolder: !t.plain, isPlain: !!t.plain, name: t.plain || t.name, style: rowBase + pad + 'color: #8C8F9C' };
+    });
+    var changes = changeOrder.map(function (id) {
+      var f = byId[id], on = s.sel === id;
+      return { name: f.name, path: f.path, status: f.status, statusLabel: statusLabel(f.status), badgeStyle: badge(f.status), plus: f.plus, minus: f.minus,
+        current: on ? 'true' : 'false', pick: pick(id),
+        style: rowBase + 'padding: 0 8px; cursor: pointer; color: #E8E9EE; background: ' + (on ? 'rgba(124,140,255,0.12)' : 'transparent') };
+    });
+
+    var cur = byId[s.sel] || byId.reviews;
+    var lines = cur.lines.map(function (raw, i) {
+      var mark = ' ', code = raw;
+      if (cur.status === 'M') { mark = raw.charAt(0); code = raw.slice(1); }
+      var bg = mark === '+' ? 'background: rgba(61,214,140,0.08); ' : (mark === '-' ? 'background: rgba(242,109,109,0.08); ' : '');
+      var mc = mark === '+' ? '#3DD68C' : (mark === '-' ? '#F26D6D' : '#6B6F7D');
+      return {
+        n: String(i + 1),
+        mark: mark,
+        markStyle: 'display: inline-block; width: 16px; color: ' + mc,
+        rowStyle: bg + 'height: 20px; white-space: pre; padding-right: 16px',
+        segs: self.tokenize(code, cur.lang)
+      };
+    });
+    var file = {
+      path: cur.path,
+      chip: cur.status === 'A' ? 'New file · ' + cur.plus : 'Modified · ' + cur.plus + (cur.minus ? ' ' + cur.minus : ''),
+      chipStyle: 'flex: none; display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 6px; font-size: 11px; font-weight: 500; white-space: nowrap; ' +
+        (cur.status === 'A' ? 'background: rgba(61,214,140,0.12); color: #3DD68C' : 'background: rgba(124,140,255,0.12); color: #7C8CFF'),
+      lines: lines
+    };
+
+    var defs = [
+      { provider: 'Supabase', count: '1 change', total: '$0.00 / month', rows: [
+        { id: 'postgres', svc: 'postgres', desc: 'Run migration 0043_reviews (adds 1 table)', cost: '$0.00',
+          detail: byId.sql.lines.map(function (l) { return l; }).join('\n').replace('-- Product reviews from verified buyers', '-- apps/api/db/migrations/0043_reviews.sql') + '\n-- 1 table added, no existing rows rewritten' }
+      ] },
+      { provider: 'Railway', count: '1 change', total: '$0.00 / month', rows: [
+        { id: 'api', svc: 'api', desc: 'Deploy 5e7a0b1 “Add product reviews”', cost: '$0.00',
+          detail: 'commit   5e7a0b1 · build ~50 s\nroutes   POST /api/products/:id/reviews (new)\nrollout  zero downtime, 1 replica\nhealth   /healthz must answer 200 within 60 s\nregion   eu-west (Amsterdam)' }
+      ] },
+      { provider: 'Vercel', count: '1 change', total: '$0.00 / month', rows: [
+        { id: 'web', svc: 'web', desc: 'Deploy 5e7a0b1', cost: '$0.00',
+          detail: 'commit   5e7a0b1 · build ~30 s\nchanged  ReviewForm.tsx, pages/product/[slug].tsx\ndomains  mango.shop · global edge' }
+      ] }
+    ];
+    var groups = defs.map(function (g) {
+      return Object.assign({}, g, {
+        rows: g.rows.map(function (r, i) {
+          var on = !!s.open[r.id];
+          return Object.assign({}, r, {
+            open: on,
+            expanded: on ? 'true' : 'false',
+            detailsLabel: (on ? 'Hide details for ' : 'Show details for ') + r.svc,
+            wrapStyle: i > 0 ? 'border-top: 1px solid #24262F' : '',
+            chevStyle: 'transition: transform .15s ease; transform: rotate(' + (on ? '180' : '0') + 'deg)',
+            toggle: function () { var o = Object.assign({}, self.state.open); o[r.id] = !o[r.id]; self.setState({ open: o }); }
+          });
+        })
+      });
+    });
+    var isReview = s.phase === 'review', isSending = s.phase === 'sending', isRequested = s.phase === 'requested';
+    return {
+      envOpen: s.envOpen,
+      toggleEnv: function () { self.setState({ envOpen: !self.state.envOpen }); },
+
+      tree: tree,
+      changes: changes,
+      file: file,
+      termOpen: s.termOpen,
+      termLabel: s.termOpen ? 'Collapse terminal' : 'Expand terminal',
+      termChev: 'transition: transform .15s ease; transform: rotate(' + (s.termOpen ? '0' : '180') + 'deg)',
+      toggleTerm: function () { self.setState({ termOpen: !self.state.termOpen }); },
+
+      drawerOpen: s.drawerOpen,
+      openDrawer: function () { self.setState({ drawerOpen: true }); },
+      closeDrawer: function () { self.setState({ drawerOpen: false }); },
+
+      groups: groups,
+      unchangedOpen: s.unchangedOpen,
+      unchangedChev: 'flex: none; transition: transform .15s ease; transform: rotate(' + (s.unchangedOpen ? '90' : '0') + 'deg)',
+      toggleUnchanged: function () { self.setState({ unchangedOpen: !self.state.unchangedOpen }); },
+
+      isReview: isReview, isSending: isSending, isRequested: isRequested,
+      showReviewFooter: !isRequested,
+      note: s.note,
+      hasNote: !!(s.note && s.note.trim()),
+      onNote: function (e) { self.setState({ note: e.target.value }); },
+      noteKey: function (e) { if (e && e.key === 'Enter' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); self.request(); } },
+      request: function () { self.request(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

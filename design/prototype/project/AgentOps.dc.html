@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Agent · Ops on staging</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 900px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 900px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<span style="width: 1px; height: 20px; background: #24262F"></span>
+<nav aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<button type="button" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">mango-shop<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<div style="position: relative">
+<button type="button" onClick="{{toggleEnv}}" aria-haspopup="menu" aria-expanded="{{envOpen}}" title="Switch environment (⌘E)" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">staging</span>
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+<sc-if value="{{envOpen}}" hint-placeholder-val="{{ false }}">
+<div role="menu" style="position: absolute; top: 34px; left: 0; width: 260px; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 6px; z-index: 20; animation: yr-in .14s ease-out">
+<div style="padding: 6px 8px 4px; font-size: 11px; font-weight: 500; color: #8C8F9C">Environments of mango-shop</div>
+<a href="Canvas.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">production</span><span style="color: #8C8F9C; font-size: 11px">Protected</span></a>
+<a href="CanvasStaging.dc.html" role="menuitem" aria-current="true" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; background: #181A22"><span style="width: 13px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">staging</span><span style="margin-left: auto; display: inline-flex; align-items: center; gap: 4px; color: #F26D6D; font-size: 11px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>1 failed</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Current"><path d="M20 6 9 17l-5-5"/></svg></a>
+<a href="CanvasPR42.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE"><span style="width: 13px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">pr-42</span><span style="color: #8C8F9C; font-size: 11px">Preview</span></a>
+<div style="height: 1px; background: #24262F; margin: 6px 0"></div>
+<button type="button" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 32px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New environment</button>
+</div>
+</sc-if>
+</div>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<a href="Approvals.dc.html" aria-label="Approvals, 2 waiting" title="Approvals (G I)" class="hv" style="position: relative; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+<span style="position: absolute; top: 3px; right: 2px; min-width: 15px; height: 15px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center">2</span>
+</a>
+<a href="AgentOps.dc.html" aria-current="page" title="Agent (⌘J)" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border-radius: 8px; color: #E8E9EE; background: #181A22; border: 1px solid #24262F; font-size: 13px; font-weight: 500">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Agent
+</a>
+<a href="PlanReview.dc.html" title="Deploy (⌘↵)" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500">Deploy<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid rgba(11,12,16,0.25); border-radius: 4px; color: rgba(11,12,16,0.7)">⌘↵</kbd></a>
+<button type="button" aria-label="Account: Marc Etienne" title="Marc Etienne" style="width: 28px; height: 28px; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; cursor: pointer; margin-left: 4px">ME</button>
+</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<!-- LEFT RAIL -->
+<nav aria-label="Project" style="width: 48px; flex: none; border-right: 1px solid #24262F; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 0; background: #0B0C10">
+<a href="CanvasStaging.dc.html" aria-label="Canvas" title="Canvas (G C)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg></a>
+<a href="CodeStart.dc.html" aria-label="Code" title="Code (G D)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></a>
+<a href="AgentOps.dc.html" aria-label="Agent sessions" aria-current="page" title="Agent sessions (G A)" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: #181A22; color: #E8E9EE"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></a>
+<button type="button" aria-label="Logs" title="Logs (G L)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button>
+<button type="button" aria-label="Metrics" title="Metrics (G M)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></button>
+<a href="AuditLog.dc.html" aria-label="Activity" title="Activity (G V)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></a>
+<span style="flex: 1"></span>
+<button type="button" aria-label="Project settings" title="Settings (G S)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></button>
+</nav>
+
+<!-- CANVAS AREA (staging backdrop) -->
+<main aria-label="Canvas of mango-shop, staging" style="flex: 1; position: relative; overflow: hidden; background-color: #0B0C10; background-image: radial-gradient(#24262F 1px, transparent 1px); background-size: 20px 20px">
+
+<!-- graph group -->
+<div style="position: absolute; left: 120px; top: 90px; width: 1140px; height: 620px; transform-origin: 0 0; transform: scale({{scale}})">
+
+<svg width="1140" height="620" viewBox="0 0 1140 620" fill="none" aria-hidden="true" style="position: absolute; left: 0; top: 0">
+<defs><marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M1 1 7 4 1 7" stroke="#4A4E5C" stroke-width="1.25" fill="none"/></marker></defs>
+<path d="M320 314 H480" stroke="#3A3D4A" stroke-width="1.25" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+<path d="M720 290 H800 V114 H900" stroke="#3A3D4A" stroke-width="1.25" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+<path d="M720 302 H900" stroke="#3A3D4A" stroke-width="1.25" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+<path d="M720 338 H840 V474 H900" stroke="#3A3D4A" stroke-width="1.25" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+<path d="M720 574 H780 V500 H900" stroke="#3A3D4A" stroke-width="1.25" stroke-dasharray="4 4" marker-end="url(#arr)"/>
+</svg>
+
+<span title="web reads API_URL, injected from api" style="position: absolute; left: 400px; top: 314px; transform: translate(-50%,-50%); background: #0B0C10; border: 1px solid #24262F; border-radius: 6px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C; white-space: nowrap">API_URL</span>
+<span style="position: absolute; left: 810px; top: 302px; transform: translate(-50%,-50%); background: #0B0C10; border: 1px solid #24262F; border-radius: 6px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C; white-space: nowrap; display: inline-flex; align-items: center; gap: 4px"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-label="Secret"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>RESEND_API_KEY ••••</span>
+
+<!-- web -->
+<a href="ServicePanel.dc.html" class="hvb" aria-label="web, Vercel, Online" style="position: absolute; left: 80px; top: 260px; width: 240px; box-sizing: border-box; background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 14px; color: #E8E9EE; display: flex; flex-direction: column; gap: 4px">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span style="font-size: 14px; font-weight: 500">web</span><span style="margin-left: auto; height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Vercel</span></span>
+<span style="padding-left: 38px; font-size: 12px; color: #8C8F9C">staging.mango.shop</span>
+<span style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #3DD68C"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>Online</span>
+</a>
+
+<!-- api -->
+<a href="ServicePanel.dc.html" class="hvb" aria-label="{{apiAria}}" style="{{apiCardStyle}}">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><span style="font-size: 14px; font-weight: 500">api</span><span style="margin-left: auto; height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Railway</span></span>
+<span style="padding-left: 38px; font-size: 12px; color: #8C8F9C">api.staging.mango.shop</span>
+<sc-if value="{{apiFailed}}" hint-placeholder-val="{{ true }}">
+<span style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #F26D6D"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>Failed · build <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">c41e9a2</span> · 15:12</span>
+<span style="padding-left: 18px; font-size: 12px; color: #8C8F9C">Previous version still serving</span>
+</sc-if>
+<sc-if value="{{apiOnline}}" hint-placeholder-val="{{ false }}">
+<span style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #3DD68C; animation: yr-in .2s ease-out"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>Online · <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">9d02b6f</span> · just now</span>
+<span style="padding-left: 14px; font-size: 12px; color: #8C8F9C">Deployed by Agent</span>
+</sc-if>
+</a>
+<a href="DriftReview.dc.html" title="Changed outside yari.run: review drift" style="position: absolute; left: 492px; top: 248px; z-index: 3; display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; background: #241F16; border: 1px solid rgba(233,185,73,0.35); color: #E9B949; font-size: 11px; font-weight: 500; white-space: nowrap; box-sizing: border-box">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>Changed outside yari.run
+</a>
+
+<!-- worker -->
+<a href="ServicePanel.dc.html" class="hvb" aria-label="worker, Railway, Sleeping" style="position: absolute; left: 480px; top: 520px; width: 240px; box-sizing: border-box; background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 14px; color: #E8E9EE; display: flex; flex-direction: column; gap: 4px">
+<span style="display: flex; align-items: center; gap: 10px"><span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></span><span style="font-size: 14px; font-weight: 500">worker</span><span style="margin-left: auto; height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Railway</span></span>
+<span style="padding-left: 38px; font-size: 12px; color: #8C8F9C">Private network</span>
+<span style="margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #8C8F9C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B6F7D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Sleeping</span>
+</a>
+</div>
+
+<!-- top-left: env summary -->
+<div style="position: absolute; top: 16px; left: 16px; display: inline-flex; align-items: center; gap: 10px; height: 32px; padding: 0 12px; border-radius: 8px; background: #121319; border: 1px solid #24262F; font-size: 12px; color: #8C8F9C">
+<sc-if value="{{apiFailed}}" hint-placeholder-val="{{ true }}">
+<span style="display: inline-flex; align-items: center; gap: 6px; color: #E8E9EE"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>4 of 6 online</span>
+<span>·</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; color: #F26D6D"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>1 failed</span>
+</sc-if>
+<sc-if value="{{apiOnline}}" hint-placeholder-val="{{ false }}">
+<span style="display: inline-flex; align-items: center; gap: 6px; color: #E8E9EE"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>5 of 6 online</span>
+</sc-if>
+<span>·</span>
+<span style="display: inline-flex; align-items: center; gap: 5px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#6B6F7D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>1 sleeping</span>
+</div>
+
+<!-- top-right: Add (left of the drawer) -->
+<div style="position: absolute; top: 16px; right: 496px; display: flex; gap: 8px">
+<a href="Palette.dc.html" title="Add a service (⌘K)" class="hvb" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 10px 0 12px; border-radius: 8px; background: #121319; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>Add<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C">⌘K</kbd>
+</a>
+</div>
+
+<!-- bottom-left controls -->
+<div style="position: absolute; left: 16px; bottom: 16px; display: flex; flex-direction: column; gap: 8px; align-items: flex-start">
+<div style="display: flex; flex-direction: column; background: #121319; border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<button type="button" onClick="{{zoomIn}}" aria-label="Zoom in" title="Zoom in (+)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button>
+<button type="button" onClick="{{zoomOut}}" aria-label="Zoom out" title="Zoom out (−)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; border-top: 1px solid #24262F; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></button>
+<button type="button" onClick="{{fit}}" aria-label="Fit to screen" title="Fit to screen (⇧1)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; border-top: 1px solid #24262F; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</div>
+<div style="display: flex; flex-direction: column; background: #121319; border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<button type="button" aria-label="Undo" title="Undo (⌘Z)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
+<button type="button" aria-label="Redo" title="Redo (⇧⌘Z)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; background: transparent; border: none; border-top: 1px solid #24262F; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C; padding-left: 4px" aria-live="polite">{{zoomLabel}}</span>
+</div>
+
+<!-- AGENT DRAWER -->
+<aside aria-label="Agent session ses_2c91" style="position: absolute; right: 0; top: 0; bottom: 0; width: 480px; box-sizing: border-box; background: #121319; border-left: 1px solid #24262F; box-shadow: 0 12px 40px rgba(0,0,0,0.45); display: flex; flex-direction: column; z-index: 10">
+
+<!-- drawer header -->
+<div style="flex: none; padding: 16px 20px 14px; border-bottom: 1px solid #24262F; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="width: 28px; height: 28px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<h2 style="margin: 0; font-size: 16px; font-weight: 600">Agent</h2>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">ses_2c91</span>
+<span style="display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500">Ops</span>
+<span style="font-size: 12px; color: #8C8F9C" aria-live="polite">{{statusText}}</span>
+<a href="CanvasStaging.dc.html" aria-label="Close (Esc)" title="Close (Esc)" class="hv" style="margin-left: auto; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></a>
+</div>
+<div style="display: flex; align-items: center; gap: 16px">
+<div style="position: relative; flex: none">
+<label for="ops-model" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0">Model</label>
+<select id="ops-model" value="{{model}}" onChange="{{pickModel}}" title="Model" class="hvb" style="height: 28px; padding: 0 28px 0 10px; background: #181A22; border: 1px solid #24262F; border-radius: 8px; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 12px; appearance: none; -webkit-appearance: none; cursor: pointer">
+<option value="claude-sonnet-5-5">claude-sonnet-5-5</option>
+<option value="gpt-5.5">gpt-5.5</option>
+<option value="local-llama">local-llama (self-hosted)</option>
+</select>
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 9px; top: 8px; pointer-events: none"><path d="m6 9 6 6 6-6"/></svg>
+</div>
+<div style="flex: 1; min-width: 0">
+<div style="display: flex; align-items: baseline; gap: 6px; font-size: 12px"><span style="color: #8C8F9C">Budget</span><span style="color: #E8E9EE; font-family: 'JetBrains Mono', monospace">{{budgetLabel}}</span><span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">{{budgetPct}}</span></div>
+<div role="meter" aria-label="Session budget used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{budgetNow}}" style="margin-top: 5px; height: 4px; border-radius: 2px; background: #24262F; overflow: hidden"><div style="{{budgetFill}}"></div></div>
+</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #8C8F9C; line-height: 1.5">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+<span><span style="color: #E8E9EE">Isolated sandbox</span> · 2 vCPU · 2 GB · expires in 42 min · network: model gateway and yari only</span>
+</div>
+<div style="font-size: 12px; color: #8C8F9C; padding-left: 22px; margin-top: -6px">The agent works in its own sandbox. It cannot see your provider keys.</div>
+</div>
+
+<!-- drawer body -->
+<div style="flex: 1; min-height: 0; overflow-y: auto; padding: 18px 20px 20px">
+
+<!-- idle: suggestions -->
+<sc-if value="{{isIdle}}" hint-placeholder-val="{{ true }}">
+<div style="padding-top: 28px; display: flex; flex-direction: column; gap: 14px; animation: yr-in .2s ease-out">
+<div style="font-size: 14px; font-weight: 500">Ask about staging, or give the agent a task.</div>
+<p style="margin: 0; font-size: 13px; color: #8C8F9C; line-height: 1.55; max-width: 400px">It reads logs and metrics in yari, tests changes in its sandbox, and turns every change into a plan you review before anything is applied.</p>
+<div style="margin-top: 8px; font-size: 11px; font-weight: 500; letter-spacing: .02em; color: #8C8F9C">Suggestions</div>
+<div style="display: flex; flex-direction: column; align-items: flex-start; gap: 8px">
+<button type="button" onClick="{{pickFirst}}" class="hvb" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; cursor: pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Why is api failing on staging?</button>
+<button type="button" onClick="{{pickSecond}}" class="hvb" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; cursor: pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Add a staging copy of postgres</button>
+<button type="button" onClick="{{pickThird}}" class="hvb" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; cursor: pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Explain last night's latency spike</button>
+</div>
+<div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>On staging the agent can apply plans without approval.</div>
+</div>
+</sc-if>
+
+<!-- timeline -->
+<sc-if value="{{isTimeline}}" hint-placeholder-val="{{ false }}">
+<div role="log" aria-label="Agent timeline" style="display: flex; flex-direction: column; gap: 14px">
+
+<!-- user goal -->
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+<div style="max-width: 340px; background: #181A22; border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #E8E9EE">{{goal}}</div>
+<span style="font-size: 11px; color: #8C8F9C">Marc Etienne · 15:24</span>
+</div>
+
+<!-- 1 action yari: read logs -->
+<sc-if value="{{s1}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="2" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="2.25" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>yari</span>
+<span style="font-size: 11px; color: #8C8F9C">{{a1.dur}}</span>
+<span style="margin-left: auto; display: inline-flex">
+<sc-if value="{{a1.done}}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+<sc-if value="{{a1.run}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Running" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg></sc-if>
+<sc-if value="{{a1.stop}}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Stopped"><rect width="14" height="14" x="5" y="5" rx="2"/></svg></sc-if>
+</span>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE; word-break: break-word">Read build logs · api · staging</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{a1.done}}" hint-placeholder-val="{{ true }}">
+<div style="margin-left: 34px; margin-top: -6px">
+<button type="button" onClick="{{toggleObs1}}" aria-expanded="{{obs1Open}}" class="hv" style="display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 6px; margin-left: -6px; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; font-size: 12px; cursor: pointer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{obs1Chev}}"><path d="m6 9 6 6 6-6"/></svg>{{obs1Label}}</button>
+<sc-if value="{{obs1Open}}" hint-placeholder-val="{{ true }}">
+<pre style="margin: 6px 0 0; padding: 10px 12px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #8C8F9C; white-space: pre-wrap; word-break: break-word; max-height: 160px; overflow: auto">15:12:31  #6 RUN npm ci
+15:12:33  <span style="color: #F26D6D">npm ERR!</span> code EBADENGINE
+15:12:33  <span style="color: #F26D6D">npm ERR!</span> engine Unsupported engine: wanted: {"node":"&gt;=22"} (current: {"node":"20.11.1"})
+15:12:33  <span style="color: #F26D6D">npm ERR!</span> notsup sharp@0.34.1 requires a newer Node
+<span style="color: #E8E9EE">15:12:34  Build failed: npm ci exited with code 1</span></pre>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- 2 message -->
+<sc-if value="{{s2}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<div style="flex: 1; min-width: 0; padding-top: 2px; font-size: 13px; line-height: 1.6; color: #E8E9EE">
+<p style="margin: 0">The build pins Node 20 in <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">nixpacks.toml</span>, but sharp 0.34 needs Node ≥ 22. Commit <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">c41e9a2</span> bumped sharp, so <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">npm ci</span> stops before the build starts.</p>
+<p style="margin: 8px 0 0">I'll switch the build to Node 22 and test it in my sandbox first. The previous version keeps serving staging meanwhile.</p>
+</div>
+</div>
+</sc-if>
+
+<!-- 3 action sandbox: clone -->
+<sc-if value="{{s3}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6M12 19h8"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Sandbox</span>
+<span style="font-size: 11px; color: #8C8F9C">{{a3.dur}}</span>
+<span style="margin-left: auto; display: inline-flex">
+<sc-if value="{{a3.done}}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+<sc-if value="{{a3.run}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Running" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg></sc-if>
+<sc-if value="{{a3.stop}}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Stopped"><rect width="14" height="14" x="5" y="5" rx="2"/></svg></sc-if>
+</span>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE; word-break: break-word">Clone kestrel-studio/mango-shop at c41e9a2</div>
+</div>
+</div>
+</sc-if>
+
+<!-- 4 action sandbox: edit -->
+<sc-if value="{{s4}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Sandbox</span>
+<span style="font-size: 11px; color: #8C8F9C">{{a4.dur}}</span>
+<span style="margin-left: auto; display: inline-flex">
+<sc-if value="{{a4.done}}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+<sc-if value="{{a4.run}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Running" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg></sc-if>
+<sc-if value="{{a4.stop}}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Stopped"><rect width="14" height="14" x="5" y="5" rx="2"/></svg></sc-if>
+</span>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE; word-break: break-word">Edit nixpacks.toml</div>
+<sc-if value="{{a4.done}}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 8px; border: 1px solid #24262F; border-radius: 8px; overflow: hidden; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.75">
+<div style="display: flex; align-items: center; gap: 6px; padding: 3px 10px; background: #181A22; border-bottom: 1px solid #24262F; color: #8C8F9C; font-size: 11px">nixpacks.toml<span style="margin-left: auto">1 line changed</span></div>
+<div style="padding: 0 10px; background: #0B0C10; color: #8C8F9C"><span style="display: inline-block; width: 18px"></span>[variables]</div>
+<div style="padding: 0 10px; background: rgba(242,109,109,0.12); color: #E8E9EE"><span style="display: inline-block; width: 18px; color: #F26D6D" aria-label="Removed line">−</span>NIXPACKS_NODE_VERSION = "20"</div>
+<div style="padding: 0 10px; background: rgba(61,214,140,0.12); color: #E8E9EE"><span style="display: inline-block; width: 18px; color: #3DD68C" aria-label="Added line">+</span>NIXPACKS_NODE_VERSION = "22"</div>
+</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<!-- 5 action sandbox: build -->
+<sc-if value="{{s5}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6M12 19h8"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Sandbox</span>
+<span style="font-size: 11px; color: #8C8F9C">{{a5.dur}}</span>
+<span style="margin-left: auto; display: inline-flex">
+<sc-if value="{{a5.done}}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+<sc-if value="{{a5.run}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Running" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg></sc-if>
+<sc-if value="{{a5.stop}}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Stopped"><rect width="14" height="14" x="5" y="5" rx="2"/></svg></sc-if>
+</span>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE; word-break: break-word">npm ci &amp;&amp; npm run build</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{a5.done}}" hint-placeholder-val="{{ true }}">
+<div style="margin-left: 34px; margin-top: -6px">
+<button type="button" onClick="{{toggleObs5}}" aria-expanded="{{obs5Open}}" class="hv" style="display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 6px; margin-left: -6px; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; font-size: 12px; cursor: pointer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{obs5Chev}}"><path d="m6 9 6 6 6-6"/></svg>{{obs5Label}}</button>
+<sc-if value="{{obs5Open}}" hint-placeholder-val="{{ true }}">
+<pre style="margin: 6px 0 0; padding: 10px 12px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #8C8F9C; white-space: pre-wrap; word-break: break-word; max-height: 160px; overflow: auto">node v22.11.0 · npm 10.9.0
+added 412 packages in 17 s
+&gt; mango-shop-api build
+&gt; tsc -p tsconfig.build.json
+<span style="color: #E8E9EE">Build succeeded · 412 packages · dist/ 1.8 MB</span></pre>
+</sc-if>
+</div>
+</sc-if>
+
+<!-- 6 guardrail -->
+<sc-if value="{{s6}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px; color: #F26D6D"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid rgba(242,109,109,0.35); border-radius: 10px; padding: 10px 12px">
+<div style="font-size: 13px; font-weight: 500; color: #E8E9EE">Blocked: agents cannot delete databases</div>
+<div style="margin-top: 3px; font-size: 12px; color: #8C8F9C; line-height: 1.55">I noticed <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE">postgres-old</span> is unused on staging. I listed it in the plan notes so a human can decide.</div>
+<div style="margin-top: 6px; font-size: 11px; color: #8C8F9C">Guardrail · organization policy · logged in Audit log</div>
+</div>
+</div>
+</sc-if>
+
+<!-- 7 action yari: push -->
+<sc-if value="{{s7}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="2.25" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>yari</span>
+<span style="font-size: 11px; color: #8C8F9C">{{a7.dur}}</span>
+<span style="margin-left: auto; display: inline-flex">
+<sc-if value="{{a7.done}}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+<sc-if value="{{a7.run}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Running" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg></sc-if>
+<sc-if value="{{a7.stop}}" hint-placeholder-val="{{ false }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Stopped"><rect width="14" height="14" x="5" y="5" rx="2"/></svg></sc-if>
+</span>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE; word-break: break-word">Push branch yari/fix-node-22</div>
+</div>
+</div>
+</sc-if>
+
+<!-- 8 plan card -->
+<sc-if value="{{s8}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 15px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M9 12h6M9 16h4"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #2F323D; border-radius: 10px; padding: 14px">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 11px; color: #8C8F9C">Plan<span style="font-family: 'JetBrains Mono', monospace">plan_5B8X</span><span style="margin-left: auto; display: inline-flex; align-items: center; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; border: 1px solid #24262F; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE">staging</span></div>
+<div style="margin-top: 6px; font-size: 14px; font-weight: 500">Rebuild api on staging with Node 22</div>
+<div style="margin-top: 4px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 12px; color: #8C8F9C">1 change on Railway · No cost change ·<span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500">Low risk</span></div>
+<div style="margin-top: 8px; display: flex; align-items: center; gap: 6px; font-size: 12px; color: #8C8F9C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>No approval needed: staging isn't protected.</div>
+<sc-if value="{{planButtons}}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 12px; display: flex; align-items: center; gap: 6px">
+<button type="button" onClick="{{openReview}}" title="Review plan (↵)" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 12px; font-weight: 500; cursor: pointer">Review plan</button>
+<button type="button" onClick="{{dismissPlan}}" class="hv" style="display: inline-flex; align-items: center; height: 26px; padding: 0 8px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #8C8F9C; font-size: 12px; font-weight: 500; cursor: pointer">Dismiss</button>
+</div>
+</sc-if>
+<sc-if value="{{planDismissed}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C">Dismissed. Nothing will be applied.<button type="button" onClick="{{restorePlan}}" class="hv" style="display: inline-flex; align-items: center; height: 26px; padding: 0 8px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #7C8CFF; font-size: 12px; font-weight: 500; cursor: pointer">Undo</button></div>
+</sc-if>
+<sc-if value="{{planApplied}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Applied at 15:31</div>
+</sc-if>
+</div>
+</div>
+</sc-if>
+
+<!-- working indicator -->
+<sc-if value="{{thinking}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 10px; font-size: 12px; color: #8C8F9C">
+<span style="width: 24px; display: inline-flex; justify-content: center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg></span>Working
+</div>
+</sc-if>
+
+<!-- applied -->
+<sc-if value="{{showApplied}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="2" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="2.25" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>yari</span>
+<span style="font-size: 11px; color: #8C8F9C">41 s</span>
+<svg style="margin-left: auto" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE; word-break: break-word">Apply plan_5B8X · api · staging</div>
+</div>
+</div>
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<div style="flex: 1; min-width: 0; padding-top: 2px; font-size: 13px; line-height: 1.6; color: #E8E9EE">
+<p style="margin: 0">api is online on staging. The build took 41 s.</p>
+<p style="margin: 6px 0 0; font-size: 12px; color: #8C8F9C">Deployed <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE">9d02b6f</span> “Use Node 22 for builds” from <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">yari/fix-node-22</span>.</p>
+</div>
+</div>
+<div style="margin-left: 34px; border: 1px solid #24262F; border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 10px">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<span style="font-size: 13px">Fixed · session cost $0.84</span>
+<a href="CanvasStaging.dc.html" class="hvb" style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 12px; font-weight: 500"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg>Back to canvas</a>
+</div>
+</sc-if>
+
+<!-- stopped -->
+<sc-if value="{{showStopped}}" hint-placeholder-val="{{ false }}">
+<div style="margin-left: 34px; border: 1px solid #24262F; border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; background: #0F1015; animation: yr-in .2s ease-out">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><rect width="14" height="14" x="5" y="5" rx="2"/></svg>
+<span style="font-size: 13px">Stopped by Marc Etienne. Nothing was applied.</span>
+<button type="button" onClick="{{restart}}" class="hvb" style="margin-left: auto; display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 12px; font-weight: 500; cursor: pointer">Start over</button>
+</div>
+</sc-if>
+
+<!-- follow-ups -->
+<sc-for list="{{followups}}" as="f" hint-placeholder-count="0">
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; animation: yr-in .2s ease-out">
+<div style="max-width: 340px; background: #181A22; border-radius: 10px; padding: 10px 12px; font-size: 13px; color: #E8E9EE">{{f.text}}</div>
+<span style="font-size: 11px; color: #8C8F9C">{{f.note}}</span>
+</div>
+</sc-for>
+
+</div>
+</sc-if>
+
+<!-- review: compact plan view -->
+<sc-if value="{{isReview}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 16px; animation: yr-in .18s ease-out">
+<button type="button" onClick="{{closeReview}}" disabled="{{applyBusy}}" class="hv" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; margin-left: -8px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #8C8F9C; font-size: 12px; font-weight: 500; cursor: pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg>Back to session</button>
+<div>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 11px; color: #8C8F9C">Plan<span style="font-family: 'JetBrains Mono', monospace">plan_5B8X</span><span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; border: 1px solid #24262F; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE">staging</span><span>· proposed by Agent · ses_2c91</span></div>
+<h3 style="margin: 6px 0 0; font-size: 16px; font-weight: 600">Rebuild api on staging with Node 22</h3>
+<div style="margin-top: 6px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 13px; color: #8C8F9C">1 change on Railway · No cost change<span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500">Low risk</span></div>
+</div>
+
+<div style="border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<div style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #0F1015; border-bottom: 1px solid #24262F; font-size: 12px; color: #8C8F9C"><span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; border: 1px solid #24262F; font-size: 11px; font-weight: 500; color: #8C8F9C">Railway</span>1 change</div>
+<div style="padding: 12px">
+<div style="display: flex; align-items: flex-start; gap: 10px">
+<span style="flex: none; display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>Update</span>
+<div style="flex: 1; min-width: 0">
+<div style="font-size: 13px; font-weight: 500">api</div>
+<div style="font-size: 12px; color: #8C8F9C">Rebuild <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">9d02b6f</span> “Use Node 22 for builds”</div>
+</div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">$0.00</span>
+</div>
+<button type="button" onClick="{{toggleDetails}}" aria-expanded="{{detailsOpen}}" class="hv" style="margin: 8px 0 0 58px; display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 6px; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; font-size: 12px; cursor: pointer">Details<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{detailsChev}}"><path d="m6 9 6 6 6-6"/></svg></button>
+<sc-if value="{{detailsOpen}}" hint-placeholder-val="{{ false }}">
+<div style="margin: 6px 0 0 58px; display: grid; grid-template-columns: 110px 1fr; row-gap: 4px; font-size: 12px">
+<span style="color: #8C8F9C">Branch</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">yari/fix-node-22</span>
+<span style="color: #8C8F9C">Build config</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">NIXPACKS_NODE_VERSION 20 → 22</span>
+<span style="color: #8C8F9C">Region</span><span>eu-west (Amsterdam)</span>
+<span style="color: #8C8F9C">Downtime</span><span>None. The current version serves until the new build is healthy.</span>
+</div>
+</sc-if>
+</div>
+</div>
+<div style="font-size: 12px; color: #8C8F9C">5 services unchanged: web, worker, postgres, media, email</div>
+
+<div style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>No approval needed: staging isn't protected.</div>
+
+<div>
+<div style="font-size: 11px; font-weight: 500; letter-spacing: .02em; color: #8C8F9C">Tested in sandbox</div>
+<div style="margin-top: 6px; font-size: 12px; color: #E8E9EE; display: flex; align-items: center; gap: 6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">npm ci &amp;&amp; npm run build</span><span style="color: #8C8F9C">succeeded in 38 s</span></div>
+</div>
+
+<div>
+<div style="font-size: 11px; font-weight: 500; letter-spacing: .02em; color: #8C8F9C">Notes from the agent</div>
+<div style="margin-top: 6px; padding: 10px 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; font-size: 12px; line-height: 1.55; color: #E8E9EE"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">postgres-old</span> looks unused (no connections for 30 days). Not deleted.</div>
+</div>
+
+<sc-if value="{{applyBusy}}" hint-placeholder-val="{{ false }}">
+<div aria-live="polite" style="border: 1px solid #24262F; border-radius: 10px; padding: 12px 14px; display: flex; align-items: center; gap: 10px; animation: yr-in .18s ease-out">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="animation: yr-spin 1s linear infinite; flex: none"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>
+<div style="flex: 1; min-width: 0"><div style="font-size: 13px">Applying on Railway · api</div><div style="font-size: 12px; color: #8C8F9C">Building <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">9d02b6f</span> with Node 22</div></div>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-size: 11px; font-weight: 500"><span style="width: 6px; height: 6px; border-radius: 50%; background: #E9B949; animation: yr-pulse 1.6s ease-in-out infinite"></span>Deploying</span>
+</div>
+</sc-if>
+</div>
+</sc-if>
+
+</div>
+
+<!-- drawer footer: input -->
+<sc-if value="{{footInput}}" hint-placeholder-val="{{ true }}">
+<div style="flex: none; border-top: 1px solid #24262F; padding: 12px 20px 14px">
+<label for="ops-input" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0">Message the agent</label>
+<div style="display: flex; align-items: center; gap: 8px">
+<div class="hvb" style="flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; height: 36px; box-sizing: border-box; padding: 0 4px 0 10px; background: #181A22; border: 1px solid #24262F; border-radius: 8px">
+<input id="ops-input" type="text" value="{{typed}}" onInput="{{onType}}" onKeyDown="{{onKey}}" placeholder="{{placeholder}}" autocomplete="off" style="flex: 1; min-width: 0; height: 28px; background: transparent; border: none; color: #E8E9EE; font-size: 13px; padding: 0">
+<button type="button" onClick="{{send}}" aria-label="Send" title="Send (↵)" style="width: 28px; height: 28px; flex: none; border-radius: 6px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7M12 19V5"/></svg></button>
+</div>
+<button type="button" onClick="{{stop}}" disabled="{{stopDisabled}}" title="Stop the agent (⌘.)" class="hvb" style="{{stopStyle}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="5" y="5" rx="2"/></svg>Stop</button>
+</div>
+<div style="margin-top: 8px; font-size: 11px; color: #8C8F9C">↵ to send · Every change becomes a plan before it is applied.</div>
+</div>
+</sc-if>
+
+<!-- drawer footer: plan review -->
+<sc-if value="{{isReview}}" hint-placeholder-val="{{ false }}">
+<div style="flex: none; border-top: 1px solid #24262F; padding: 16px 20px; display: flex; align-items: center; gap: 8px">
+<span style="font-size: 12px; color: #8C8F9C">$0.00 per month</span>
+<button type="button" onClick="{{closeReview}}" disabled="{{applyBusy}}" class="hvb" style="{{backStyle}}">Back</button>
+<sc-if value="{{applyIdle}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{apply}}" title="Apply to staging (⌘↵)" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500; cursor: pointer">Apply to staging<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid rgba(11,12,16,0.25); border-radius: 4px; color: rgba(11,12,16,0.7)">⌘↵</kbd></button>
+</sc-if>
+<sc-if value="{{applyBusy}}" hint-placeholder-val="{{ false }}">
+<button type="button" disabled="{{ true }}" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500; opacity: .7; cursor: progress"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>Applying</button>
+</sc-if>
+</div>
+</sc-if>
+
+</aside>
+
+</main>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"stage":{"editor":"enum","options":["idle","plan","review","applied","stopped"],"default":"idle"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const stage = (props && props.stage) || 'idle';
+    const map = { idle: ['idle', 0], plan: ['done', 8], review: ['review', 8], applied: ['applied', 8], stopped: ['stopped', 4] };
+    const m = map[stage] || map.idle;
+    this.delays = [700, 1100, 1100, 1100, 1100, 1700, 1100, 1100];
+    this.costs = [0, 0.08, 0.19, 0.27, 0.35, 0.58, 0.66, 0.74, 0.84];
+    this.t = null;
+    this.t2 = null;
+    this.state = {
+      envOpen: false, zoom: 100, model: 'claude-sonnet-5-5',
+      phase: m[0], n: m[1], goal: m[1] ? 'Why is api failing on staging?' : '',
+      typed: '', obs1: true, obs5: true, details: false, dismissed: false, followups: []
+    };
+  }
+  componentWillUnmount() {
+    clearTimeout(this.t);
+    clearTimeout(this.t2);
+  }
+  schedule(ms) {
+    clearTimeout(this.t);
+    this.t = setTimeout(() => {
+      if (this.state.phase !== 'running') return;
+      const n = this.state.n + 1;
+      if (n >= 8) {
+        this.setState({ n: 8, phase: 'done' });
+      } else {
+        this.setState({ n: n });
+        this.schedule(this.delays[n]);
+      }
+    }, ms);
+  }
+  start(goal) {
+    clearTimeout(this.t);
+    clearTimeout(this.t2);
+    this.setState({ phase: 'running', n: 0, goal: goal, typed: '', dismissed: false, followups: [], obs1: true, obs5: true });
+    this.schedule(this.delays[0]);
+  }
+  send() {
+    const text = (this.state.typed || '').trim();
+    const ph = this.state.phase;
+    if (ph === 'idle') {
+      this.start(text || 'Why is api failing on staging?');
+      return;
+    }
+    if (!text) return;
+    const note = ph === 'running' ? 'Marc Etienne · the agent reads this before its next step' : 'Marc Etienne · just now';
+    this.setState({ typed: '', followups: this.state.followups.concat([{ text: text, note: note }]) });
+  }
+  renderVals() {
+    const s = this.state;
+    const n = s.n;
+    const ph = s.phase;
+    const z = s.zoom;
+    const act = (i, dur) => {
+      const done = n > i || (n === i && ph !== 'running' && ph !== 'stopped');
+      const run = n === i && ph === 'running';
+      const stop = n === i && ph === 'stopped';
+      return { done: done, run: run, stop: stop, dur: done ? dur : (run ? 'Running' : 'Stopped') };
+    };
+    const cost = this.costs[n] || 0;
+    const pct = Math.round(cost / 2 * 100);
+    const fillColor = pct >= 100 ? '#F26D6D' : (pct > 90 ? '#E9B949' : '#7C8CFF');
+    const statusMap = { idle: 'Ready', running: 'Running', done: 'Plan ready', review: 'Reviewing plan', applying: 'Applying', applied: 'Fixed', stopped: 'Stopped' };
+    const isReview = ph === 'review' || ph === 'applying';
+    const stopDisabled = ph !== 'running';
+    const applied = ph === 'applied';
+    const chev = (open) => open ? 'transition: transform .15s' : 'transform: rotate(-90deg); transition: transform .15s';
+    return {
+      envOpen: s.envOpen,
+      toggleEnv: () => this.setState({ envOpen: !s.envOpen }),
+      scale: String(z / 100),
+      zoomLabel: z + '%',
+      zoomIn: () => this.setState({ zoom: Math.min(150, z + 10) }),
+      zoomOut: () => this.setState({ zoom: Math.max(60, z - 10) }),
+      fit: () => this.setState({ zoom: 100 }),
+
+      apiFailed: !applied,
+      apiOnline: applied,
+      apiAria: applied ? 'api, Railway, Online' : 'api, Railway, Failed, changed outside yari.run',
+      apiCardStyle: 'position: absolute; left: 480px; top: 260px; width: 240px; box-sizing: border-box; background: #121319; border: 1px solid ' + (applied ? '#24262F' : 'rgba(242,109,109,0.4)') + '; border-radius: 10px; padding: 14px; color: #E8E9EE; display: flex; flex-direction: column; gap: 4px; z-index: 2; transition: border-color .3s',
+
+      model: s.model,
+      pickModel: (e) => this.setState({ model: e.target.value }),
+      statusText: statusMap[ph] || '',
+      budgetLabel: '$' + cost.toFixed(2) + ' of $2.00',
+      budgetPct: pct + '%',
+      budgetNow: pct,
+      budgetFill: 'height: 100%; width: ' + pct + '%; background: ' + fillColor + '; border-radius: 2px; transition: width .4s ease',
+
+      isIdle: ph === 'idle',
+      isTimeline: ph !== 'idle' && !isReview,
+      isReview: isReview,
+      footInput: !isReview,
+      pickFirst: () => this.start('Why is api failing on staging?'),
+      pickSecond: () => this.setState({ typed: 'Add a staging copy of postgres' }),
+      pickThird: () => this.setState({ typed: "Explain last night's latency spike" }),
+
+      goal: s.goal,
+      s1: n >= 1, s2: n >= 2, s3: n >= 3, s4: n >= 4, s5: n >= 5, s6: n >= 6, s7: n >= 7, s8: n >= 8,
+      a1: act(1, '0.8 s'), a3: act(3, '2.4 s'), a4: act(4, '0.1 s'), a5: act(5, '38 s'), a7: act(7, '1.2 s'),
+      obs1Open: s.obs1,
+      obs1Label: s.obs1 ? 'Hide output · 5 lines' : 'Show output · 5 lines',
+      obs1Chev: chev(s.obs1),
+      toggleObs1: () => this.setState({ obs1: !s.obs1 }),
+      obs5Open: s.obs5,
+      obs5Label: s.obs5 ? 'Hide output · 5 lines' : 'Show output · 5 lines',
+      obs5Chev: chev(s.obs5),
+      toggleObs5: () => this.setState({ obs5: !s.obs5 }),
+      thinking: ph === 'running' && (n === 0 || n === 2 || n === 6),
+
+      planButtons: ph === 'done' && !s.dismissed,
+      planDismissed: ph === 'done' && s.dismissed,
+      planApplied: applied,
+      openReview: () => this.setState({ phase: 'review', details: false }),
+      dismissPlan: () => this.setState({ dismissed: true }),
+      restorePlan: () => this.setState({ dismissed: false }),
+
+      showApplied: applied,
+      showStopped: ph === 'stopped',
+      restart: () => this.setState({ phase: 'idle', n: 0, goal: '', typed: '', followups: [] }),
+      followups: s.followups,
+
+      detailsOpen: s.details,
+      detailsChev: chev(s.details),
+      toggleDetails: () => this.setState({ details: !s.details }),
+      closeReview: () => { if (ph === 'review') this.setState({ phase: 'done' }); },
+      applyIdle: ph === 'review',
+      applyBusy: ph === 'applying',
+      backStyle: 'margin-left: auto; display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: ' + (ph === 'applying' ? 'not-allowed; opacity: .45' : 'pointer'),
+      apply: () => {
+        this.setState({ phase: 'applying' });
+        clearTimeout(this.t2);
+        this.t2 = setTimeout(() => this.setState({ phase: 'applied' }), 1500);
+      },
+
+      typed: s.typed,
+      placeholder: ph === 'idle' ? 'What should the agent do?' : 'Reply to the agent',
+      onType: (e) => this.setState({ typed: e.target.value }),
+      onKey: (e) => { if (e && e.key === 'Enter') { e.preventDefault(); this.send(); } },
+      send: () => this.send(),
+      stopDisabled: stopDisabled,
+      stopStyle: 'flex: none; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: ' + (stopDisabled ? 'not-allowed; opacity: .45' : 'pointer'),
+      stop: () => {
+        if (this.state.phase !== 'running') return;
+        clearTimeout(this.t);
+        this.setState({ phase: 'stopped' });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding · Create a project</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+input::placeholder,textarea::placeholder{color:#8C8F9C}
+</style>
+</helmet>
+<div style="width: 100%; height: 900px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 900px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR (minimal, onboarding) -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 10px">
+<span style="font-size: 13px; color: #8C8F9C">Sami Joseph</span>
+<span aria-hidden="true" style="width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">SJ</span>
+<a href="Main.dc.html" class="hv" style="display: inline-flex; align-items: center; height: 26px; padding: 0 8px; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 12px; font-weight: 500">Sign out</a>
+</div>
+</header>
+
+<!-- STEPPER -->
+<nav aria-label="Setup progress" style="flex: none; padding: 28px 40px 0">
+<ol style="max-width: 880px; margin: 0 auto; padding: 0; list-style: none; display: flex; align-items: center; gap: 12px">
+<li style="flex: 1; display: flex; align-items: center; gap: 12px">
+<a href="Onboarding1.dc.html" aria-label="Step 1, Welcome, done" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; font-size: 13px; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); color: #7C8CFF; display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Welcome</a>
+<span aria-hidden="true" style="flex: 1; min-width: 24px; height: 1px; background: rgba(124,140,255,0.45)"></span>
+</li>
+<li style="flex: 1; display: flex; align-items: center; gap: 12px">
+<a href="Onboarding2.dc.html" aria-label="Step 2, Connect a provider, done" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; font-size: 13px; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); color: #7C8CFF; display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Connect a provider</a>
+<span aria-hidden="true" style="flex: 1; min-width: 24px; height: 1px; background: rgba(124,140,255,0.45)"></span>
+</li>
+<li style="flex: 1; display: flex; align-items: center; gap: 12px">
+<span aria-current="step" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">3</span>Create a project</span>
+<span aria-hidden="true" style="flex: 1; min-width: 24px; height: 1px; background: #2F323D"></span>
+</li>
+<li style="flex: none; display: flex; align-items: center">
+<span style="display: inline-flex; align-items: center; gap: 8px; color: #8C8F9C; font-size: 13px; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: transparent; border: 1px solid #2F323D; color: #8C8F9C; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">4</span>Review</span>
+</li>
+</ol>
+</nav>
+
+<!-- CONTENT -->
+<main style="flex: 1; min-height: 0; overflow-y: auto; padding: 0 40px">
+<div style="max-width: 880px; margin: 0 auto; padding: 40px 0 48px; display: flex; flex-direction: column; gap: 28px">
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Step 3 of 4</span>
+<h1 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Create a project</h1>
+<p style="margin: 0; font-size: 13px; color: #8C8F9C; max-width: 620px">A project holds environments. Environments hold your services.</p>
+</div>
+
+<!-- source options -->
+<fieldset style="margin: 0; padding: 0; border: none; min-width: 0">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 12px; font-weight: 500">Start from</legend>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+
+<label class="{{src.repo.cls}}" style="{{src.repo.style}}">
+<input type="radio" name="source" value="repo" checked="{{src.repo.checked}}" onChange="{{src.repo.pick}}" style="position: absolute; top: 16px; right: 16px; margin: 0; accent-color: #7C8CFF">
+<span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></span>
+<span style="font-size: 14px; font-weight: 500; color: #E8E9EE">From a GitHub repository</span>
+<span style="font-size: 12px; color: #8C8F9C">Import code you already have. yari.run finds the apps inside.</span>
+</label>
+
+<label class="{{src.template.cls}}" style="{{src.template.style}}">
+<input type="radio" name="source" value="template" checked="{{src.template.checked}}" onChange="{{src.template.pick}}" style="position: absolute; top: 16px; right: 16px; margin: 0; accent-color: #7C8CFF">
+<span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="9" height="7" x="3" y="14" rx="1"/><rect width="5" height="7" x="16" y="14" rx="1"/></svg></span>
+<span style="font-size: 14px; font-weight: 500; color: #E8E9EE">From a template</span>
+<span style="font-size: 12px; color: #8C8F9C">Start from a small, known-good setup and a new repository.</span>
+</label>
+
+<label class="{{src.describe.cls}}" style="{{src.describe.style}}">
+<input type="radio" name="source" value="describe" checked="{{src.describe.checked}}" onChange="{{src.describe.pick}}" style="position: absolute; top: 16px; right: 16px; margin: 0; accent-color: #7C8CFF">
+<span style="display: flex; align-items: center; gap: 8px"><span style="width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center; color: #7C8CFF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span><span style="display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500">Code mode · Agent</span></span>
+<span style="font-size: 14px; font-weight: 500; color: #E8E9EE">Describe what you want to build</span>
+<span style="font-size: 12px; color: #8C8F9C">The agent writes a first version and proposes the services it needs.</span>
+</label>
+
+</div>
+</fieldset>
+
+<!-- FROM REPO -->
+<sc-if value="{{isRepo}}" hint-placeholder-val="{{ true }}">
+<section aria-labelledby="repo-h" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start; animation: yr-in .16s ease-out">
+<fieldset style="margin: 0; padding: 0; border: none; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<legend id="repo-h" style="padding: 0; margin-bottom: 10px; font-size: 12px; font-weight: 500; width: 100%"><span style="display: flex; align-items: center; gap: 8px">Repository<span style="margin-left: auto; font-weight: 400; color: #8C8F9C">GitHub · kestrel-studio</span></span></legend>
+<div style="border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<sc-for list="{{repos}}" as="r" hint-placeholder-count="3">
+<label class="hv" style="{{r.style}}">
+<input type="radio" name="repo" value="{{r.id}}" checked="{{r.checked}}" onChange="{{r.pick}}" style="margin: 3px 0 0; accent-color: #7C8CFF; flex: none">
+<span style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">{{r.full}}</span>
+<span style="font-size: 12px; color: #8C8F9C">{{r.meta}}</span>
+</span>
+</label>
+</sc-for>
+</div>
+<button type="button" onClick="{{toggleGh}}" aria-expanded="{{ghNote}}" class="hv" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 12px; font-weight: 500; cursor: pointer"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>Connect another GitHub organization</button>
+<sc-if value="{{ghNote}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; font-size: 12px; color: #8C8F9C">GitHub opens so you can install the yari.run app on another organization and pick which repositories it may read.</p>
+</sc-if>
+</fieldset>
+
+<div aria-live="polite" style="border: 1px solid #24262F; border-radius: 10px; background: #121319; padding: 16px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 8px">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+<span style="font-size: 12px; font-weight: 500">Detected services</span>
+<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">{{repo.full}}</span>
+</div>
+<p style="margin: 0; font-size: 13px; color: #E8E9EE">{{repo.sentence}}</p>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid #24262F">
+<sc-for list="{{repo.apps}}" as="a" hint-placeholder-count="3">
+<li style="display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #24262F">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C">
+<sc-if value="{{a.isWeb}}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></sc-if>
+<sc-if value="{{a.isWorker}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></sc-if>
+</span>
+<span style="display: flex; flex-direction: column; min-width: 0">
+<span style="font-size: 13px; font-weight: 500">{{a.name}} <span style="font-weight: 400; color: #8C8F9C">· {{a.framework}}</span></span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">{{a.path}}</span>
+</span>
+<span style="margin-left: auto; display: inline-flex; align-items: center; gap: 8px">
+<span aria-hidden="true" style="color: #8C8F9C">→</span>
+<span style="height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">{{a.provider}}</span>
+<sc-if value="{{a.connected}}" hint-placeholder-val="{{ true }}"><span style="display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #3DD68C; width: 92px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Connected</span></sc-if>
+<sc-if value="{{a.notConnected}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: #8C8F9C; width: 92px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a6 6 0 0 1-12 0V8z"/></svg>Not connected</span></sc-if>
+</span>
+</li>
+</sc-for>
+</ul>
+</div>
+</section>
+</sc-if>
+
+<!-- FROM TEMPLATE -->
+<sc-if value="{{isTemplate}}" hint-placeholder-val="{{ false }}">
+<fieldset style="margin: 0; padding: 0; border: none; min-width: 0; display: flex; flex-direction: column; gap: 10px; animation: yr-in .16s ease-out">
+<legend style="padding: 0; margin-bottom: 10px; font-size: 12px; font-weight: 500">Template</legend>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+
+<label class="{{tpl.full.cls}}" style="{{tpl.full.style}}">
+<input type="radio" name="template" value="full" checked="{{tpl.full.checked}}" onChange="{{tpl.full.pick}}" style="position: absolute; top: 16px; right: 16px; margin: 0; accent-color: #7C8CFF">
+<span style="display: flex; gap: 6px; color: #8C8F9C">
+<span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+<span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></span>
+<span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span>
+</span>
+<span style="font-size: 14px; font-weight: 500; color: #E8E9EE">Next.js + API + Postgres</span>
+<span style="font-size: 12px; color: #8C8F9C">web → Vercel · api → Railway · postgres → Supabase</span>
+</label>
+
+<label class="{{tpl.static.cls}}" style="{{tpl.static.style}}">
+<input type="radio" name="template" value="static" checked="{{tpl.static.checked}}" onChange="{{tpl.static.pick}}" style="position: absolute; top: 16px; right: 16px; margin: 0; accent-color: #7C8CFF">
+<span style="display: flex; gap: 6px; color: #8C8F9C">
+<span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+</span>
+<span style="font-size: 14px; font-weight: 500; color: #E8E9EE">Static site</span>
+<span style="font-size: 12px; color: #8C8F9C">web → Vercel, served from the global edge</span>
+</label>
+
+<label class="{{tpl.jobs.cls}}" style="{{tpl.jobs.style}}">
+<input type="radio" name="template" value="jobs" checked="{{tpl.jobs.checked}}" onChange="{{tpl.jobs.pick}}" style="position: absolute; top: 16px; right: 16px; margin: 0; accent-color: #7C8CFF">
+<span style="display: flex; gap: 6px; color: #8C8F9C">
+<span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+<span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></span>
+<span style="width: 28px; height: 28px; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg></span>
+</span>
+<span style="font-size: 14px; font-weight: 500; color: #E8E9EE">API + worker + queue</span>
+<span style="font-size: 12px; color: #8C8F9C">api → Railway · worker → Railway · queue (Redis) → Railway</span>
+</label>
+
+</div>
+<p style="margin: 0; font-size: 12px; color: #8C8F9C">yari.run creates <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE">kestrel-studio/{{nameShown}}</span> on GitHub from this template. You own the code.</p>
+</fieldset>
+</sc-if>
+
+<!-- DESCRIBE (Code mode) -->
+<sc-if value="{{isDescribe}}" hint-placeholder-val="{{ false }}">
+<section style="display: flex; flex-direction: column; gap: 10px; animation: yr-in .16s ease-out">
+<label for="describe-in" style="font-size: 12px; font-weight: 500">What do you want to build?</label>
+<textarea id="describe-in" rows="4" value="{{prompt}}" onInput="{{onPrompt}}" placeholder="For example: a shop with Stripe checkout and an order email" class="hvb" style="box-sizing: border-box; width: 100%; resize: vertical; background: #0B0C10; border: 1px solid #24262F; border-radius: 10px; padding: 12px 14px; color: #E8E9EE; font-size: 14px; line-height: 1.5"></textarea>
+<div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+<span style="font-size: 12px; color: #8C8F9C">Examples</span>
+<sc-for list="{{examples}}" as="ex" hint-placeholder-count="2">
+<button type="button" onClick="{{ex.use}}" class="hvb" style="display: inline-flex; align-items: center; height: 26px; padding: 0 10px; border-radius: 13px; background: #121319; border: 1px solid #24262F; color: #E8E9EE; font-size: 12px; cursor: pointer">{{ex.text}}</button>
+</sc-for>
+</div>
+<div role="note" style="display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid #24262F; border-radius: 8px; background: #121319; font-size: 12px">
+<span style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center; color: #7C8CFF"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<span style="color: #E8E9EE">The agent works in its own sandbox. It cannot see your provider keys.</span>
+<span style="margin-left: auto; color: #8C8F9C; white-space: nowrap">claude-sonnet-5-5 · budget $3.00</span>
+</div>
+</section>
+</sc-if>
+
+<!-- PROJECT DETAILS -->
+<section aria-labelledby="project-h" style="display: flex; flex-direction: column; gap: 12px; padding-top: 4px; border-top: 1px solid #24262F">
+<h2 id="project-h" style="margin: 16px 0 0; font-size: 12px; font-weight: 500">Project</h2>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: start">
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="project-name" style="font-size: 12px; font-weight: 500">Project name</label>
+<input id="project-name" type="text" value="{{name}}" onInput="{{onName}}" autocomplete="off" spellcheck="false" class="hvb" style="height: 32px; box-sizing: border-box; width: 100%; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; padding: 0 10px; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 12px">
+<sc-if value="{{nameOk}}" hint-placeholder-val="{{ true }}">
+<span style="font-size: 12px; color: #8C8F9C">Lowercase letters, numbers and dashes. In Mango Market, Kestrel Studio.</span>
+</sc-if>
+<sc-if value="{{nameBad}}" hint-placeholder-val="{{ false }}">
+<span role="status" style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #E8E9EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>Use lowercase letters, numbers and dashes, for example mango-shop.</span>
+</sc-if>
+</div>
+
+<fieldset style="margin: 0; padding: 0; border: none; min-width: 0">
+<legend style="padding: 0; margin-bottom: 6px; font-size: 12px; font-weight: 500">Environments</legend>
+<div style="border: 1px solid #24262F; border-radius: 10px; overflow: hidden; background: #121319">
+<label class="hv" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; cursor: pointer">
+<input type="checkbox" checked="{{prod}}" onChange="{{toggleProd}}" style="margin: 3px 0 0; accent-color: #7C8CFF; flex: none">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="display: inline-flex; align-items: center; gap: 6px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-label="Protected"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">production</span></span>
+<span style="font-size: 12px; color: #8C8F9C">Protected: changes need an admin's approval</span>
+</span>
+</label>
+<label class="hv" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-top: 1px solid #24262F; cursor: pointer">
+<input type="checkbox" checked="{{stg}}" onChange="{{toggleStg}}" style="margin: 3px 0 0; accent-color: #7C8CFF; flex: none">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">staging</span>
+<span style="font-size: 12px; color: #8C8F9C">For checking changes before they reach production</span>
+</span>
+</label>
+<label class="hv" style="display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; border-top: 1px solid #24262F; cursor: pointer">
+<input type="checkbox" checked="{{prev}}" onChange="{{togglePrev}}" style="margin: 3px 0 0; accent-color: #7C8CFF; flex: none">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; color: #E8E9EE">Preview environments for pull requests</span>
+<span style="font-size: 12px; color: #8C8F9C">Each pull request gets a short-lived copy, like <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">pr-42</span></span>
+</span>
+</label>
+</div>
+<sc-if value="{{noEnv}}" hint-placeholder-val="{{ false }}">
+<span role="status" style="display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 12px; color: #E8E9EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>Keep production or staging to continue.</span>
+</sc-if>
+</fieldset>
+
+</div>
+</section>
+
+</div>
+</main>
+
+<!-- FOOTER -->
+<footer style="flex: none; border-top: 1px solid #24262F; padding: 14px 40px; background: #0B0C10">
+<div style="max-width: 880px; margin: 0 auto; display: flex; align-items: center; gap: 12px">
+<a href="Onboarding2.dc.html" class="hv" title="Back (⌘[)" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 13px; font-weight: 500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Back</a>
+<span aria-live="polite" style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">{{summary}}</span>
+<sc-if value="{{canContinue}}" hint-placeholder-val="{{ true }}">
+<a href="Onboarding4.dc.html" title="Continue (⌘↵)" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500">Continue<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+</sc-if>
+<sc-if value="{{cannotContinue}}" hint-placeholder-val="{{ false }}">
+<button type="button" disabled title="{{blockedWhy}}" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500; opacity: .45; cursor: not-allowed">Continue<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+</sc-if>
+</div>
+</footer>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"source":{"editor":"enum","options":["repo","template","describe"],"default":"repo"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.REPOS = [
+      { id: 'mango-shop', full: 'kestrel-studio/mango-shop', meta: 'pnpm monorepo · apps/web, apps/api, apps/worker · updated 20 min ago',
+        sentence: 'We found 3 apps: web (Next.js → Vercel), api (Node → Railway), worker (Node → Railway). Add a database or bucket later from the canvas.',
+        apps: [['web', 'Next.js', 'apps/web', 'Vercel', 'web'], ['api', 'Node', 'apps/api', 'Railway', 'web'], ['worker', 'Node', 'apps/worker', 'Railway', 'worker']] },
+      { id: 'harbor-portal', full: 'kestrel-studio/harbor-portal', meta: 'pnpm monorepo · apps/web, apps/api · updated yesterday',
+        sentence: 'We found 2 apps: web (Next.js → Vercel), api (Node → Railway). Add a database or email service later from the canvas.',
+        apps: [['web', 'Next.js', 'apps/web', 'Vercel', 'web'], ['api', 'Node', 'apps/api', 'Railway', 'web']] },
+      { id: 'kestrel-site', full: 'kestrel-studio/kestrel-site', meta: 'Astro · single app · updated 6 days ago',
+        sentence: 'We found 1 app: web (Astro → Vercel). Add more services later from the canvas.',
+        apps: [['web', 'Astro', '.', 'Vercel', 'web']] }
+    ];
+    this.TPL_COUNT = { full: 3, static: 1, jobs: 3 };
+    var src = (props && props.source) || 'repo';
+    this.state = {
+      source: src, repo: 'mango-shop', tpl: 'full',
+      prompt: src === 'describe' ? 'A shop with Stripe checkout' : '',
+      name: 'mango-shop', touched: false,
+      prod: true, stg: true, prev: true, ghNote: false
+    };
+  }
+  renderVals() {
+    var s = this.state;
+    var self = this;
+    var cardBase = 'position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 16px; padding-right: 40px; border-radius: 10px; background: #121319; cursor: pointer; box-sizing: border-box; ';
+    var on = 'border: 1px solid #7C8CFF; box-shadow: 0 0 0 3px rgba(124,140,255,0.18)';
+    var off = 'border: 1px solid #24262F';
+    var opt = function (key, field, value) {
+      var sel = s[field] === value;
+      var patch = {};
+      patch[field] = value;
+      return { checked: sel, cls: sel ? '' : 'hvb', style: cardBase + (sel ? on : off), pick: function () { self.setState(patch); } };
+    };
+
+    var repo = this.REPOS.filter(function (r) { return r.id === s.repo; })[0] || this.REPOS[0];
+    var repos = this.REPOS.map(function (r, i) {
+      var sel = r.id === repo.id;
+      return {
+        id: r.id, full: r.full, meta: r.meta, checked: sel,
+        style: 'display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; cursor: pointer; ' + (i > 0 ? 'border-top: 1px solid #24262F; ' : '') + (sel ? 'background: rgba(124,140,255,0.12)' : 'background: #121319'),
+        pick: function () {
+          var patch = { repo: r.id };
+          if (!self.state.touched) patch.name = r.id;
+          self.setState(patch);
+        }
+      };
+    });
+    var repoView = {
+      full: repo.full, sentence: repo.sentence,
+      apps: repo.apps.map(function (a) {
+        return { name: a[0], framework: a[1], path: a[2], provider: a[3], isWeb: a[4] === 'web', isWorker: a[4] === 'worker', connected: a[3] === 'Railway', notConnected: a[3] !== 'Railway' };
+      })
+    };
+
+    var name = s.name.trim();
+    var nameOk = /^[a-z0-9]([a-z0-9-]{0,38}[a-z0-9])?$/.test(name);
+    var noEnv = !s.prod && !s.stg;
+    var promptOk = s.source !== 'describe' || s.prompt.trim().length > 0;
+    var ok = nameOk && !noEnv && promptOk;
+    var why = !nameOk ? 'Fix the project name first' : (noEnv ? 'Keep production or staging' : 'Describe what you want to build first');
+
+    var envCount = (s.prod ? 1 : 0) + (s.stg ? 1 : 0);
+    var envText = envCount + (envCount === 1 ? ' environment' : ' environments') + (s.prev ? ' + previews' : '');
+    var svc;
+    if (s.source === 'repo') svc = repo.apps.length + (repo.apps.length === 1 ? ' service' : ' services');
+    else if (s.source === 'template') svc = this.TPL_COUNT[s.tpl] + (this.TPL_COUNT[s.tpl] === 1 ? ' service' : ' services');
+    else svc = 'services from the agent';
+    var summary = (name || 'unnamed') + ' · ' + svc + ' · ' + envText;
+
+    return {
+      src: { repo: opt('repo', 'source', 'repo'), template: opt('template', 'source', 'template'), describe: opt('describe', 'source', 'describe') },
+      tpl: { full: opt('full', 'tpl', 'full'), static: opt('static', 'tpl', 'static'), jobs: opt('jobs', 'tpl', 'jobs') },
+      isRepo: s.source === 'repo',
+      isTemplate: s.source === 'template',
+      isDescribe: s.source === 'describe',
+      repos: repos,
+      repo: repoView,
+      ghNote: s.ghNote,
+      toggleGh: function () { self.setState({ ghNote: !self.state.ghNote }); },
+      prompt: s.prompt,
+      onPrompt: function (e) { self.setState({ prompt: e.target.value }); },
+      examples: ['A shop with Stripe checkout', 'An API with Postgres and email'].map(function (t) { return { text: t, use: function () { self.setState({ prompt: t }); } }; }),
+      name: s.name,
+      nameShown: name || 'project-name',
+      onName: function (e) { self.setState({ name: e.target.value, touched: true }); },
+      nameOk: nameOk,
+      nameBad: !nameOk,
+      prod: s.prod, stg: s.stg, prev: s.prev,
+      toggleProd: function () { self.setState({ prod: !self.state.prod }); },
+      toggleStg: function () { self.setState({ stg: !self.state.stg }); },
+      togglePrev: function () { self.setState({ prev: !self.state.prev }); },
+      noEnv: noEnv,
+      summary: summary,
+      canContinue: ok,
+      cannotContinue: !ok,
+      blockedWhy: why
+    };
+  }
+}
+</script>
+</body>
+</html>

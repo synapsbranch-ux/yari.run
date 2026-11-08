@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Desktop tray</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+.mi:hover{background:#1E2029 !important;color:#E8E9EE !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 480px; height: 420px; position: relative; overflow: hidden; background: #15161C; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+
+<!-- MENU BAR -->
+<div style="position: absolute; left: 0; top: 0; right: 0; height: 26px; box-sizing: border-box; display: flex; align-items: center; gap: 14px; padding: 0 12px; background: rgba(11,12,16,0.85); border-bottom: 1px solid #24262F; z-index: 3">
+<span aria-hidden="true" style="width: 12px; height: 12px; border-radius: 50%; background: #3A3D4A"></span>
+<span aria-hidden="true" style="width: 38px; height: 8px; border-radius: 4px; background: #3A3D4A"></span>
+<span aria-hidden="true" style="width: 26px; height: 8px; border-radius: 4px; background: #2F323D"></span>
+<span aria-hidden="true" style="width: 30px; height: 8px; border-radius: 4px; background: #2F323D"></span>
+<span aria-hidden="true" style="width: 22px; height: 8px; border-radius: 4px; background: #2F323D"></span>
+<span style="flex: 1"></span>
+<button type="button" onClick="{{toggle}}" aria-haspopup="menu" aria-expanded="{{open}}" aria-label="yari.run, 2 approvals pending" title="yari.run" style="{{iconStyle}}">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#E8E9EE" stroke-width="2" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#E8E9EE"/></svg>
+<span aria-hidden="true" style="position: absolute; top: 3px; right: 4px; width: 5px; height: 5px; border-radius: 50%; background: #E9B949"></span>
+</button>
+<span aria-hidden="true" style="width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%; border: 1.5px solid #6B6F7D"></span>
+<span aria-hidden="true" style="width: 20px; height: 10px; box-sizing: border-box; border-radius: 3px; border: 1.5px solid #6B6F7D"></span>
+<span aria-hidden="true" style="width: 14px; height: 10px; border-radius: 2px; background: #3A3D4A"></span>
+<span aria-hidden="true" style="width: 34px; height: 8px; border-radius: 4px; background: #3A3D4A"></span>
+</div>
+
+<sc-if value="{{open}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{close}}" aria-label="Close menu (Esc)" style="position: absolute; left: 0; top: 26px; right: 0; bottom: 0; background: transparent; border: none; cursor: default; z-index: 1"></button>
+
+<!-- DROPDOWN -->
+<div role="menu" aria-label="yari.run" style="position: absolute; top: 30px; right: 60px; width: 280px; box-sizing: border-box; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 5px; z-index: 4; animation: yr-in .14s ease-out">
+<div style="padding: 5px 10px 6px; font-size: 11px; color: #8C8F9C">yari.run · Kestrel Studio</div>
+
+<a href="Canvas.dc.html" role="menuitem" class="mi" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 6px; color: #E8E9EE">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+<span>Open yari.run</span>
+<kbd style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">⌘O</kbd>
+</a>
+
+<a href="Approvals.dc.html" role="menuitem" class="mi" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 6px; color: #E8E9EE">
+<span style="width: 14px; display: inline-flex; justify-content: center"><span style="width: 8px; height: 8px; border-radius: 50%; background: #E9B949"></span></span>
+<span>Pending approvals: 2</span>
+<span style="margin-left: auto; font-size: 11px; color: #8C8F9C">mango-shop</span>
+</a>
+
+<a href="CodeWorking.dc.html" role="menuitem" class="mi" style="display: flex; align-items: flex-start; gap: 10px; padding: 6px 10px; border-radius: 6px; color: #E8E9EE">
+<span style="width: 14px; height: 20px; display: inline-flex; align-items: center; justify-content: center"><span style="width: 8px; height: 8px; border-radius: 50%; background: #7C8CFF; animation: yr-pulse 1.6s ease-in-out infinite"></span></span>
+<span style="display: flex; flex-direction: column; gap: 1px; min-width: 0">
+<span>Agent sessions running: 1</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">ses_7f3a · Code · mango-shop</span>
+</span>
+</a>
+
+<div role="separator" style="height: 1px; background: #24262F; margin: 5px 4px"></div>
+
+<button type="button" role="menuitemcheckbox" aria-checked="{{pausedAria}}" onClick="{{togglePause}}" class="mi" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 30px; padding: 0 10px; border-radius: 6px; background: transparent; border: none; color: #E8E9EE; cursor: pointer; text-align: left; font-size: 13px">
+<span style="width: 14px; display: inline-flex; justify-content: center">
+<sc-if value="{{paused}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+</span>
+<span>Pause notifications</span>
+</button>
+
+<div role="separator" style="height: 1px; background: #24262F; margin: 5px 4px"></div>
+
+<button type="button" role="menuitem" onClick="{{close}}" class="mi" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 30px; padding: 0 10px; border-radius: 6px; background: transparent; border: none; color: #E8E9EE; cursor: pointer; text-align: left; font-size: 13px">
+<span style="width: 14px"></span>
+<span>Quit</span>
+<kbd style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">⌘Q</kbd>
+</button>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":480,"height":420}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { open: true, paused: false };
+  }
+  renderVals() {
+    const s = this.state;
+    return {
+      open: s.open,
+      toggle: () => this.setState({ open: !s.open }),
+      close: () => this.setState({ open: false }),
+      paused: s.paused,
+      pausedAria: s.paused ? 'true' : 'false',
+      togglePause: () => this.setState({ paused: !s.paused }),
+      iconStyle: 'position: relative; width: 28px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border: none; border-radius: 5px; cursor: pointer; padding: 0; ' + (s.open ? 'background: #24262F;' : 'background: transparent;')
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Code · ses_7f3a</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 900px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 900px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<span style="width: 1px; height: 20px; background: #24262F"></span>
+<nav aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<button type="button" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">mango-shop<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<div style="position: relative">
+<button type="button" onClick="{{toggleEnv}}" aria-haspopup="menu" aria-expanded="{{envOpen}}" title="Switch environment (⌘E)" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">pr-42</span>
+<span style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C">Preview</span>
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+</button>
+<sc-if value="{{envOpen}}" hint-placeholder-val="{{ false }}">
+<div role="menu" style="position: absolute; top: 34px; left: 0; width: 260px; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 6px; z-index: 20; animation: yr-in .14s ease-out">
+<div style="padding: 6px 8px 4px; font-size: 11px; font-weight: 500; color: #8C8F9C">Environments of mango-shop</div>
+<a href="Canvas.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">production</span><span style="color: #8C8F9C; font-size: 11px">Protected</span></a>
+<a href="CanvasStaging.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE"><span style="width: 13px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">staging</span><span style="margin-left: auto; display: inline-flex; align-items: center; gap: 4px; color: #F26D6D; font-size: 11px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>1 failed</span></a>
+<a href="CanvasPR42.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; background: #181A22"><span style="width: 13px"></span><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">pr-42</span><span style="color: #8C8F9C; font-size: 11px">Preview</span><svg style="margin-left: auto" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Current"><path d="M20 6 9 17l-5-5"/></svg></a>
+<div style="height: 1px; background: #24262F; margin: 6px 0"></div>
+<button type="button" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 32px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New environment</button>
+</div>
+</sc-if>
+</div>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<a href="Approvals.dc.html" aria-label="Approvals, 2 waiting" title="Approvals (G I)" class="hv" style="position: relative; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+<span style="position: absolute; top: 3px; right: 2px; min-width: 15px; height: 15px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center">2</span>
+</a>
+<a href="AgentOps.dc.html" title="Agent (⌘J)" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 10px; border-radius: 8px; color: #E8E9EE; border: 1px solid transparent; font-size: 13px; font-weight: 500">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Agent
+</a>
+<a href="PlanReview.dc.html" title="Deploy (⌘↵)" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500">Deploy<kbd style="font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid rgba(11,12,16,0.25); border-radius: 4px; color: rgba(11,12,16,0.7)">⌘↵</kbd></a>
+<button type="button" aria-label="Account: Marc Etienne" title="Marc Etienne" style="width: 28px; height: 28px; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; cursor: pointer; margin-left: 4px">ME</button>
+</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<!-- LEFT RAIL -->
+<nav aria-label="Project" style="width: 48px; flex: none; border-right: 1px solid #24262F; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 10px 0; background: #0B0C10">
+<a href="Canvas.dc.html" aria-label="Canvas" title="Canvas (G C)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg></a>
+<a href="CodeStart.dc.html" aria-label="Code" aria-current="page" title="Code (G D)" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: #181A22; color: #E8E9EE"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></a>
+<a href="AgentOps.dc.html" aria-label="Agent sessions" title="Agent sessions (G A)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></a>
+<button type="button" aria-label="Logs" title="Logs (G L)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></button>
+<button type="button" aria-label="Metrics" title="Metrics (G M)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/></svg></button>
+<a href="AuditLog.dc.html" aria-label="Activity" title="Activity (G V)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></a>
+<span style="flex: 1"></span>
+<button type="button" aria-label="Project settings" title="Settings (G S)" class="hv" style="width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></button>
+</nav>
+
+<!-- CODE WORKSPACE -->
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+
+<!-- session tab bar -->
+<div style="height: 44px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 12px 0 16px; border-bottom: 1px solid #24262F; background: #0B0C10">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>
+<span style="font-size: 13px; font-weight: 500; color: #E8E9EE">kestrel-studio/mango-shop</span>
+<span title="Branch the agent works on" style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; box-sizing: border-box; border: 1px solid #24262F; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3v12"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>yari/session-7f3a</span>
+<sc-if value="{{isWorking}}" hint-placeholder-val="{{ true }}">
+<span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-size: 11px; font-weight: 500"><span style="width: 6px; height: 6px; border-radius: 50%; background: #E9B949; animation: yr-pulse 1.6s ease-in-out infinite"></span>Working</span>
+</sc-if>
+<sc-if value="{{isStopped}}" hint-placeholder-val="{{ false }}">
+<span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; border-radius: 6px; border: 1px solid #24262F; color: #8C8F9C; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="5" y="5" rx="2"/></svg>Stopped</span>
+</sc-if>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">ses_7f3a</span>
+
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<button type="button" onClick="{{togglePreview}}" aria-pressed="{{previewPressed}}" title="Toggle preview (⌘P)" style="{{previewBtnStyle}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Preview</button>
+<sc-if value="{{prIdle}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{openPr}}" title="Open a pull request on GitHub" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v12"/></svg>Open PR</button>
+</sc-if>
+<sc-if value="{{prOpened}}" hint-placeholder-val="{{ false }}">
+<span role="status" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7M6 9v12"/></svg>PR #42 open</span>
+</sc-if>
+<sc-if value="{{deployIdle}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{deployPreview}}" title="Deploy this branch to pr-42 (⇧⌘D)" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7M12 19V5"/></svg>Deploy to preview (pr-42)</button>
+</sc-if>
+<sc-if value="{{deployRunning}}" hint-placeholder-val="{{ false }}">
+<button type="button" disabled style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: not-allowed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>Deploying to pr-42</button>
+</sc-if>
+<sc-if value="{{deployLive}}" hint-placeholder-val="{{ false }}">
+<span role="status" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 12px; font-weight: 500; animation: yr-in .2s ease-out"><span style="width: 6px; height: 6px; border-radius: 50%; background: #3DD68C"></span>Live on pr-42</span>
+</sc-if>
+<a href="CodePromote.dc.html" title="Promote to production (⇧⌘↵)" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Promote to production</a>
+</div>
+</div>
+
+<div style="flex: 1; min-height: 0; display: flex">
+
+<!-- LEFT: files -->
+<aside aria-label="Files" style="width: 240px; flex: none; border-right: 1px solid #24262F; display: flex; flex-direction: column; background: #0B0C10">
+<div style="height: 36px; flex: none; display: flex; align-items: center; padding: 0 14px; font-size: 11px; font-weight: 500; letter-spacing: .02em; color: #8C8F9C">Files<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; letter-spacing: 0">read-only</span></div>
+<div role="tree" aria-label="Repository files" style="flex: 1; min-height: 0; overflow-y: auto; padding: 0 6px 8px">
+<sc-for list="{{tree}}" as="r" hint-placeholder-count="12">
+<sc-if value="{{r.isFolder}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{r.click}}" aria-expanded="{{r.expanded}}" class="hv" style="{{r.style}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{r.chev}}"><path d="m6 9 6 6 6-6"/></svg><span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{r.name}}</span></button>
+</sc-if>
+<sc-if value="{{r.isFile}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{r.click}}" aria-current="{{r.current}}" title="{{r.path}}" class="hv" style="{{r.style}}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg><span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{r.name}}</span><sc-if value="{{r.hasBadge}}" hint-placeholder-val="{{ false }}"><span title="{{r.badgeLabel}}" aria-label="{{r.badgeLabel}}" style="{{r.badgeSt}}">{{r.badge}}</span></sc-if></button>
+</sc-if>
+</sc-for>
+</div>
+<div style="flex: none; border-top: 1px solid #24262F; padding: 0 6px 10px">
+<button type="button" onClick="{{toggleChanges}}" aria-expanded="{{changesExpanded}}" class="hv" style="display: flex; align-items: center; gap: 6px; width: 100%; height: 36px; padding: 0 8px; box-sizing: border-box; border: none; border-radius: 6px; background: transparent; color: #E8E9EE; font-size: 12px; font-weight: 500; cursor: pointer; text-align: left"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{changesChev}}"><path d="m6 9 6 6 6-6"/></svg>Changes · {{changeCount}} files<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 400"><span style="color: #3DD68C">{{totalAdd}}</span> <span style="color: #F26D6D">{{totalDel}}</span></span></button>
+<div style="{{changesListStyle}}">
+<sc-for list="{{changes}}" as="c" hint-placeholder-count="6">
+<button type="button" onClick="{{c.click}}" title="{{c.path}}" class="hv" style="{{c.style}}"><span aria-label="{{c.badgeLabel}}" style="{{c.badgeSt}}">{{c.badge}}</span><span style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{c.name}}</span><span style="margin-left: auto; flex: none; font-family: 'JetBrains Mono', monospace; font-size: 11px"><span style="color: #3DD68C">{{c.add}}</span> <span style="color: #F26D6D">{{c.del}}</span></span></button>
+</sc-for>
+</div>
+</div>
+</aside>
+
+<!-- CENTER: editor, preview, terminal -->
+<section aria-label="Editor" style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+<div style="flex: 1; min-height: 0; display: flex">
+
+<!-- code pane -->
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; background: #0B0C10">
+<div role="tablist" aria-label="Open files" style="height: 36px; flex: none; display: flex; align-items: stretch; background: #121319; border-bottom: 1px solid #24262F; overflow-x: auto; overflow-y: hidden">
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="3">
+<div style="{{t.wrap}}">
+<button type="button" role="tab" aria-selected="{{t.selected}}" onClick="{{t.pick}}" title="{{t.path}}" style="{{t.btn}}">{{t.label}}<sc-if value="{{t.hasBadge}}" hint-placeholder-val="{{ false }}"><span aria-label="{{t.badgeLabel}}" style="{{t.badgeSt}}">{{t.badge}}</span></sc-if></button>
+<button type="button" onClick="{{t.close}}" aria-label="Close {{t.label}}" title="Close tab (⌘W)" class="hv" style="width: 20px; height: 20px; margin-right: 8px; display: inline-flex; align-items: center; justify-content: center; border-radius: 4px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{hasSel}}" hint-placeholder-val="{{ true }}">
+<div style="height: 32px; flex: none; display: flex; align-items: center; gap: 10px; padding: 0 14px; border-bottom: 1px solid #24262F; font-size: 12px; color: #8C8F9C">
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{selPath}}</span>
+<sc-if value="{{selNew}}" hint-placeholder-val="{{ true }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New file</span></sc-if>
+<sc-if value="{{selMod}}" hint-placeholder-val="{{ false }}"><span style="flex: none; display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-size: 11px; font-weight: 500">~ Modified · diff</span></sc-if>
+<sc-if value="{{selSame}}" hint-placeholder-val="{{ false }}"><span style="flex: none; display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 6px; border: 1px solid #24262F; color: #8C8F9C; font-size: 11px; font-weight: 500">No change</span></sc-if>
+<sc-if value="{{selChanged}}" hint-placeholder-val="{{ true }}"><span style="flex: none; font-family: 'JetBrains Mono', monospace; font-size: 11px"><span style="color: #3DD68C">{{selAdd}}</span> <span style="color: #F26D6D">{{selDel}}</span></span></sc-if>
+<span style="margin-left: auto; flex: none; display: inline-flex; align-items: center; gap: 5px; font-size: 11px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>Read-only while the agent works</span>
+</div>
+</sc-if>
+
+<!-- code view (new / unchanged files) -->
+<div aria-label="File contents" style="{{codeBodyStyle}}">
+<sc-for list="{{codeLines}}" as="ln" hint-placeholder-count="24">
+<div style="display: flex; white-space: pre; min-width: max-content; padding-right: 16px"><span aria-hidden="true" style="width: 36px; flex: none; text-align: right; padding-right: 16px; color: #6B6F7D">{{ln.no}}</span><sc-for list="{{ln.segs}}" as="sg" hint-placeholder-count="6"><span style="{{sg.st}}">{{sg.t}}</span></sc-for></div>
+</sc-for>
+</div>
+
+<!-- diff view (modified files) -->
+<div aria-label="Changes in this file" style="{{diffBodyStyle}}">
+<sc-for list="{{diffLines}}" as="ln" hint-placeholder-count="24">
+<div style="{{ln.row}}"><span aria-hidden="true" style="width: 34px; flex: none; text-align: right; color: #6B6F7D">{{ln.o}}</span><span aria-hidden="true" style="width: 34px; flex: none; text-align: right; padding-right: 6px; color: #6B6F7D">{{ln.n}}</span><span aria-label="{{ln.signLabel}}" style="{{ln.signSt}}">{{ln.sign}}</span><sc-for list="{{ln.segs}}" as="sg" hint-placeholder-count="6"><span style="{{sg.st}}">{{sg.t}}</span></sc-for></div>
+</sc-for>
+</div>
+
+<!-- nothing open -->
+<div style="{{emptyStyle}}">
+<div style="max-width: 300px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px">
+<span style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>
+<div style="font-size: 14px; font-weight: 500">No file open</div>
+<div style="font-size: 13px; color: #8C8F9C">Pick a file in the tree or in Changes to read it.</div>
+</div>
+</div>
+</div>
+
+<!-- preview pane -->
+<div aria-label="Preview of pr-42" style="{{previewPaneStyle}}">
+<div style="flex: 1; min-height: 0; display: flex; flex-direction: column; border: 1px solid #24262F; border-radius: 10px; overflow: hidden; background: #121319">
+<div style="height: 40px; flex: none; display: flex; align-items: center; gap: 2px; padding: 0 6px; border-bottom: 1px solid #24262F; background: #121319">
+<button type="button" aria-label="Back" title="Back (⌘[)" class="hv" style="width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg></button>
+<button type="button" onClick="{{reload}}" aria-label="Reload preview" title="Reload (⌘R)" class="hv" style="width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{reloadSt}}"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg></button>
+<div style="flex: 1; min-width: 0; height: 28px; box-sizing: border-box; display: flex; align-items: center; gap: 8px; margin: 0 4px; padding: 0 4px 0 10px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px">
+<span style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">mango-shop-7f3a.preview.yari.run</span>
+<span title="Only members of Kestrel Studio can open this preview" style="flex: none; display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 6px; background: #181A22; border: 1px solid #24262F; color: #8C8F9C; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Private</span>
+</div>
+<button type="button" aria-label="Open preview in a new tab" title="Open in new tab (⌘↵)" class="hv" style="width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></button>
+</div>
+
+<!-- mock shop page -->
+<div style="flex: 1; min-height: 0; overflow-y: auto; background: #FAFAF7; color: #1F1D1A; font-family: Inter, system-ui, sans-serif">
+<div style="height: 44px; display: flex; align-items: center; gap: 14px; padding: 0 18px; border-bottom: 1px solid #E4DFD4">
+<span style="font-size: 14px; font-weight: 600; letter-spacing: -0.01em">Mango Market</span>
+<span style="margin-left: auto; font-size: 12px; color: #6E6A62">Shop</span>
+<span style="font-size: 12px; color: #6E6A62">Cart (0)</span>
+</div>
+<div style="padding: 18px">
+<div role="img" aria-label="Product photo: a box of six mangoes" style="height: 150px; border-radius: 8px; background: #EFEBE2; display: flex; align-items: center; justify-content: center">
+<svg width="120" height="70" viewBox="0 0 120 70" fill="none" stroke="#B8AE9A" stroke-width="1.5" aria-hidden="true"><ellipse cx="30" cy="40" rx="20" ry="16"/><ellipse cx="60" cy="34" rx="20" ry="16"/><ellipse cx="90" cy="40" rx="20" ry="16"/><path d="M60 18c2-6 6-9 12-10"/></svg>
+</div>
+<h1 style="margin: 16px 0 0; font-size: 18px; font-weight: 600; letter-spacing: -0.01em">Alphonso mangoes · box of 6</h1>
+<div style="margin-top: 4px; font-size: 15px; font-weight: 500">€24.00</div>
+<div style="margin-top: 6px; display: flex; align-items: center; gap: 6px; font-size: 12px; color: #6E6A62">
+<span role="img" aria-label="Rated 4.6 out of 5" style="display: inline-flex; gap: 2px"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1F1D1A" stroke="#1F1D1A" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg width="13" height="13" viewBox="0 0 24 24" fill="#1F1D1A" stroke="#1F1D1A" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg width="13" height="13" viewBox="0 0 24 24" fill="#1F1D1A" stroke="#1F1D1A" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg width="13" height="13" viewBox="0 0 24 24" fill="#1F1D1A" stroke="#1F1D1A" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#1F1D1A" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></span>
+<span>{{ratingLabel}}</span>
+</div>
+<p style="margin: 10px 0 0; font-size: 13px; line-height: 1.55; color: #6E6A62">Hand-picked in Ratnagiri and shipped ripe within 48 hours.</p>
+<button type="button" style="margin-top: 12px; height: 36px; padding: 0 16px; border-radius: 8px; background: #1F1D1A; border: 1px solid #1F1D1A; color: #FAFAF7; font-size: 13px; font-weight: 500; cursor: pointer">Add to cart</button>
+
+<h2 style="margin: 24px 0 0; font-size: 15px; font-weight: 600">Reviews</h2>
+<sc-if value="{{reviewSent}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #E4DFD4; animation: yr-in .2s ease-out">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500">Marc E.<span style="font-size: 11px; font-weight: 400; color: #6E6A62">Verified buyer · just now</span><span style="margin-left: auto; font-size: 12px; font-weight: 500">{{sentRating}}</span></div>
+<p style="margin: 4px 0 0; font-size: 13px; line-height: 1.5">{{sentText}}</p>
+</div>
+</sc-if>
+<div style="margin-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #E4DFD4">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500">Ana R.<span style="font-size: 11px; font-weight: 400; color: #6E6A62">Verified buyer · 2 days ago</span><span style="margin-left: auto; font-size: 12px; font-weight: 500">5 of 5</span></div>
+<p style="margin: 4px 0 0; font-size: 13px; line-height: 1.5">Sweet and fragrant, all six perfectly ripe on arrival.</p>
+</div>
+<div style="margin-top: 10px; padding-bottom: 10px; border-bottom: 1px solid #E4DFD4">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 500">Tom B.<span style="font-size: 11px; font-weight: 400; color: #6E6A62">Verified buyer · last week</span><span style="margin-left: auto; font-size: 12px; font-weight: 500">4 of 5</span></div>
+<p style="margin: 4px 0 0; font-size: 13px; line-height: 1.5">Great taste. One mango was a little soft, the rest were excellent.</p>
+</div>
+
+<sc-if value="{{formVisible}}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 16px; padding: 14px; border: 1px solid #E4DFD4; border-radius: 8px; background: #FFFFFF">
+<h3 style="margin: 0; font-size: 14px; font-weight: 600">Write a review</h3>
+<div id="pv-rating-label" style="margin-top: 10px; font-size: 12px; color: #6E6A62">Your rating</div>
+<div role="group" aria-labelledby="pv-rating-label" style="margin-top: 4px; display: flex; gap: 2px">
+<sc-for list="{{stars}}" as="st" hint-placeholder-count="5">
+<button type="button" onClick="{{st.pick}}" aria-label="{{st.label}}" aria-pressed="{{st.pressed}}" style="width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: transparent; border: none; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="{{st.fill}}" stroke="#1F1D1A" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01z"/></svg></button>
+</sc-for>
+</div>
+<label for="pv-review" style="display: block; margin-top: 10px; font-size: 12px; color: #6E6A62">Your review</label>
+<textarea id="pv-review" value="{{reviewText}}" onInput="{{onReviewType}}" rows="3" placeholder="What did you think of these mangoes?" style="display: block; margin-top: 4px; box-sizing: border-box; width: 100%; padding: 8px 10px; border: 1px solid #D8D2C6; border-radius: 6px; background: #FAFAF7; color: #1F1D1A; font-size: 13px; line-height: 1.5; resize: none"></textarea>
+<sc-if value="{{canSubmit}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{submitReview}}" style="margin-top: 10px; height: 34px; padding: 0 14px; border-radius: 8px; background: #1F1D1A; border: 1px solid #1F1D1A; color: #FAFAF7; font-size: 13px; font-weight: 500; cursor: pointer">Submit review</button>
+</sc-if>
+<sc-if value="{{cannotSubmit}}" hint-placeholder-val="{{ true }}">
+<button type="button" disabled title="Choose a rating first" style="margin-top: 10px; height: 34px; padding: 0 14px; border-radius: 8px; background: #1F1D1A; border: 1px solid #1F1D1A; color: #FAFAF7; font-size: 13px; font-weight: 500; opacity: .45; cursor: not-allowed">Submit review</button>
+</sc-if>
+</div>
+</sc-if>
+<sc-if value="{{reviewSent}}" hint-placeholder-val="{{ false }}">
+<p role="status" style="margin: 16px 0 0; font-size: 13px; color: #1F1D1A">Thanks. Your review is live.</p>
+</sc-if>
+<div style="height: 24px"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- terminal drawer -->
+<div style="{{termStyle}}">
+<div style="height: 33px; flex: none; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 14px; font-size: 12px; color: #8C8F9C">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6M12 19h8"/></svg>
+<span style="color: #E8E9EE; font-weight: 500">Terminal</span><span>· read-only · sandbox</span>
+<span style="margin-left: 12px; display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px"><span style="width: 6px; height: 6px; border-radius: 50%; background: #3DD68C"></span>pnpm dev · running</span>
+<button type="button" onClick="{{toggleTerm}}" aria-expanded="{{termExpanded}}" aria-label="{{termLabel}}" title="Toggle terminal (⌃`)" class="hv" style="margin-left: auto; width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="{{termChev}}"><path d="m6 9 6 6 6-6"/></svg></button>
+</div>
+<pre role="log" aria-label="Terminal output" style="{{termBodyStyle}}"><span style="color: #7C8CFF">$</span> <span style="color: #E8E9EE">pnpm install</span>
+Scope: all 3 workspace projects
+Packages: +612
+Progress: resolved 612, reused 598, downloaded 14, added 612, done
+Done in 11.2s
+<span style="color: #7C8CFF">$</span> <span style="color: #E8E9EE">pnpm --filter api test</span>
+ PASS  src/routes/reviews.test.ts (9 tests) 412ms
+ PASS  src/email/review-notification.test.ts (5 tests) 96ms
+ Test Files  2 passed (2)
+      Tests  <span style="color: #3DD68C">14 passed</span> (14)
+<span style="color: #7C8CFF">$</span> <span style="color: #E8E9EE">pnpm --filter web build</span>
+ Compiled successfully in 8.4s · 14 pages
+<span style="color: #7C8CFF">$</span> <span style="color: #E8E9EE">pnpm dev</span>
+web | ready on http://localhost:3000
+api | listening on http://localhost:4000
+api | GET /api/products/alphonso-box-6/reviews 200 18ms</pre>
+</div>
+</section>
+
+<!-- RIGHT: agent panel -->
+<aside aria-label="Agent session ses_7f3a" style="width: 380px; flex: none; border-left: 1px solid #24262F; display: flex; flex-direction: column; background: #121319; position: relative">
+<div style="flex: none; padding: 14px 16px 12px; border-bottom: 1px solid #24262F; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<span style="font-size: 14px; font-weight: 500">Agent</span>
+<span style="display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500">Code</span>
+<span style="margin-left: auto; font-size: 12px; color: #8C8F9C" aria-live="polite">{{agentStatus}}</span>
+</div>
+<div style="display: flex; align-items: center; gap: 14px">
+<div style="position: relative; flex: none">
+<label for="cw-model" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0">Model</label>
+<select id="cw-model" value="{{model}}" onChange="{{pickModel}}" title="Model" class="hvb" style="height: 28px; padding: 0 28px 0 10px; background: #181A22; border: 1px solid #24262F; border-radius: 8px; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 12px; appearance: none; -webkit-appearance: none; cursor: pointer">
+<option value="claude-sonnet-5-5">claude-sonnet-5-5</option>
+<option value="gpt-5.5">gpt-5.5</option>
+<option value="local-llama">local-llama (self-hosted)</option>
+</select>
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; right: 9px; top: 8px; pointer-events: none"><path d="m6 9 6 6 6-6"/></svg>
+</div>
+<div style="flex: 1; min-width: 0">
+<div style="display: flex; align-items: baseline; gap: 6px; font-size: 12px"><span style="color: #8C8F9C">Budget</span><span style="color: #E8E9EE; font-family: 'JetBrains Mono', monospace">$1.36 of $3.00</span><span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">45%</span></div>
+<div role="meter" aria-label="Session budget used" aria-valuemin="0" aria-valuemax="100" aria-valuenow="45" style="margin-top: 5px; height: 4px; border-radius: 2px; background: #24262F; overflow: hidden"><div style="width: 45%; height: 100%; background: #7C8CFF"></div></div>
+</div>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #8C8F9C; line-height: 1.5">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+<span><span style="color: #E8E9EE">Sandbox running</span> · 4 vCPU · 8 GB · web :3000, api :4000 · cannot see your provider keys</span>
+</div>
+</div>
+
+<!-- timeline (column-reverse keeps the latest step in view) -->
+<div style="flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column-reverse">
+<div role="log" aria-label="Agent timeline" style="padding: 16px; display: flex; flex-direction: column; gap: 14px">
+
+<!-- goal -->
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px">
+<div style="max-width: 320px; background: #181A22; border-radius: 10px; padding: 10px 12px; font-size: 13px; line-height: 1.55; color: #E8E9EE">Add product reviews. Customers who bought a product can rate it and leave a short review. Email the shop owner when a new review arrives.</div>
+<span style="font-size: 11px; color: #8C8F9C">Marc Etienne · 14:38</span>
+</div>
+
+<!-- plan message -->
+<div style="display: flex; gap: 10px">
+<span style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<div style="flex: 1; min-width: 0; padding-top: 2px; font-size: 13px; line-height: 1.6; color: #E8E9EE">
+<p style="margin: 0">I'll work on <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">yari/session-7f3a</span> and test everything in a preview first:</p>
+<ol style="margin: 6px 0 0; padding-left: 18px; color: #E8E9EE">
+<li>Add a reviews table with migration <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">0043_reviews</span>.</li>
+<li>Add GET and POST routes to api. Only verified buyers can post.</li>
+<li>Email the shop owner through Resend when a review arrives.</li>
+<li>Show reviews and a form on the product page.</li>
+</ol>
+</div>
+</div>
+
+<!-- write files -->
+<div style="display: flex; gap: 10px">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Sandbox</span>
+<span style="font-size: 11px; color: #8C8F9C">0.6 s</span>
+<span style="margin-left: auto; display: inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></span>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">Write 4 files</div>
+<div style="margin-top: 2px; font-size: 12px; color: #8C8F9C">and edit server.ts, [slug].tsx</div>
+</div>
+</div>
+
+<!-- pnpm install -->
+<div style="display: flex; gap: 10px">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6M12 19h8"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Sandbox</span>
+<span style="font-size: 11px; color: #8C8F9C">11.2 s</span>
+<span style="margin-left: auto; display: inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></span>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">pnpm install</div>
+</div>
+</div>
+
+<!-- test -->
+<div style="display: flex; gap: 10px">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 17 6-6-6-6M12 19h8"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Sandbox</span>
+<span style="font-size: 11px; color: #8C8F9C">6.8 s</span>
+<span style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: #3DD68C">14 passed<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></span>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">pnpm --filter api test</div>
+</div>
+</div>
+
+<!-- create preview env -->
+<div style="display: flex; gap: 10px">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="2" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="2.25" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>yari</span>
+<span style="font-size: 11px; color: #8C8F9C">34 s</span>
+<span style="margin-left: auto; display: inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></span>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">Create preview environment pr-42</div>
+<div style="margin-top: 2px; font-size: 12px; color: #8C8F9C">web, api and worker deployed from yari/session-7f3a</div>
+</div>
+</div>
+
+<!-- database message -->
+<div style="display: flex; gap: 10px">
+<span style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<div style="flex: 1; min-width: 0; padding-top: 2px; font-size: 13px; line-height: 1.6; color: #E8E9EE">
+<p style="margin: 0">Reviews need a database in pr-42. Preview environments start without one.</p>
+<p style="margin: 6px 0 0; color: #8C8F9C">I prepared a plan that adds postgres on Supabase's free tier, in the same region as api.</p>
+</div>
+</div>
+
+<!-- plan card -->
+<div style="display: flex; gap: 10px">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 15px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M9 12h6M9 16h4"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #2F323D; border-radius: 10px; padding: 14px">
+<div style="display: flex; align-items: center; gap: 8px; font-size: 11px; color: #8C8F9C">Plan<span style="font-family: 'JetBrains Mono', monospace">plan_P42D</span><span style="margin-left: auto; display: inline-flex; align-items: center; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; border: 1px solid #24262F; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE">pr-42</span></div>
+<div style="margin-top: 6px; font-size: 14px; font-weight: 500">Add postgres on Supabase and connect it to api</div>
+<div style="margin-top: 4px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; font-size: 12px; color: #8C8F9C">2 changes across 2 providers · No cost change ·<span style="display: inline-flex; align-items: center; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500">Low risk</span></div>
+<sc-if value="{{planDetails}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 10px; border: 1px solid #24262F; border-radius: 8px; overflow: hidden; animation: yr-in .16s ease-out">
+<div style="display: flex; align-items: flex-start; gap: 8px; padding: 9px 10px; border-bottom: 1px solid #24262F">
+<span style="flex: none; display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>Create</span>
+<div style="flex: 1; min-width: 0"><div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500">postgres<span style="height: 18px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Supabase</span></div><div style="font-size: 12px; color: #8C8F9C">Free tier · eu-central-1, same region as api</div></div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">$0.00</span>
+</div>
+<div style="display: flex; align-items: flex-start; gap: 8px; padding: 9px 10px">
+<span style="flex: none; display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 6px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500">~ Update</span>
+<div style="flex: 1; min-width: 0"><div style="display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500">api<span style="height: 18px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center">Railway</span></div><div style="font-size: 12px; color: #8C8F9C">Inject <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">DATABASE_URL</span></div></div>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">$0.00</span>
+</div>
+</div>
+</sc-if>
+<div style="margin-top: 8px; display: flex; align-items: center; gap: 6px; font-size: 12px; color: #8C8F9C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>No approval needed: pr-42 is a preview environment.</div>
+<sc-if value="{{planProposed}}" hint-placeholder-val="{{ true }}">
+<div style="margin-top: 12px; display: flex; align-items: center; gap: 6px">
+<button type="button" onClick="{{acceptPlan}}" title="Accept plan (⌘↵)" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 12px; font-weight: 500; cursor: pointer">Accept</button>
+<button type="button" onClick="{{toggleDetails}}" aria-expanded="{{planDetailsExpanded}}" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 12px; font-weight: 500; cursor: pointer">{{planDetailsLabel}}</button>
+</div>
+</sc-if>
+<sc-if value="{{planApplying}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; display: flex; align-items: center; gap: 8px">
+<button type="button" disabled style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 12px; font-weight: 500; opacity: .7; cursor: not-allowed"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>Applying</button>
+<span style="font-size: 12px; color: #8C8F9C" aria-live="polite">Creating postgres on Supabase</span>
+</div>
+</sc-if>
+<sc-if value="{{planApplied}}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 12px; display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Applied</span>
+<span style="font-size: 12px; color: #8C8F9C">15:21 · 2 of 2 changes</span>
+<a href="CanvasPR42.dc.html" style="margin-left: auto; font-size: 12px">View on canvas</a>
+</div>
+</sc-if>
+</div>
+</div>
+
+<!-- migration after apply -->
+<sc-if value="{{planApplied}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; gap: 10px; animation: yr-in .2s ease-out">
+<span style="width: 24px; flex: none; display: inline-flex; justify-content: center; padding-top: 11px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span>
+<div style="flex: 1; min-width: 0; border: 1px solid #24262F; border-radius: 10px; padding: 9px 12px 10px">
+<div style="display: flex; align-items: center; gap: 8px">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="2.25" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>yari</span>
+<span style="font-size: 11px; color: #8C8F9C">1.9 s</span>
+<span style="margin-left: auto; display: inline-flex"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Done"><path d="M20 6 9 17l-5-5"/></svg></span>
+</div>
+<div style="margin-top: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">Run migration 0043_reviews</div>
+<div style="margin-top: 2px; font-size: 12px; color: #8C8F9C">postgres · pr-42 · 1 table added</div>
+</div>
+</div>
+</sc-if>
+
+<!-- follow-ups -->
+<sc-for list="{{msgs}}" as="m" hint-placeholder-count="0">
+<div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px; animation: yr-in .2s ease-out">
+<div style="max-width: 320px; background: #181A22; border-radius: 10px; padding: 10px 12px; font-size: 13px; line-height: 1.55; color: #E8E9EE">{{m.text}}</div>
+<span style="font-size: 11px; color: #8C8F9C">Marc Etienne · now · the agent reads this after the current step</span>
+</div>
+</sc-for>
+
+</div>
+</div>
+
+<!-- toast -->
+<sc-if value="{{showToast}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: absolute; left: 16px; right: 16px; bottom: 104px; z-index: 10; display: flex; align-items: flex-start; gap: 10px; background: #181A22; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 10px 10px 10px 14px; animation: yr-in .2s ease-out">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<div style="flex: 1; min-width: 0; font-size: 13px; line-height: 1.5; color: #E8E9EE">postgres added to pr-42. api now reads <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">DATABASE_URL</span>.<div style="margin-top: 2px"><a href="CanvasPR42.dc.html" style="font-size: 12px; font-weight: 500">View on canvas</a></div></div>
+<button type="button" onClick="{{closeToast}}" aria-label="Dismiss" title="Dismiss (Esc)" class="hv" style="flex: none; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+</sc-if>
+
+<!-- composer -->
+<div style="flex: none; border-top: 1px solid #24262F; padding: 12px 16px; display: flex; flex-direction: column; gap: 8px">
+<label for="cw-follow" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0">Message the agent</label>
+<div style="display: flex; align-items: center; gap: 8px">
+<input id="cw-follow" type="text" value="{{followUp}}" onInput="{{onFollowType}}" onKeyDown="{{onFollowKey}}" placeholder="Ask a follow-up or add a task" class="hvb" style="flex: 1; min-width: 0; height: 32px; box-sizing: border-box; padding: 0 10px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; color: #E8E9EE; font-size: 13px; outline: none">
+<button type="button" onClick="{{send}}" aria-label="Send" title="Send (↵)" style="flex: none; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7M12 19V5"/></svg></button>
+</div>
+<div style="display: flex; align-items: center; gap: 8px; font-size: 11px; color: #8C8F9C">
+<span>Plans on pr-42 apply without approval. Production always asks.</span>
+<sc-if value="{{isWorking}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{stop}}" title="Stop session (⌘.)" class="hvb" style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 12px; font-weight: 500; cursor: pointer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="5" y="5" rx="2"/></svg>Stop</button>
+</sc-if>
+<sc-if value="{{isStopped}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{resume}}" title="Resume session" class="hvb" style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 12px; font-weight: 500; cursor: pointer"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>Resume</button>
+</sc-if>
+</div>
+</div>
+</aside>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"plan":{"editor":"enum","options":["proposed","applied"],"default":"proposed"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    const p = (props && props.plan) || 'proposed';
+    this.state = {
+      envOpen: false,
+      preview: false,
+      deploy: 'idle',
+      pr: 'idle',
+      sel: 'apps/api/src/routes/reviews.ts',
+      tabs: ['apps/api/src/routes/reviews.ts', 'apps/web/src/pages/product/[slug].tsx', 'apps/api/src/server.ts'],
+      collapsed: [],
+      changesOpen: true,
+      plan: p,
+      planDetails: false,
+      toast: p === 'applied',
+      termOpen: true,
+      followUp: '',
+      msgs: [],
+      stopped: false,
+      model: 'claude-sonnet-5-5',
+      reloading: false,
+      rating: 0,
+      reviewText: '',
+      reviewSent: false
+    };
+    this.timers = [];
+    this.buildFiles();
+  }
+
+  componentWillUnmount() {
+    this.timers.forEach((t) => clearTimeout(t));
+  }
+
+  later(fn, ms) {
+    this.timers.push(setTimeout(fn, ms));
+  }
+
+  tok(line, lang) {
+    const ST = { k: 'color: #A9B4FF', s: 'color: #9FD8B8', t: 'color: #E9C987', c: 'color: #8C8F9C', p: 'color: #8C8F9C', i: 'color: #E8E9EE' };
+    const KW = 'import from export const let var async await return if else function new true false null undefined type interface default throw typeof as of in for'.split(' ');
+    const SQLK = 'CREATE TABLE PRIMARY KEY REFERENCES NOT NULL DEFAULT CHECK BETWEEN AND INDEX ON UNIQUE DESC'.split(' ');
+    const SQLT = 'uuid integer text timestamptz'.split(' ');
+    const cm = lang === 'sql' ? '--' : (lang === 'toml' || lang === 'yaml') ? '#' : '//';
+    if (line.replace(/^\s+/, '').indexOf(cm) === 0) return [{ t: line, st: ST.c }];
+    const re = /('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`[^`]*`)|([A-Za-z_$][\w$]*)|(\d+(?:\.\d+)?)|(\s+)|([^\w\s'"`$]+|.)/g;
+    const out = [];
+    let m;
+    while ((m = re.exec(line)) !== null) {
+      let st = ST.p;
+      if (m[1]) st = ST.s;
+      else if (m[2]) {
+        const w = m[2];
+        if (lang === 'sql') st = SQLK.indexOf(w) >= 0 ? ST.k : (SQLT.indexOf(w) >= 0 ? ST.t : ST.i);
+        else if (lang === 'json' || lang === 'toml' || lang === 'yaml') st = (w === 'true' || w === 'false') ? ST.k : ST.i;
+        else st = KW.indexOf(w) >= 0 ? ST.k : (/^[A-Z]/.test(w) ? ST.t : ST.i);
+      } else if (m[3]) st = ST.t;
+      else if (m[4]) st = ST.i;
+      out.push({ t: m[0], st: st });
+    }
+    return out;
+  }
+
+  buildFiles() {
+    const F = {
+      'apps/api/src/routes/reviews.ts': { lang: 'ts', st: 'A', code: [
+        "import { Hono } from 'hono'",
+        "import { z } from 'zod'",
+        "import { db } from '../db'",
+        "import { requireCustomer } from '../auth'",
+        "import { sendReviewNotification } from '../email/review-notification'",
+        "",
+        "const reviewInput = z.object({",
+        "  rating: z.number().int().min(1).max(5),",
+        "  body: z.string().trim().min(3).max(600),",
+        "})",
+        "",
+        "export const reviews = new Hono()",
+        "",
+        "// Public: reviews for a product, newest first",
+        "reviews.get('/products/:slug/reviews', async (c) => {",
+        "  const items = await db.reviews.listForProduct(c.req.param('slug'), { limit: 20 })",
+        "  return c.json({ items, average: db.reviews.average(items), count: items.length })",
+        "})",
+        "",
+        "// Only customers with a paid order for this product can post",
+        "reviews.post('/products/:slug/reviews', requireCustomer, async (c) => {",
+        "  const slug = c.req.param('slug')",
+        "  const customer = c.get('customer')",
+        "  const parsed = reviewInput.safeParse(await c.req.json())",
+        "  if (!parsed.success) return c.json({ error: parsed.error.flatten() }, 400)",
+        "",
+        "  const bought = await db.orders.hasPaidItem(customer.id, slug)",
+        "  if (!bought) return c.json({ error: 'Only verified buyers can review' }, 403)",
+        "",
+        "  const review = await db.reviews.create({ slug, customerId: customer.id, ...parsed.data })",
+        "  await sendReviewNotification({ review, slug })",
+        "  return c.json({ review }, 201)",
+        "})"
+      ] },
+      'apps/api/db/migrations/0043_reviews.sql': { lang: 'sql', st: 'A', code: [
+        "-- 0043_reviews: product reviews from verified buyers",
+        "CREATE TABLE reviews (",
+        "  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),",
+        "  product_id  uuid NOT NULL REFERENCES products(id),",
+        "  customer_id uuid NOT NULL REFERENCES customers(id),",
+        "  rating      integer NOT NULL CHECK (rating BETWEEN 1 AND 5),",
+        "  body        text NOT NULL,",
+        "  created_at  timestamptz NOT NULL DEFAULT now()",
+        ");",
+        "",
+        "CREATE UNIQUE INDEX reviews_one_per_customer",
+        "  ON reviews (product_id, customer_id);",
+        "CREATE INDEX reviews_product_recent",
+        "  ON reviews (product_id, created_at DESC);"
+      ] },
+      'apps/api/src/email/review-notification.ts': { lang: 'ts', st: 'A', code: [
+        "import { Resend } from 'resend'",
+        "import type { Review } from '../db/types'",
+        "",
+        "const resend = new Resend(process.env.RESEND_API_KEY)",
+        "const owner = process.env.SHOP_OWNER_EMAIL ?? 'hello@mango.shop'",
+        "",
+        "export async function sendReviewNotification({ review, slug }: { review: Review; slug: string }) {",
+        "  await resend.emails.send({",
+        "    from: 'Mango Market <reviews@mail.mango.shop>',",
+        "    to: owner,",
+        "    subject: `New ${review.rating}/5 review on ${slug}`,",
+        "    text: [",
+        "      `Rating: ${review.rating} of 5`,",
+        "      `Review: ${review.body}`,",
+        "      `Product: https://mango.shop/product/${slug}`,",
+        "    ].join('\\n'),",
+        "  })",
+        "}"
+      ] },
+      'apps/web/src/components/ReviewForm.tsx': { lang: 'ts', st: 'A', code: [
+        "import { useState } from 'react'",
+        "import { StarRating } from './StarRating'",
+        "",
+        "type Props = { slug: string; canReview: boolean }",
+        "type Status = 'idle' | 'sending' | 'sent' | 'error'",
+        "",
+        "export function ReviewForm({ slug, canReview }: Props) {",
+        "  const [rating, setRating] = useState(0)",
+        "  const [body, setBody] = useState('')",
+        "  const [status, setStatus] = useState<Status>('idle')",
+        "",
+        "  if (!canReview) {",
+        "    return <p className=\"muted\">Only customers who bought this product can review it.</p>",
+        "  }",
+        "",
+        "  async function submit(e: React.FormEvent) {",
+        "    e.preventDefault()",
+        "    setStatus('sending')",
+        "    const res = await fetch(`/api/products/${slug}/reviews`, {",
+        "      method: 'POST',",
+        "      headers: { 'Content-Type': 'application/json' },",
+        "      body: JSON.stringify({ rating, body }),",
+        "    })",
+        "    setStatus(res.ok ? 'sent' : 'error')",
+        "  }",
+        "",
+        "  return (",
+        "    <form onSubmit={submit} aria-label=\"Write a review\">",
+        "      <StarRating value={rating} onChange={setRating} />",
+        "      <label htmlFor=\"review-body\">Your review</label>",
+        "      <textarea id=\"review-body\" value={body} onChange={(e) => setBody(e.target.value)} maxLength={600} />",
+        "      <button type=\"submit\" disabled={rating === 0 || status === 'sending'}>Submit review</button>",
+        "      {status === 'sent' && <p role=\"status\">Thanks. Your review is live.</p>}",
+        "    </form>",
+        "  )",
+        "}"
+      ] },
+      'apps/web/src/pages/product/[slug].tsx': { lang: 'ts', st: 'M', diff: [
+        "@@ -1,8 +1,12 @@",
+        " import { api } from '../../lib/api'",
+        " import { AddToCart } from '../../components/AddToCart'",
+        "+import { ReviewForm } from '../../components/ReviewForm'",
+        " import { Price } from '../../components/Price'",
+        "+import { StarRating } from '../../components/StarRating'",
+        " ",
+        " export async function getServerSideProps({ params, req }) {",
+        "   const product = await api.get(`/products/${params.slug}`)",
+        "-  return { props: { product } }",
+        "+  const reviews = await api.get(`/products/${params.slug}/reviews`)",
+        "+  const canReview = await api.canReview(req, params.slug)",
+        "+  return { props: { product, reviews, canReview } }",
+        " }",
+        "@@ -18,11 +22,21 @@",
+        "-export default function ProductPage({ product }) {",
+        "+export default function ProductPage({ product, reviews, canReview }) {",
+        "   return (",
+        "     <main className=\"product\">",
+        "       <img src={product.image} alt={product.name} />",
+        "       <h1>{product.name}</h1>",
+        "       <Price amount={product.price} currency=\"EUR\" />",
+        "+      <p className=\"rating\">",
+        "+        <StarRating value={reviews.average} /> {reviews.average.toFixed(1)} · {reviews.count} reviews",
+        "+      </p>",
+        "       <AddToCart productId={product.id} />",
+        "       <p className=\"description\">{product.description}</p>",
+        "+      <section className=\"reviews\" aria-labelledby=\"reviews-title\">",
+        "+        <h2 id=\"reviews-title\">Reviews</h2>",
+        "+        {reviews.items.map((r) => (",
+        "+          <article key={r.id}><StarRating value={r.rating} /> {r.body}</article>",
+        "+        ))}",
+        "+        <ReviewForm slug={product.slug} canReview={canReview} />",
+        "+      </section>",
+        "     </main>",
+        "   )",
+        " }"
+      ] },
+      'apps/api/src/server.ts': { lang: 'ts', st: 'M', diff: [
+        "@@ -1,13 +1,15 @@",
+        " import { Hono } from 'hono'",
+        " import { serve } from '@hono/node-server'",
+        " import { logger } from 'hono/logger'",
+        " import { products } from './routes/products'",
+        " import { orders } from './routes/orders'",
+        "+import { reviews } from './routes/reviews'",
+        " ",
+        " const app = new Hono().basePath('/api')",
+        " ",
+        " app.use('*', logger())",
+        " app.route('/', products)",
+        " app.route('/', orders)",
+        "+app.route('/', reviews)",
+        " ",
+        "-serve({ fetch: app.fetch, port: 4000 })",
+        "+serve({ fetch: app.fetch, port: Number(process.env.PORT ?? 4000) })"
+      ] },
+      'apps/api/src/routes/orders.ts': { lang: 'ts', st: '', code: [
+        "import { Hono } from 'hono'",
+        "import { db } from '../db'",
+        "import { requireCustomer } from '../auth'",
+        "",
+        "export const orders = new Hono()",
+        "",
+        "orders.get('/orders', requireCustomer, async (c) => {",
+        "  const customer = c.get('customer')",
+        "  return c.json({ items: await db.orders.listForCustomer(customer.id) })",
+        "})"
+      ] },
+      'apps/api/src/routes/products.ts': { lang: 'ts', st: '', code: [
+        "import { Hono } from 'hono'",
+        "import { db } from '../db'",
+        "",
+        "export const products = new Hono()",
+        "",
+        "products.get('/products/:slug', async (c) => {",
+        "  const product = await db.products.bySlug(c.req.param('slug'))",
+        "  if (!product) return c.json({ error: 'Not found' }, 404)",
+        "  return c.json(product)",
+        "})"
+      ] },
+      'apps/api/package.json': { lang: 'json', st: '', code: [
+        '{',
+        '  "name": "@mango/api",',
+        '  "private": true,',
+        '  "scripts": {',
+        '    "dev": "tsx watch src/server.ts",',
+        '    "build": "tsc -p tsconfig.build.json",',
+        '    "test": "vitest run"',
+        '  },',
+        '  "dependencies": {',
+        '    "@hono/node-server": "^1.13.7",',
+        '    "hono": "^4.6.12",',
+        '    "resend": "^4.0.1",',
+        '    "zod": "^3.23.8"',
+        '  }',
+        '}'
+      ] },
+      'apps/web/src/components/AddToCart.tsx': { lang: 'ts', st: '', code: [
+        "import { useCart } from '../lib/cart'",
+        "",
+        "export function AddToCart({ productId }: { productId: string }) {",
+        "  const cart = useCart()",
+        "  return <button type=\"button\" onClick={() => cart.add(productId)}>Add to cart</button>",
+        "}"
+      ] },
+      'apps/web/src/components/StarRating.tsx': { lang: 'ts', st: '', code: [
+        "import { Star } from './icons'",
+        "",
+        "type Props = { value: number; onChange?: (value: number) => void }",
+        "",
+        "export function StarRating({ value, onChange }: Props) {",
+        "  const stars = [1, 2, 3, 4, 5]",
+        "  if (!onChange) return <span aria-label={`${value} of 5`}>{stars.map((s) => <Star key={s} filled={s <= Math.round(value)} />)}</span>",
+        "  return (",
+        "    <span role=\"radiogroup\" aria-label=\"Rating\">",
+        "      {stars.map((s) => <button key={s} type=\"button\" aria-label={`${s} of 5`} onClick={() => onChange(s)}><Star filled={s <= value} /></button>)}",
+        "    </span>",
+        "  )",
+        "}"
+      ] },
+      'nixpacks.toml': { lang: 'toml', st: '', code: [
+        '# Build settings Railway uses for api and worker',
+        '[variables]',
+        'NIXPACKS_NODE_VERSION = "22"',
+        '',
+        '[phases.install]',
+        'cmds = ["pnpm install --frozen-lockfile"]',
+        '',
+        '[start]',
+        'cmd = "pnpm --filter api start"'
+      ] },
+      'package.json': { lang: 'json', st: '', code: [
+        '{',
+        '  "name": "mango-shop",',
+        '  "private": true,',
+        '  "packageManager": "pnpm@9.12.3",',
+        '  "engines": { "node": ">=22" },',
+        '  "scripts": {',
+        '    "dev": "pnpm --parallel --filter web --filter api dev",',
+        '    "build": "pnpm -r build",',
+        '    "test": "pnpm -r test"',
+        '  }',
+        '}'
+      ] },
+      'pnpm-workspace.yaml': { lang: 'yaml', st: '', code: [
+        'packages:',
+        "  - 'apps/*'"
+      ] }
+    };
+    const ROW = 'display: flex; white-space: pre; min-width: max-content; padding-right: 16px; ';
+    const SIGN = 'width: 20px; flex: none; text-align: center; ';
+    Object.keys(F).forEach((id) => {
+      const f = F[id];
+      const parts = id.split('/');
+      f.id = id;
+      f.name = parts[parts.length - 1];
+      f.add = 0;
+      f.del = 0;
+      if (f.diff) {
+        let o = 0;
+        let n = 0;
+        f.view = f.diff.map((raw) => {
+          const c = raw.charAt(0);
+          const body = raw.slice(1);
+          if (c === '@') {
+            const mm = /-(\d+)(?:,\d+)? \+(\d+)/.exec(raw);
+            o = Number(mm[1]);
+            n = Number(mm[2]);
+            return { o: '', n: '', sign: '', signLabel: 'Hunk', row: ROW + 'background: #121319; margin: 4px 0', signSt: SIGN, segs: [{ t: raw, st: 'color: #8C8F9C' }] };
+          }
+          if (c === '+') {
+            f.add++;
+            const r = { o: '', n: String(n), sign: '+', signLabel: 'Added line', row: ROW + 'background: rgba(61,214,140,0.10)', signSt: SIGN + 'color: #3DD68C', segs: this.tok(body, f.lang) };
+            n++;
+            return r;
+          }
+          if (c === '-') {
+            f.del++;
+            const r = { o: String(o), n: '', sign: '−', signLabel: 'Removed line', row: ROW + 'background: rgba(242,109,109,0.10)', signSt: SIGN + 'color: #F26D6D', segs: this.tok(body, f.lang) };
+            o++;
+            return r;
+          }
+          const r = { o: String(o), n: String(n), sign: '', signLabel: '', row: ROW, signSt: SIGN, segs: this.tok(body, f.lang) };
+          o++;
+          n++;
+          return r;
+        });
+      } else {
+        f.view = f.code.map((l, i) => ({ no: String(i + 1), segs: this.tok(l, f.lang) }));
+        if (f.st === 'A') f.add = f.code.length;
+      }
+    });
+    this.F = F;
+    this.TREE = [
+      ['apps', 0, 1], ['apps/api', 1, 1], ['apps/api/db/migrations', 2, 1, 'db/migrations'],
+      ['apps/api/db/migrations/0043_reviews.sql', 3, 0],
+      ['apps/api/src', 2, 1], ['apps/api/src/email', 3, 1], ['apps/api/src/email/review-notification.ts', 4, 0],
+      ['apps/api/src/routes', 3, 1], ['apps/api/src/routes/orders.ts', 4, 0], ['apps/api/src/routes/products.ts', 4, 0],
+      ['apps/api/src/routes/reviews.ts', 4, 0], ['apps/api/src/server.ts', 3, 0], ['apps/api/package.json', 2, 0],
+      ['apps/web', 1, 1], ['apps/web/src', 2, 1], ['apps/web/src/components', 3, 1],
+      ['apps/web/src/components/AddToCart.tsx', 4, 0], ['apps/web/src/components/ReviewForm.tsx', 4, 0],
+      ['apps/web/src/components/StarRating.tsx', 4, 0], ['apps/web/src/pages/product', 3, 1, 'pages/product'],
+      ['apps/web/src/pages/product/[slug].tsx', 4, 0],
+      ['nixpacks.toml', 0, 0], ['package.json', 0, 0], ['pnpm-workspace.yaml', 0, 0]
+    ];
+    this.CHANGES = ['apps/api/src/routes/reviews.ts', 'apps/api/db/migrations/0043_reviews.sql', 'apps/api/src/email/review-notification.ts', 'apps/web/src/components/ReviewForm.tsx', 'apps/web/src/pages/product/[slug].tsx', 'apps/api/src/server.ts'];
+  }
+
+  openFile(id) {
+    const tabs = this.state.tabs.indexOf(id) >= 0 ? this.state.tabs : this.state.tabs.concat([id]);
+    this.setState({ sel: id, tabs: tabs });
+  }
+
+  closeTab(id) {
+    const tabs = this.state.tabs.filter((x) => x !== id);
+    let sel = this.state.sel;
+    if (sel === id) sel = tabs.length ? tabs[tabs.length - 1] : null;
+    this.setState({ tabs: tabs, sel: sel });
+  }
+
+  toggleFolder(id) {
+    const c = this.state.collapsed;
+    this.setState({ collapsed: c.indexOf(id) >= 0 ? c.filter((x) => x !== id) : c.concat([id]) });
+  }
+
+  renderVals() {
+    const s = this.state;
+    const F = this.F;
+    const badgeSt = (st) => "flex: none; margin-left: auto; width: 14px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; color: " + (st === 'A' ? '#3DD68C' : '#E9B949');
+    const badgeLabel = (st) => (st === 'A' ? 'Added' : 'Modified');
+
+    const tree = this.TREE.filter((r) => !s.collapsed.some((c) => r[0].indexOf(c + '/') === 0)).map((r) => {
+      const id = r[0];
+      const folder = !!r[2];
+      const f = F[id];
+      const isSel = !folder && s.sel === id;
+      const open = folder && s.collapsed.indexOf(id) < 0;
+      return {
+        name: r[3] || id.split('/').pop(),
+        path: id,
+        isFolder: folder,
+        isFile: !folder,
+        expanded: open ? 'true' : 'false',
+        current: isSel ? 'true' : 'false',
+        hasBadge: !!(f && f.st),
+        badge: f ? f.st : '',
+        badgeSt: f && f.st ? badgeSt(f.st) : '',
+        badgeLabel: f && f.st ? badgeLabel(f.st) : '',
+        chev: 'flex: none; transition: transform .12s; transform: rotate(' + (open ? '0' : '-90') + 'deg)',
+        style: 'display: flex; align-items: center; gap: 6px; width: 100%; height: 24px; padding: 0 8px 0 ' + (6 + r[1] * 12) + 'px; box-sizing: border-box; border: none; border-radius: 6px; cursor: pointer; text-align: left; font-size: 13px; ' + (isSel ? 'background: rgba(124,140,255,0.12); color: #E8E9EE' : 'background: transparent; color: ' + (folder ? '#8C8F9C' : '#E8E9EE')),
+        click: folder ? () => this.toggleFolder(id) : () => this.openFile(id)
+      };
+    });
+
+    let totalAdd = 0;
+    let totalDel = 0;
+    const changes = this.CHANGES.map((id) => {
+      const f = F[id];
+      totalAdd += f.add;
+      totalDel += f.del;
+      const isSel = s.sel === id;
+      return {
+        name: f.name,
+        path: id,
+        badge: f.st,
+        badgeSt: "flex: none; width: 14px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; color: " + (f.st === 'A' ? '#3DD68C' : '#E9B949'),
+        badgeLabel: badgeLabel(f.st),
+        add: '+' + f.add,
+        del: '−' + f.del,
+        style: 'display: flex; align-items: center; gap: 8px; width: 100%; height: 26px; padding: 0 8px; box-sizing: border-box; border: none; border-radius: 6px; cursor: pointer; text-align: left; font-size: 12px; ' + (isSel ? 'background: rgba(124,140,255,0.12); color: #E8E9EE' : 'background: transparent; color: #E8E9EE'),
+        click: () => this.openFile(id)
+      };
+    });
+
+    const tabs = s.tabs.map((id) => {
+      const f = F[id];
+      const active = s.sel === id;
+      return {
+        label: f.name,
+        path: id,
+        selected: active ? 'true' : 'false',
+        hasBadge: !!f.st,
+        badge: f.st,
+        badgeLabel: f.st ? badgeLabel(f.st) : '',
+        badgeSt: "font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 500; color: " + (f.st === 'A' ? '#3DD68C' : '#E9B949'),
+        wrap: 'display: inline-flex; align-items: center; flex: none; border-right: 1px solid #24262F; ' + (active ? 'background: #0B0C10; box-shadow: inset 0 -2px 0 #7C8CFF' : 'background: transparent'),
+        btn: "display: inline-flex; align-items: center; gap: 6px; height: 100%; padding: 0 8px 0 12px; background: transparent; border: none; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: " + (active ? '#E8E9EE' : '#8C8F9C'),
+        pick: () => this.setState({ sel: id }),
+        close: () => this.closeTab(id)
+      };
+    });
+
+    const cur = s.sel ? F[s.sel] : null;
+    const BODY = "flex: 1; min-height: 0; overflow: auto; background: #0B0C10; padding: 10px 0 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 20px; ";
+    const isDiff = !!(cur && cur.diff);
+    const isCode = !!(cur && !cur.diff);
+
+    const applied = s.plan === 'applied';
+    const send = () => {
+      const v = s.followUp.trim();
+      if (!v) return;
+      this.setState({ msgs: s.msgs.concat([{ text: v }]), followUp: '' });
+    };
+
+    const stars = [1, 2, 3, 4, 5].map((n) => ({
+      label: 'Rate ' + n + ' of 5',
+      pressed: s.rating === n ? 'true' : 'false',
+      fill: n <= s.rating ? '#1F1D1A' : 'none',
+      pick: () => this.setState({ rating: n })
+    }));
+
+    return {
+      envOpen: s.envOpen,
+      toggleEnv: () => this.setState({ envOpen: !s.envOpen }),
+
+      isWorking: !s.stopped,
+      isStopped: s.stopped,
+      stop: () => this.setState({ stopped: true }),
+      resume: () => this.setState({ stopped: false }),
+      agentStatus: s.stopped ? 'Stopped · 46 min' : 'Working · 46 min',
+
+      previewPressed: s.preview ? 'true' : 'false',
+      togglePreview: () => this.setState({ preview: !s.preview }),
+      previewBtnStyle: 'display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; font-size: 13px; font-weight: 500; cursor: pointer; ' + (s.preview ? 'background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); color: #7C8CFF' : 'background: #181A22; border: 1px solid #24262F; color: #E8E9EE'),
+      previewPaneStyle: s.preview ? 'flex: 1; min-width: 0; display: flex; flex-direction: column; padding: 12px; border-left: 1px solid #24262F; background: #0B0C10' : 'display: none',
+
+      prIdle: s.pr === 'idle',
+      prOpened: s.pr === 'opened',
+      openPr: () => this.setState({ pr: 'opened' }),
+
+      deployIdle: s.deploy === 'idle',
+      deployRunning: s.deploy === 'deploying',
+      deployLive: s.deploy === 'live',
+      deployPreview: () => {
+        this.setState({ deploy: 'deploying' });
+        this.later(() => this.setState({ deploy: 'live' }), 1500);
+      },
+
+      tree: tree,
+      changes: changes,
+      changeCount: String(changes.length),
+      totalAdd: '+' + totalAdd,
+      totalDel: '−' + totalDel,
+      changesExpanded: s.changesOpen ? 'true' : 'false',
+      changesChev: 'flex: none; transition: transform .12s; transform: rotate(' + (s.changesOpen ? '0' : '-90') + 'deg)',
+      changesListStyle: s.changesOpen ? 'display: block' : 'display: none',
+      toggleChanges: () => this.setState({ changesOpen: !s.changesOpen }),
+
+      tabs: tabs,
+      hasSel: !!cur,
+      selPath: cur ? cur.id : '',
+      selNew: !!(cur && cur.st === 'A'),
+      selMod: !!(cur && cur.st === 'M'),
+      selSame: !!(cur && !cur.st),
+      selChanged: !!(cur && cur.st),
+      selAdd: cur ? '+' + cur.add : '',
+      selDel: cur ? '−' + cur.del : '',
+      codeLines: isCode ? cur.view : [],
+      diffLines: isDiff ? cur.view : [],
+      codeBodyStyle: BODY + (isCode ? 'display: block' : 'display: none'),
+      diffBodyStyle: BODY + (isDiff ? 'display: block' : 'display: none'),
+      emptyStyle: cur ? 'display: none' : 'flex: 1; display: flex; align-items: center; justify-content: center; background: #0B0C10',
+
+      termStyle: 'flex: none; display: flex; flex-direction: column; border-top: 1px solid #24262F; background: #0B0C10; height: ' + (s.termOpen ? '180px' : '34px'),
+      termBodyStyle: "margin: 0; flex: 1; min-height: 0; overflow: auto; padding: 2px 16px 12px; font-family: 'JetBrains Mono', monospace; font-size: 12px; line-height: 1.6; color: #8C8F9C; white-space: pre; " + (s.termOpen ? 'display: block' : 'display: none'),
+      termExpanded: s.termOpen ? 'true' : 'false',
+      termLabel: s.termOpen ? 'Collapse terminal' : 'Expand terminal',
+      termChev: 'transition: transform .12s; transform: rotate(' + (s.termOpen ? '0' : '180') + 'deg)',
+      toggleTerm: () => this.setState({ termOpen: !s.termOpen }),
+
+      model: s.model,
+      pickModel: (e) => this.setState({ model: e.target.value }),
+
+      planProposed: s.plan === 'proposed',
+      planApplying: s.plan === 'applying',
+      planApplied: applied,
+      planDetails: s.planDetails,
+      planDetailsExpanded: s.planDetails ? 'true' : 'false',
+      planDetailsLabel: s.planDetails ? 'Hide details' : 'Review plan',
+      toggleDetails: () => this.setState({ planDetails: !s.planDetails }),
+      acceptPlan: () => {
+        this.setState({ plan: 'applying' });
+        this.later(() => this.setState({ plan: 'applied', toast: true }), 1200);
+      },
+      showToast: s.toast,
+      closeToast: () => this.setState({ toast: false }),
+
+      msgs: s.msgs,
+      followUp: s.followUp,
+      onFollowType: (e) => this.setState({ followUp: e.target.value }),
+      onFollowKey: (e) => { if (e.key === 'Enter') send(); },
+      send: send,
+
+      reloadSt: s.reloading ? 'animation: yr-spin .7s linear infinite' : '',
+      reload: () => {
+        this.setState({ reloading: true });
+        this.later(() => this.setState({ reloading: false }), 700);
+      },
+      ratingLabel: s.reviewSent ? '4.6 · 13 reviews' : '4.6 · 12 reviews',
+      stars: stars,
+      reviewText: s.reviewText,
+      onReviewType: (e) => this.setState({ reviewText: e.target.value }),
+      canSubmit: s.rating > 0,
+      cannotSubmit: s.rating === 0,
+      submitReview: () => this.setState({ reviewSent: true }),
+      formVisible: !s.reviewSent,
+      reviewSent: s.reviewSent,
+      sentRating: s.rating + ' of 5',
+      sentText: s.reviewText.trim() || 'Rated without a written review.'
+    };
+  }
+}
+</script>
+</body>
+</html>

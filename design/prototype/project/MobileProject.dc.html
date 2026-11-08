@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mobile · mango-shop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column">
+
+<!-- APP BAR -->
+<header style="height: 52px; flex: none; display: flex; align-items: center; gap: 4px; padding: 0 6px 0 4px; border-bottom: 1px solid #24262F; background: #0B0C10">
+<a href="MobileProjects.dc.html" aria-label="Back to projects" title="Back (Esc)" class="hv" style="width: 44px; height: 44px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; color: #E8E9EE">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+</a>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.25">
+<h1 style="margin: 0; font-size: 15px; font-weight: 600; letter-spacing: -0.01em">mango-shop</h1>
+<span style="font-size: 12px; color: #8C8F9C">Mango Market</span>
+</div>
+<button type="button" aria-label="More actions" title="More actions" class="hv" style="width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center; border-radius: 10px; background: transparent; border: none; color: #8C8F9C; cursor: pointer">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
+</button>
+</header>
+
+<!-- CONTENT -->
+<main aria-label="{{mainLabel}}" style="flex: 1; min-height: 0; overflow-y: auto; padding: 16px 16px 24px; display: flex; flex-direction: column; gap: 16px">
+
+<!-- env segmented control -->
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div role="group" aria-label="Environment" style="display: flex; gap: 2px; padding: 3px; background: #121319; border: 1px solid #24262F; border-radius: 12px">
+<sc-for list="{{segs}}" as="g" hint-placeholder-count="3">
+<button type="button" onClick="{{g.pick}}" aria-pressed="{{g.pressed}}" style="{{g.style}}">
+<sc-if value="{{g.isProd}}" hint-placeholder-val="{{ true }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-label="Protected"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></sc-if>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 13px">{{g.label}}</span>
+</button>
+</sc-for>
+</div>
+<div style="display: flex; align-items: center; gap: 7px; padding: 0 4px; font-size: 13px; color: #8C8F9C" aria-live="polite">
+<sc-if value="{{sumFailed}}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F26D6D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg></sc-if>
+<sc-if value="{{sumOk}}" hint-placeholder-val="{{ true }}"><span style="width: 8px; height: 8px; flex: none; border-radius: 50%; background: #3DD68C"></span></sc-if>
+<span>{{summary}}</span>
+</div>
+</div>
+
+<!-- banner (production) -->
+<sc-if value="{{isProd}}" hint-placeholder-val="{{ true }}">
+<a href="MobileApprovals.dc.html" class="hvb" style="display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 14px; background: rgba(233,185,73,0.08); border: 1px solid rgba(233,185,73,0.30); border-radius: 12px; color: #E8E9EE">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+<span style="font-size: 14px; font-weight: 500">2 plans waiting for approval</span>
+<span style="font-size: 12px; color: #8C8F9C">Production is protected. An admin needs to approve this.</span>
+</span>
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+</a>
+</sc-if>
+
+<!-- services -->
+<section aria-labelledby="svc-h" style="display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; padding: 0 4px">
+<h2 id="svc-h" style="margin: 0; font-size: 12px; font-weight: 500; color: #8C8F9C; letter-spacing: .02em">Services</h2>
+<span style="font-size: 12px; color: #8C8F9C">6 services · 5 providers</span>
+</div>
+<ul style="list-style: none; margin: 0; padding: 0; background: #121319; border: 1px solid #24262F; border-radius: 12px; overflow: hidden">
+<sc-for list="{{services}}" as="s" hint-placeholder-count="6">
+<li style="{{s.rowStyle}}">
+<span style="width: 32px; height: 32px; flex: none; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C">
+<sc-if value="{{s.kWeb}}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></sc-if>
+<sc-if value="{{s.kWorker}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></sc-if>
+<sc-if value="{{s.kDb}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></sc-if>
+<sc-if value="{{s.kBucket}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg></sc-if>
+<sc-if value="{{s.kEmail}}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></sc-if>
+</span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px">
+<span style="display: flex; align-items: center; gap: 8px">
+<span style="font-size: 15px; font-weight: 500">{{s.name}}</span>
+<span style="height: 20px; padding: 0 6px; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #8C8F9C; display: inline-flex; align-items: center; white-space: nowrap">{{s.provider}}</span>
+<sc-if value="{{s.isNew}}" hint-placeholder-val="{{ false }}"><span style="height: 20px; padding: 0 6px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center">New</span></sc-if>
+</span>
+<span style="font-size: 13px; color: #8C8F9C; overflow: hidden; text-overflow: ellipsis; white-space: nowrap">{{s.domain}}</span>
+<sc-if value="{{s.isFailed}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 12px; color: #8C8F9C">Deploy c41e9a2 failed at 15:12. The previous version is still serving.</span>
+<a href="MobileAgent.dc.html" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; min-height: 36px; font-size: 13px; font-weight: 500; color: #7C8CFF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Ask the agent</a>
+</sc-if>
+</span>
+<span style="flex: none; padding-top: 6px">
+<sc-if value="{{s.isOnline}}" hint-placeholder-val="{{ true }}"><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #3DD68C"><span style="width: 8px; height: 8px; border-radius: 50%; background: #3DD68C"></span>Online</span></sc-if>
+<sc-if value="{{s.isSleeping}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #8C8F9C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#6B6F7D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>Sleeping</span></sc-if>
+<sc-if value="{{s.isFailed}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #F26D6D"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>Failed</span></sc-if>
+</span>
+</li>
+</sc-for>
+</ul>
+</section>
+
+<!-- recent activity -->
+<section aria-labelledby="act-h" style="display: flex; flex-direction: column; gap: 8px">
+<h2 id="act-h" style="margin: 0; padding: 0 4px; font-size: 12px; font-weight: 500; color: #8C8F9C; letter-spacing: .02em">Recent activity</h2>
+<ul style="list-style: none; margin: 0; padding: 0; background: #121319; border: 1px solid #24262F; border-radius: 12px; overflow: hidden">
+<li style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #181A22; border: 1px solid #24262F; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box" aria-hidden="true">ME</span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+<span style="font-size: 14px"><span style="font-weight: 500">Marc Etienne</span> requested approval</span>
+<span style="font-size: 12px; color: #8C8F9C"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">plan_7Q2M</span> · production · 4 min ago</span>
+</span>
+</li>
+<li style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-top: 1px solid #24262F">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+<span style="font-size: 14px"><span style="font-weight: 500">Agent</span> requested approval</span>
+<span style="font-size: 12px; color: #8C8F9C"><span style="font-family: 'JetBrains Mono', monospace; font-size: 11px">plan_9KD1</span> · production · 12 min ago</span>
+</span>
+</li>
+<li style="display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; border-top: 1px solid #24262F">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 50%; background: #181A22; border: 1px solid #24262F; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box" aria-hidden="true">LP</span>
+<span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px">
+<span style="font-size: 14px"><span style="font-weight: 500">Lina Pierre</span> deployed <span style="font-family: 'JetBrains Mono', monospace; font-size: 13px">3b91e07</span></span>
+<span style="font-size: 12px; color: #8C8F9C">Fix VAT rounding on invoices · production · yesterday</span>
+</span>
+</li>
+</ul>
+</section>
+
+</main>
+
+<!-- BOTTOM TABS -->
+<nav aria-label="Main" style="height: 64px; flex: none; display: flex; border-top: 1px solid #24262F; background: #0B0C10; padding: 0 4px">
+<a href="MobileProjects.dc.html" aria-current="page" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #E8E9EE; font-size: 11px; font-weight: 500">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Projects
+</a>
+<a href="MobileApprovals.dc.html" aria-label="Approvals, 2 waiting" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #8C8F9C; font-size: 11px; font-weight: 500">
+<span style="position: relative; display: inline-flex">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+<span style="position: absolute; top: -5px; right: -9px; min-width: 16px; height: 16px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 16px; text-align: center">2</span>
+</span>Approvals
+</a>
+<a href="MobileAgent.dc.html" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #8C8F9C; font-size: 11px; font-weight: 500">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Agent
+</a>
+<button type="button" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #8C8F9C; font-size: 11px; font-weight: 500; background: transparent; border: none; cursor: pointer; padding: 0">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>Activity
+</button>
+<button type="button" style="flex: 1; min-height: 44px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #8C8F9C; font-size: 11px; font-weight: 500; background: transparent; border: none; cursor: pointer; padding: 0">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg>Settings
+</button>
+</nav>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"env":{"editor":"enum","options":["production","staging","pr-42"],"default":"production"},"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { env: null };
+  }
+  renderVals() {
+    const env = this.state.env || this.props.env || 'production';
+    const DATA = {
+      'production': {
+        summary: '5 of 6 online · 1 sleeping · last deploy yesterday',
+        failed: false,
+        svc: {
+          web: ['mango.shop', 'online'], api: ['api.mango.shop', 'online'], worker: ['Private network', 'sleeping'],
+          postgres: ['Postgres 16 · eu-central-1', 'online'], media: ['media.mango.shop', 'online'], email: ['mail.mango.shop', 'online']
+        }
+      },
+      'staging': {
+        summary: '4 of 6 online · 1 failed · 1 sleeping',
+        failed: true,
+        svc: {
+          web: ['staging.mango.shop', 'online'], api: ['api.staging.mango.shop', 'failed'], worker: ['Private network', 'sleeping'],
+          postgres: ['Postgres 16 · eu-central-1', 'online'], media: ['mango-media-staging', 'online'], email: ['mail.mango.shop', 'online']
+        }
+      },
+      'pr-42': {
+        summary: '5 of 6 online · 1 sleeping · preview',
+        failed: false,
+        svc: {
+          web: ['mango-shop-pr-42.vercel.app', 'online'], api: ['api-pr-42.up.railway.app', 'online'], worker: ['Private network', 'sleeping'],
+          postgres: ['Free tier · eu-central-1 · added by the agent', 'online', true], media: ['Private bucket', 'online'], email: ['mail.mango.shop', 'online']
+        }
+      }
+    };
+    const SERVICES = [
+      { id: 'web', kind: 'web', provider: 'Vercel' },
+      { id: 'api', kind: 'web', provider: 'Railway' },
+      { id: 'worker', kind: 'worker', provider: 'Railway' },
+      { id: 'postgres', kind: 'db', provider: 'Supabase' },
+      { id: 'media', kind: 'bucket', provider: 'Backblaze B2' },
+      { id: 'email', kind: 'email', provider: 'Resend' }
+    ];
+    const d = DATA[env];
+    const services = SERVICES.map((s, i) => {
+      const v = d.svc[s.id];
+      return {
+        name: s.id,
+        provider: s.provider,
+        domain: v[0],
+        isOnline: v[1] === 'online',
+        isSleeping: v[1] === 'sleeping',
+        isFailed: v[1] === 'failed',
+        isNew: !!v[2],
+        kWeb: s.kind === 'web',
+        kWorker: s.kind === 'worker',
+        kDb: s.kind === 'db',
+        kBucket: s.kind === 'bucket',
+        kEmail: s.kind === 'email',
+        rowStyle: 'display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; min-height: 44px; ' + (i === 0 ? '' : 'border-top: 1px solid #24262F;')
+      };
+    });
+    const segs = ['production', 'staging', 'pr-42'].map(e => {
+      const on = e === env;
+      return {
+        label: e,
+        isProd: e === 'production',
+        pressed: on ? 'true' : 'false',
+        pick: () => this.setState({ env: e }),
+        style: 'flex: 1; height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 9px; cursor: pointer; ' + (on ? 'background: #181A22; border: 1px solid #2F323D; color: #E8E9EE;' : 'background: transparent; border: 1px solid transparent; color: #8C8F9C;')
+      };
+    });
+    return {
+      segs: segs,
+      services: services,
+      summary: d.summary,
+      sumFailed: d.failed,
+      sumOk: !d.failed,
+      isProd: env === 'production',
+      mainLabel: 'mango-shop, ' + env
+    };
+  }
+}
+</script>
+</body>
+</html>

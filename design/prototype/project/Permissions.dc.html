@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Environment permissions · mango-shop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 900px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 900px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR (organization, breadcrumb extends to project) -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<span style="width: 1px; height: 20px; background: #24262F"></span>
+<nav aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<a href="OrgHome.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<a href="OrgHome.dc.html#ws-mango" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></a>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<button type="button" title="Switch project" aria-current="page" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">mango-shop<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<a href="Approvals.dc.html" aria-label="Approvals, 2 waiting" title="Approvals (G I)" class="hv" style="position: relative; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+<span style="position: absolute; top: 3px; right: 2px; min-width: 15px; height: 15px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center">2</span>
+</a>
+<button type="button" aria-label="Account: Marc Etienne" title="Marc Etienne" style="width: 28px; height: 28px; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; cursor: pointer; margin-left: 4px">ME</button>
+</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<!-- ORG SIDEBAR -->
+<aside aria-label="Organization" style="width: 240px; flex: none; box-sizing: border-box; border-right: 1px solid #24262F; background: #0B0C10; padding: 12px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto">
+<button type="button" class="hv" title="Switch organization" style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #E8E9EE; cursor: pointer; text-align: left">
+<span style="width: 28px; height: 28px; flex: none; box-sizing: border-box; border-radius: 8px; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">KS</span>
+<span style="display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.35"><span style="font-size: 13px; font-weight: 500">Kestrel Studio</span><span style="font-size: 11px; color: #8C8F9C">Organization · 4 members</span></span>
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></svg>
+</button>
+<nav aria-label="Organization sections" style="display: flex; flex-direction: column; gap: 2px">
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Projects</a>
+<a href="Approvals.dc.html" title="Approvals (G I)" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>Approvals<span style="margin-left: auto; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; justify-content: center">2<span style="position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap"> waiting</span></span></a>
+<a href="Connections.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a6 6 0 0 1-12 0V8z"/></svg>Connections</a>
+<a href="Members.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; background: #181A22; color: #E8E9EE; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Members &amp; Teams</a>
+<a href="Roles.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Roles</a>
+<a href="AuditLog.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M9 12h6M9 16h4"/></svg>Audit log</a>
+<a href="Usage.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>Usage</a>
+<button type="button" class="hv" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px; background: transparent; border: none; cursor: pointer; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg>Settings</button>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="padding: 0 10px 6px; font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Workspaces</div>
+<a href="OrgHome.dc.html#ws-mango" aria-current="true" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #E8E9EE; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #7C8CFF"></span>Mango Market<span style="margin-left: auto; font-size: 11px; color: #8C8F9C">2</span></a>
+<a href="OrgHome.dc.html#ws-harbor" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; box-sizing: border-box; border-radius: 50%; border: 1px solid #3A3D4A"></span>Harbor Clinic<span style="margin-left: auto; font-size: 11px">2</span></a>
+<a href="OrgHome.dc.html#ws-internal" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; box-sizing: border-box; border-radius: 50%; border: 1px solid #3A3D4A"></span>Internal<span style="margin-left: auto; font-size: 11px">2</span></a>
+<button type="button" class="hv" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 12px; background: transparent; border: none; cursor: pointer; text-align: left"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New workspace</button>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 2px; font-size: 12px">
+<a href="https://docs.yari.run" class="hv" style="display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; border-radius: 8px; color: #8C8F9C">Docs<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+<button type="button" class="hv" title="Keyboard shortcuts (?)" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 28px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px; text-align: left">Keyboard shortcuts<kbd style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">?</kbd></button>
+</div>
+</aside>
+
+<!-- CONTENT -->
+<main style="flex: 1; min-width: 0; overflow-y: auto">
+<div style="max-width: 1120px; margin: 0 auto; padding: 24px 40px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px">
+
+<!-- page header -->
+<div style="display: flex; flex-direction: column; gap: 10px">
+<a href="Members.dc.html" class="hv" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 24px; padding: 0 6px 0 4px; margin-left: -4px; border-radius: 6px; color: #8C8F9C; font-size: 12px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg>Members &amp; Teams</a>
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h1 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Environment permissions · mango-shop</h1>
+<p style="margin: 0; font-size: 13px; color: #8C8F9C">Who can deploy, read secrets, approve and run the agent in each environment.</p>
+</div>
+<div style="display: flex; align-items: center; gap: 8px">
+<a href="Roles.dc.html" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #8C8F9C; font-size: 13px; font-weight: 500; box-sizing: border-box">About roles</a>
+<a href="{{canvasHref}}" title="{{canvasTitle}}" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; box-sizing: border-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="8" height="8" x="3" y="3" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect width="8" height="8" x="13" y="13" rx="2"/></svg>Open canvas</a>
+</div>
+</div>
+</div>
+
+<!-- env tabs -->
+<div role="tablist" aria-label="Environments of mango-shop" style="display: flex; align-items: center; border-bottom: 1px solid #24262F">
+<sc-for list="{{envTabs}}" as="t" hint-placeholder-count="3">
+<button type="button" role="tab" aria-selected="{{t.selected}}" onClick="{{t.pick}}" style="{{t.style}}">
+<sc-if value="{{t.isProd}}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Protected"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></sc-if>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px">{{t.label}}</span>
+<sc-if value="{{t.isPreview}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 6px; border: 1px solid #24262F; font-size: 11px; font-weight: 500; color: #8C8F9C">Preview</span></sc-if>
+</button>
+</sc-for>
+</div>
+
+<!-- env banner -->
+<div role="note" style="display: flex; align-items: center; gap: 12px; padding: 10px 12px 10px 10px; border: 1px solid #24262F; border-radius: 10px; background: #121319">
+<sc-if value="{{bannerProd}}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: rgba(233,185,73,0.12); color: #E9B949; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></sc-if>
+<sc-if value="{{bannerOther}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; color: #8C8F9C; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span></sc-if>
+<span>{{bannerText}}</span>
+</div>
+
+<!-- matrix -->
+<div role="table" aria-label="{{matrixLabel}}" style="border: 1px solid #24262F; border-radius: 10px; background: #121319">
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(4, minmax(0, 1fr)); gap: 16px; align-items: center; height: 36px; padding: 0 16px; font-size: 11px; font-weight: 500; color: #8C8F9C">
+<span role="columnheader">Role</span>
+<span role="columnheader" style="display: inline-flex; align-items: center; gap: 6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 7-7 7 7M12 19V5"/></svg>Deploy</span>
+<span role="columnheader" style="display: inline-flex; align-items: center; gap: 6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg>Read secrets</span>
+<span role="columnheader" style="display: inline-flex; align-items: center; gap: 6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>Approve</span>
+<span role="columnheader" style="display: inline-flex; align-items: center; gap: 6px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>Run agent</span>
+</div>
+<sc-for list="{{matrix}}" as="r" hint-placeholder-count="5">
+<div role="row" class="hv" style="display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(4, minmax(0, 1fr)); gap: 16px; align-items: center; min-height: 56px; padding: 8px 16px; box-sizing: border-box; border-top: 1px solid #24262F">
+<span role="rowheader" style="display: flex; align-items: center; gap: 10px; min-width: 0">
+<sc-if value="{{r.isAgent}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width: 28px; height: 28px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center; color: #7C8CFF"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span></sc-if>
+<sc-if value="{{r.isHuman}}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="width: 28px; height: 28px; flex: none; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #E8E9EE">{{r.initials}}</span></sc-if>
+<span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.4">
+<span style="font-weight: 500">{{r.role}}</span>
+<span style="font-size: 12px; color: #8C8F9C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.who}}</span>
+</span>
+</span>
+<sc-for list="{{r.cells}}" as="c" hint-placeholder-count="4">
+<span role="cell" title="{{c.title}}" style="{{c.wrapStyle}}">
+<sc-if value="{{c.isAllowed}}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+<sc-if value="{{c.isApproval}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></sc-if>
+<sc-if value="{{c.isNo}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></sc-if>
+<sc-if value="{{c.isNever}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></sc-if>
+<sc-if value="{{c.isNotNeeded}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke-dasharray="3 3"/></svg></sc-if>
+<span style="{{c.textStyle}}">{{c.word}}</span>
+</span>
+</sc-for>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: -6px; font-size: 11px; color: #8C8F9C">
+<span>Run agent means starting agent sessions here. The agent itself shows “—”: people start sessions, the agent doesn’t.</span>
+<sc-if value="{{hasChanges}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 6px; margin-left: auto"><span aria-hidden="true" style="width: 10px; height: 10px; border-radius: 3px; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35)"></span>Changed by the approval rule</span></sc-if>
+</div>
+
+<!-- approval rule -->
+<section aria-label="Approval rule" style="display: flex; align-items: center; gap: 12px; padding: 12px 12px 12px 16px; border: 1px solid #24262F; border-radius: 10px; background: #121319">
+<span aria-hidden="true" style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; color: #8C8F9C; display: inline-flex; align-items: center; justify-content: center"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></span>
+<span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.45">
+<span style="font-size: 11px; font-weight: 500; color: #8C8F9C">Approval rule · <span style="font-family: 'JetBrains Mono', monospace">{{envName}}</span></span>
+<sc-if value="{{notEditingRule}}" hint-placeholder-val="{{ true }}">
+<span style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap">
+<span style="font-weight: 500">{{ruleText}}</span>
+<sc-if value="{{ruleHasApprovers}}" hint-placeholder-val="{{ true }}">
+<span style="color: #8C8F9C">· approvers</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; color: #E8E9EE"><span aria-hidden="true" style="width: 20px; height: 20px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600">LP</span>Lina Pierre</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; color: #E8E9EE"><span aria-hidden="true" style="width: 20px; height: 20px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 600">SJ</span>Sami Joseph</span>
+</sc-if>
+</span>
+</sc-if>
+<sc-if value="{{editingRule}}" hint-placeholder-val="{{ false }}">
+<span style="display: flex; align-items: center; gap: 10px; margin-top: 4px; flex-wrap: wrap">
+<label style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C">
+<span>Approvals required</span>
+<select value="{{draftRule}}" onChange="{{onDraft}}" style="height: 28px; padding: 0 8px; background: #0B0C10; border: 1px solid #7C8CFF; border-radius: 8px; color: #E8E9EE; font-size: 13px; cursor: pointer">
+<sc-for list="{{ruleOptions}}" as="o" hint-placeholder-count="2"><option value="{{o.v}}">{{o.label}}</option></sc-for>
+</select>
+</label>
+<span style="font-size: 12px; color: #8C8F9C">{{ruleHint}}</span>
+</span>
+</sc-if>
+</span>
+<span style="margin-left: auto; display: flex; gap: 8px; flex: none">
+<sc-if value="{{notEditingRule}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{startEdit}}" title="Edit approval rule (E)" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: pointer">Edit</button>
+</sc-if>
+<sc-if value="{{editingRule}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{cancelEdit}}" class="hvb" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: pointer">Cancel</button>
+<button type="button" onClick="{{saveRule}}" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500; cursor: pointer">Save rule</button>
+</sc-if>
+</span>
+</section>
+
+<!-- connections + teams -->
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start">
+
+<section aria-labelledby="conn-h" style="border: 1px solid #24262F; border-radius: 10px; background: #121319">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 12px 10px 16px">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a6 6 0 0 1-12 0V8z"/></svg>
+<h2 id="conn-h" style="margin: 0; font-size: 14px; font-weight: 500">Connections used here</h2>
+<span style="font-size: 12px; color: #8C8F9C">{{connCount}}</span>
+<a href="Connections.dc.html" class="hv" style="margin-left: auto; display: inline-flex; align-items: center; gap: 4px; height: 26px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 12px; font-weight: 500">Manage<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+</div>
+<sc-for list="{{connections}}" as="c" hint-placeholder-count="5">
+<div style="display: grid; grid-template-columns: 112px minmax(0, 1fr) auto; gap: 12px; align-items: center; min-height: 48px; padding: 6px 16px; box-sizing: border-box; border-top: 1px solid #24262F">
+<span><span style="display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 6px; border: 1px solid #24262F; font-size: 11px; font-weight: 500; color: #8C8F9C; white-space: nowrap">{{c.provider}}</span></span>
+<span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.4">
+<span style="display: flex; align-items: center; gap: 6px"><span style="font-size: 13px">{{c.services}}</span><sc-if value="{{c.isNew}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; height: 18px; padding: 0 6px; border-radius: 6px; background: rgba(124,140,255,0.12); color: #7C8CFF; font-size: 11px; font-weight: 500">New</span></sc-if></span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{c.scope}}</span>
+</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; font-size: 11px; color: #8C8F9C; white-space: nowrap"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>{{c.validated}}</span>
+</div>
+</sc-for>
+<div style="display: flex; gap: 8px; padding: 10px 16px 12px; border-top: 1px solid #24262F; font-size: 11px; color: #8C8F9C">
+<svg style="flex: none; margin-top: 1px" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+<span>Provider keys stay with yari.run. The agent works in its own sandbox and cannot see them.</span>
+</div>
+</section>
+
+<section aria-labelledby="teams-h" style="border: 1px solid #24262F; border-radius: 10px; background: #121319">
+<div style="display: flex; align-items: center; gap: 8px; padding: 12px 12px 10px 16px">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+<h2 id="teams-h" style="margin: 0; font-size: 14px; font-weight: 500">Teams with access</h2>
+<span style="font-size: 12px; color: #8C8F9C">2</span>
+<a href="Members.dc.html" class="hv" style="margin-left: auto; display: inline-flex; align-items: center; gap: 4px; height: 26px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 12px; font-weight: 500">Manage teams<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+</div>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; min-height: 56px; padding: 8px 16px; box-sizing: border-box; border-top: 1px solid #24262F">
+<span style="display: flex; align-items: center; gap: 10px; min-width: 0">
+<span aria-hidden="true" style="display: inline-flex; align-items: center">
+<span style="width: 24px; height: 24px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; box-shadow: 0 0 0 2px #121319; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600">LP</span>
+<span style="width: 24px; height: 24px; margin-left: -6px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; box-shadow: 0 0 0 2px #121319; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600">ME</span>
+<span style="width: 24px; height: 24px; margin-left: -6px; box-sizing: border-box; border-radius: 50%; background: #1A1D2E; border: 1px solid rgba(124,140,255,0.35); box-shadow: 0 0 0 2px #121319; display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span>
+</span>
+<span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.4">
+<span style="font-weight: 500">Mango team</span>
+<span style="font-size: 12px; color: #8C8F9C; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">Lina Pierre, Marc Etienne, Agent · via Workspace Mango Market</span>
+</span>
+</span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; background: #181A22; border: 1px solid #24262F; font-size: 11px; font-weight: 500; color: #E8E9EE">Developer</span>
+</div>
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; min-height: 56px; padding: 8px 16px; box-sizing: border-box; border-top: 1px solid #24262F">
+<span style="display: flex; align-items: center; gap: 10px; min-width: 0">
+<span aria-hidden="true" style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600">AR</span>
+<span style="display: flex; flex-direction: column; min-width: 0; line-height: 1.4">
+<span style="font-weight: 500">Clients</span>
+<span style="font-size: 12px; color: #8C8F9C">Ana Ruiz · via Project mango-shop</span>
+</span>
+</span>
+<span style="display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 6px; background: #181A22; border: 1px solid #24262F; font-size: 11px; font-weight: 500; color: #E8E9EE">Viewer</span>
+</div>
+<div style="padding: 10px 16px 12px; border-top: 1px solid #24262F; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Also with access</span>
+<sc-for list="{{alsoAccess}}" as="x" hint-placeholder-count="3">
+<span style="display: flex; align-items: center; gap: 8px; font-size: 12px">
+<span style="color: #E8E9EE; font-weight: 500">{{x.name}}</span>
+<span style="color: #8C8F9C">{{x.detail}}</span>
+<span style="margin-left: auto; color: #8C8F9C">{{x.role}}</span>
+</span>
+</sc-for>
+</div>
+</section>
+
+</div>
+
+</div>
+</main>
+</div>
+
+<!-- TOAST -->
+<sc-if value="{{hasToast}}" hint-placeholder-val="{{ false }}">
+<div role="status" aria-live="polite" style="position: absolute; right: 24px; bottom: 24px; z-index: 50; display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 14px; background: #181A22; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); font-size: 13px; animation: yr-in .16s ease-out">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<span>{{toastText}}</span>
+<a href="AuditLog.dc.html" style="font-weight: 500; padding: 0 4px">View in audit log</a>
+<button type="button" onClick="{{dismissToast}}" aria-label="Dismiss" title="Dismiss" class="hv" style="width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"env":{"editor":"enum","options":["production","staging","pr-42"],"default":"production"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var p = props || {};
+    var env = (p.env === 'staging' || p.env === 'pr-42') ? p.env : 'production';
+    this.state = { env: env, rules: { production: 1, staging: 0, 'pr-42': 0 }, editing: false, draft: 1, toast: null };
+  }
+  componentWillUnmount() {
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+  }
+  showToast(text) {
+    var self = this;
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    this.setState({ toast: text });
+    this.toastTimer = setTimeout(function () { self.setState({ toast: null }); }, 6000);
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var env = s.env;
+    var rule = s.rules[env];
+
+    // A allowed, W with approval, N no, V never, NN not needed, D not applicable
+    var BASE = {
+      production: { owner: ['A', 'A', 'A', 'A'], admin: ['A', 'A', 'A', 'A'], developer: ['W', 'N', 'N', 'A'], viewer: ['N', 'N', 'N', 'N'], agent: ['W', 'V', 'N', 'D'] },
+      staging: { owner: ['A', 'A', 'A', 'A'], admin: ['A', 'A', 'A', 'A'], developer: ['A', 'A', 'N', 'A'], viewer: ['N', 'N', 'N', 'N'], agent: ['A', 'V', 'N', 'D'] },
+      'pr-42': { owner: ['A', 'A', 'NN', 'A'], admin: ['A', 'A', 'NN', 'A'], developer: ['A', 'A', 'NN', 'A'], viewer: ['N', 'N', 'N', 'N'], agent: ['A', 'V', 'N', 'D'] }
+    };
+    var effective = function (roleId, col) {
+      var v = BASE[env][roleId][col];
+      if (env !== 'production' && rule > 0) {
+        if (col === 0 && (roleId === 'developer' || roleId === 'agent')) v = 'W';
+        if (col === 2 && (roleId === 'owner' || roleId === 'admin')) v = 'A';
+        if (col === 2 && roleId === 'developer') v = 'N';
+      }
+      return v;
+    };
+    var approvalWord = rule === 2 ? '2 approvals' : '1 approval';
+    var TITLE = {
+      A: 'Allowed',
+      W: 'Waits for ' + approvalWord + ' from an Admin or Owner',
+      N: 'Not allowed for this role',
+      V: 'Never: the agent cannot read secrets, whatever its role',
+      NN: 'No approvals on this environment',
+      D: 'Does not apply: people start agent sessions, the agent does not'
+    };
+    var WORD = { A: 'Allowed', W: 'With approval', N: 'No', V: 'Never', NN: 'Not needed', D: '—' };
+    var COLS = ['Deploy', 'Read secrets', 'Approve', 'Run agent'];
+    var wrapBase = 'display: inline-flex; align-items: center; gap: 6px; justify-self: start; height: 26px; padding: 0 8px; margin-left: -8px; border-radius: 6px; font-size: 12px; white-space: nowrap; ';
+    var anyChanged = false;
+    var roles = [
+      { id: 'owner', role: 'Owner', who: 'Sami Joseph', initials: 'SJ' },
+      { id: 'admin', role: 'Admin', who: 'Lina Pierre', initials: 'LP' },
+      { id: 'developer', role: 'Developer', who: 'Marc Etienne · Mango team', initials: 'ME' },
+      { id: 'viewer', role: 'Viewer', who: 'Ana Ruiz · Clients', initials: 'AR' },
+      { id: 'agent', role: 'Agent', who: 'Agent · Developer, in its own sandbox', agent: true }
+    ];
+    var matrix = roles.map(function (r) {
+      var cells = COLS.map(function (colName, i) {
+        var v = effective(r.id, i);
+        var changed = v !== BASE[env][r.id][i];
+        if (changed) anyChanged = true;
+        var color = v === 'A' ? '#3DD68C' : (v === 'W' ? '#E9B949' : '#8C8F9C');
+        return {
+          word: WORD[v],
+          title: r.role + ' · ' + colName + ': ' + TITLE[v],
+          isAllowed: v === 'A', isApproval: v === 'W', isNo: v === 'N', isNever: v === 'V', isNotNeeded: v === 'NN',
+          textStyle: 'color: ' + color + (v === 'A' || v === 'W' ? '; font-weight: 500' : ''),
+          wrapStyle: wrapBase + (changed ? 'background: rgba(124,140,255,0.12); box-shadow: inset 0 0 0 1px rgba(124,140,255,0.35)' : 'background: transparent')
+        };
+      });
+      return { role: r.role, who: r.who, initials: r.initials || '', isAgent: !!r.agent, isHuman: !r.agent, cells: cells };
+    });
+
+    var tabOn = 'display: inline-flex; align-items: center; gap: 6px; background: transparent; border: none; cursor: pointer; font-size: 13px; padding: 10px 2px; margin-right: 24px; color: #E8E9EE; box-shadow: inset 0 -2px 0 #7C8CFF';
+    var tabOff = 'display: inline-flex; align-items: center; gap: 6px; background: transparent; border: none; cursor: pointer; font-size: 13px; padding: 10px 2px; margin-right: 24px; color: #8C8F9C';
+    var envTabs = ['production', 'staging', 'pr-42'].map(function (id) {
+      var on = id === env;
+      return { label: id, isProd: id === 'production', isPreview: id === 'pr-42', selected: on ? 'true' : 'false', style: on ? tabOn : tabOff,
+        pick: function () { self.setState({ env: id, editing: false }); } };
+    });
+
+    var bannerText;
+    if (env === 'production') {
+      bannerText = 'Production is protected. Developers and the agent need an admin’s approval and can’t read secrets.';
+    } else if (env === 'staging') {
+      bannerText = rule > 0
+        ? 'staging now needs ' + approvalWord + ' for deploys from Developers and the agent. The agent never reads secrets.'
+        : 'staging is not protected. Developers and the agent deploy without approval. The agent never reads secrets.';
+    } else {
+      bannerText = rule > 0
+        ? 'pr-42 is the preview for pull request #42. Deploys from Developers and the agent wait for ' + approvalWord + '.'
+        : 'pr-42 is the preview for pull request #42. Changes apply without approval.';
+    }
+
+    var ruleText = rule === 0 ? 'No approval needed. Plans apply as soon as they are ready.' : (approvalWord + ' from Admin or Owner');
+    var ruleOptions = env === 'production'
+      ? [{ v: '1', label: '1 approval' }, { v: '2', label: '2 approvals' }]
+      : [{ v: '0', label: 'None' }, { v: '1', label: '1 approval' }];
+    var ruleHint = env === 'production'
+      ? 'Production always needs at least 1 approval from an Admin or Owner.'
+      : 'Approvers are Admins and Owners: Lina Pierre, Sami Joseph.';
+
+    var B2 = env === 'production' ? 'Bucket mango-media' : 'Bucket mango-media-staging';
+    var connections = [
+      { provider: 'Railway', services: 'api, worker', scope: 'Workspace kestrel-studio', validated: '2 h ago' },
+      { provider: 'Vercel', services: 'web', scope: 'Team kestrel', validated: '2 h ago' },
+      { provider: 'Supabase', services: env === 'pr-42' ? 'postgres, added by the agent' : 'postgres', scope: 'Organization kestrel', validated: '1 h ago', isNew: env === 'pr-42' },
+      { provider: 'Backblaze B2', services: 'media', scope: B2, validated: '3 h ago' },
+      { provider: 'Resend', services: 'email', scope: 'API key · account-wide', validated: '2 h ago' }
+    ];
+
+    var alsoAccess = [
+      { name: 'Sami Joseph', detail: 'Organization', role: 'Owner' },
+      { name: 'Lina Pierre', detail: 'Organization', role: 'Admin' },
+      { name: 'deploy-bot', detail: 'API key · Project mango-shop', role: 'Developer' }
+    ];
+    if (env === 'staging') alsoAccess.push({ name: 'github-actions', detail: 'CI · this environment only', role: 'Developer' });
+
+    var canvasHref = env === 'production' ? 'Canvas.dc.html' : (env === 'staging' ? 'CanvasStaging.dc.html' : 'CanvasPR42.dc.html');
+
+    return {
+      envName: env,
+      envTabs: envTabs,
+      canvasHref: canvasHref,
+      canvasTitle: 'Open the ' + env + ' canvas',
+      bannerProd: env === 'production', bannerOther: env !== 'production',
+      bannerText: bannerText,
+      matrixLabel: 'Permissions on ' + env,
+      matrix: matrix,
+      hasChanges: anyChanged,
+      ruleText: ruleText,
+      ruleHasApprovers: rule > 0,
+      editingRule: s.editing, notEditingRule: !s.editing,
+      draftRule: String(s.draft),
+      ruleOptions: ruleOptions,
+      ruleHint: ruleHint,
+      startEdit: function () { self.setState({ editing: true, draft: self.state.rules[self.state.env] }); },
+      cancelEdit: function () { self.setState({ editing: false }); },
+      onDraft: function (e) { self.setState({ draft: parseInt(e.target.value, 10) || 0 }); },
+      saveRule: function () {
+        var next = Object.assign({}, self.state.rules);
+        next[self.state.env] = self.state.draft;
+        self.setState({ rules: next, editing: false });
+        self.showToast('Approval rule for ' + self.state.env + ' saved.');
+      },
+      connCount: String(connections.length),
+      connections: connections,
+      alsoAccess: alsoAccess,
+      hasToast: !!s.toast,
+      toastText: s.toast || '',
+      dismissToast: function () { self.setState({ toast: null }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

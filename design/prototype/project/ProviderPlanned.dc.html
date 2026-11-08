@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AWS · planned provider</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 900px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 900px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR (organization) -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<span style="width: 1px; height: 20px; background: #24262F"></span>
+<nav aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<button type="button" title="Switch organization" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<div style="position: relative">
+<button type="button" onClick="{{toggleWs}}" aria-haspopup="menu" aria-expanded="{{wsOpen}}" title="Switch workspace" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px; background: transparent; border: none; cursor: pointer">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<sc-if value="{{wsOpen}}" hint-placeholder-val="{{ false }}">
+<div role="menu" style="position: absolute; top: 34px; left: 0; width: 240px; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 6px; z-index: 20; animation: yr-in .14s ease-out">
+<div style="padding: 6px 8px 4px; font-size: 11px; font-weight: 500; color: #8C8F9C">Workspaces of Kestrel Studio</div>
+<a href="OrgHome.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; background: #181A22">Mango Market<span style="color: #8C8F9C; font-size: 11px">Client</span><svg style="margin-left: auto" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Current"><path d="M20 6 9 17l-5-5"/></svg></a>
+<a href="OrgHome.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE">Harbor Clinic<span style="color: #8C8F9C; font-size: 11px">Client</span></a>
+<a href="OrgHome.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE">Internal</a>
+<div style="height: 1px; background: #24262F; margin: 6px 0"></div>
+<button type="button" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 32px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New workspace</button>
+</div>
+</sc-if>
+</div>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<a href="Approvals.dc.html" aria-label="Approvals, 2 waiting" title="Approvals (G I)" class="hv" style="position: relative; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+<span style="position: absolute; top: 3px; right: 2px; min-width: 15px; height: 15px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center">2</span>
+</a>
+<button type="button" aria-label="Account: Marc Etienne" title="Marc Etienne" style="width: 28px; height: 28px; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; cursor: pointer; margin-left: 4px">ME</button>
+</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<!-- ORG SIDEBAR -->
+<aside aria-label="Organization" style="width: 240px; flex: none; box-sizing: border-box; border-right: 1px solid #24262F; background: #0B0C10; padding: 12px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto">
+<button type="button" class="hv" title="Switch organization" style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #E8E9EE; cursor: pointer; text-align: left">
+<span style="width: 28px; height: 28px; flex: none; box-sizing: border-box; border-radius: 8px; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">KS</span>
+<span style="display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.35"><span style="font-size: 13px; font-weight: 500">Kestrel Studio</span><span style="font-size: 11px; color: #8C8F9C">Organization · 4 members</span></span>
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></svg>
+</button>
+<nav aria-label="Organization sections" style="display: flex; flex-direction: column; gap: 2px">
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Projects</a>
+<a href="Approvals.dc.html" title="Approvals (G I)" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>Approvals<span style="margin-left: auto; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; justify-content: center">2<span style="position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap"> waiting</span></span></a>
+<a href="Connections.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; background: #181A22; color: #E8E9EE; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a6 6 0 0 1-12 0V8z"/></svg>Connections</a>
+<a href="Members.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Members &amp; Teams</a>
+<a href="Roles.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Roles</a>
+<a href="AuditLog.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M9 12h6M9 16h4"/></svg>Audit log</a>
+<a href="Usage.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>Usage</a>
+<button type="button" class="hv" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px; background: transparent; border: none; cursor: pointer; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg>Settings</button>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="padding: 0 10px 6px; font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Workspaces</div>
+<a href="OrgHome.dc.html" aria-current="true" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #E8E9EE; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #7C8CFF"></span>Mango Market<span style="margin-left: auto; font-size: 11px; color: #8C8F9C">2</span></a>
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; box-sizing: border-box; border-radius: 50%; border: 1px solid #3A3D4A"></span>Harbor Clinic<span style="margin-left: auto; font-size: 11px">2</span></a>
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; box-sizing: border-box; border-radius: 50%; border: 1px solid #3A3D4A"></span>Internal<span style="margin-left: auto; font-size: 11px">2</span></a>
+<button type="button" class="hv" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 12px; background: transparent; border: none; cursor: pointer; text-align: left"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New workspace</button>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 2px; font-size: 12px">
+<a href="https://docs.yari.run" class="hv" style="display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; border-radius: 8px; color: #8C8F9C">Docs<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+<button type="button" class="hv" title="Keyboard shortcuts (?)" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 28px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px; text-align: left">Keyboard shortcuts<kbd style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">?</kbd></button>
+</div>
+</aside>
+
+<!-- CONTENT -->
+<main style="flex: 1; min-width: 0; overflow-y: auto">
+<div style="max-width: 1120px; margin: 0 auto; padding: 24px 40px 32px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+
+<a href="Connections.dc.html" class="hv" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 8px; margin-left: -8px; border-radius: 8px; color: #8C8F9C; font-size: 12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7M19 12H5"/></svg>Connections</a>
+
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<div style="display: flex; align-items: center; gap: 10px">
+<h1 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">AWS</h1>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(107,111,125,0.16); color: #8C8F9C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Planned</span>
+</div>
+<p style="margin: 0; font-size: 13px; color: #8C8F9C">Clouds · App Runner, RDS, S3 and SES · IAM role per account</p>
+</div>
+<span title="Coming soon" style="flex: none"><button type="button" disabled aria-disabled="true" aria-describedby="connect-why" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500; opacity: .45; cursor: not-allowed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a6 6 0 0 1-12 0V8z"/></svg>Connect</button></span>
+</div>
+
+<div style="display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 16px; align-items: start">
+
+<!-- explanation -->
+<section aria-labelledby="why-h" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; gap: 12px; align-items: flex-start">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; border: 1px solid #24262F; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg></span>
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h2 id="why-h" style="margin: 0; font-size: 14px; font-weight: 500">yari.run doesn't support AWS yet.</h2>
+<p id="connect-why" style="margin: 0; color: #8C8F9C">You can't connect an AWS account today. When support ships, yari.run will deploy to the managed services below through one IAM role you create, scoped to a single account. You won't need to set up networking yourself.</p>
+</div>
+</div>
+
+<div style="display: flex; flex-direction: column">
+<div style="font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C; padding-bottom: 8px">What is planned</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid #24262F">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span>
+<span style="font-weight: 500; width: 120px">App Runner</span>
+<span style="color: #8C8F9C">for web services and workers</span>
+<span style="margin-left: auto; display: inline-flex; gap: 10px; font-size: 12px; color: #8C8F9C"><span>web</span><span>worker</span></span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid #24262F">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span>
+<span style="font-weight: 500; width: 120px">RDS</span>
+<span style="color: #8C8F9C">for Postgres and MySQL databases</span>
+<span style="margin-left: auto; font-size: 12px; color: #8C8F9C">database</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid #24262F">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg></span>
+<span style="font-weight: 500; width: 120px">S3</span>
+<span style="color: #8C8F9C">for buckets</span>
+<span style="margin-left: auto; font-size: 12px; color: #8C8F9C">bucket</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 10px 0 0; border-top: 1px solid #24262F">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>
+<span style="font-weight: 500; width: 120px">SES</span>
+<span style="color: #8C8F9C">for transactional email</span>
+<span style="margin-left: auto; font-size: 12px; color: #8C8F9C">email</span>
+</div>
+</div>
+</section>
+
+<!-- status -->
+<aside aria-labelledby="status-h" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<h2 id="status-h" style="margin: 0; font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Status</h2>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 14px; font-weight: 500">In design · targeted for early 2027</span>
+<span style="font-size: 12px; color: #8C8F9C">Updated 28 Oct 2026</span>
+</div>
+<ol aria-label="Roadmap stages" style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 8px; font-size: 12px">
+<li style="display: flex; align-items: center; gap: 8px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>Planned<span style="margin-left: auto; font-size: 11px">Done</span></li>
+<li aria-current="step" style="display: flex; align-items: center; gap: 8px; color: #E8E9EE"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3.5" fill="#7C8CFF" stroke="none"/></svg>In design<span style="margin-left: auto; font-size: 11px; color: #8C8F9C">Now</span></li>
+<li style="display: flex; align-items: center; gap: 8px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3D4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>Beta<span style="margin-left: auto; font-size: 11px">Next</span></li>
+<li style="display: flex; align-items: center; gap: 8px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3A3D4A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/></svg>Available</li>
+</ol>
+<div style="height: 1px; background: #24262F"></div>
+<button type="button" onClick="{{toggleNotify}}" aria-pressed="{{notifyPressed}}" class="hvb" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: pointer">
+<sc-if value="{{notified}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+<sc-if value="{{notNotified}}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></sc-if>
+{{notifyLabel}}</button>
+<span aria-live="polite" style="font-size: 12px; color: #8C8F9C; text-align: center">{{notifyNote}}</span>
+<a href="https://docs.yari.run/providers/roadmap" target="_blank" rel="noopener" title="Opens docs.yari.run in a new tab" style="display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px">Read the provider roadmap<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+</aside>
+</div>
+
+<!-- use today -->
+<section aria-labelledby="today-h" style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 id="today-h" style="margin: 0; font-size: 14px; font-weight: 500">What you can use today</h2>
+<p style="margin: 0; font-size: 12px; color: #8C8F9C">Your connected providers already cover these kinds. Moving to AWS later is a Plan like any other.</p>
+</div>
+<div style="background: #121319; border: 1px solid #24262F; border-radius: 10px">
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></svg></span>
+<span style="font-weight: 500; width: 120px">Railway</span>
+<span style="color: #8C8F9C">for web and workers</span>
+<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">Workspace kestrel-studio · 3 projects</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(61,214,140,0.12); color: #3DD68C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Connected</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid #24262F">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span>
+<span style="font-weight: 500; width: 120px">Supabase</span>
+<span style="color: #8C8F9C">for databases</span>
+<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">Organization kestrel · 2 projects</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(61,214,140,0.12); color: #3DD68C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Connected</span>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-top: 1px solid #24262F">
+<span style="width: 28px; height: 28px; flex: none; border-radius: 8px; background: #181A22; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="5" x="2" y="3" rx="1"/><path d="M4 8v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8"/><path d="M10 12h4"/></svg></span>
+<span style="font-weight: 500; width: 120px">Backblaze B2</span>
+<span style="color: #8C8F9C">for buckets</span>
+<span style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">Buckets mango-media, mango-media-staging</span>
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; font-size: 11px; font-weight: 500; background: rgba(61,214,140,0.12); color: #3DD68C"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Connected</span>
+</div>
+</div>
+</section>
+
+</div>
+</main>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { wsOpen: false, notified: false };
+  }
+  renderVals() {
+    const n = this.state.notified;
+    return {
+      wsOpen: this.state.wsOpen,
+      toggleWs: () => this.setState({ wsOpen: !this.state.wsOpen }),
+      notified: n,
+      notNotified: !n,
+      notifyPressed: n ? 'true' : 'false',
+      notifyLabel: n ? 'We’ll let you know' : 'Notify me',
+      notifyNote: n ? 'We’ll email marc@kestrel.studio when AWS enters beta.' : 'One email when AWS enters beta. Nothing else.',
+      toggleNotify: () => this.setState({ notified: !this.state.notified })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Audit log · Kestrel Studio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 1000px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 1000px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR (organization) -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<span style="width: 1px; height: 20px; background: #24262F"></span>
+<nav aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<button type="button" title="Switch organization" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<div style="position: relative">
+<button type="button" onClick="{{toggleWs}}" aria-haspopup="menu" aria-expanded="{{wsOpen}}" title="Switch workspace" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px; background: transparent; border: none; cursor: pointer">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<sc-if value="{{wsOpen}}" hint-placeholder-val="{{ false }}">
+<div role="menu" style="position: absolute; top: 34px; left: 0; width: 240px; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 6px; z-index: 20; animation: yr-in .14s ease-out">
+<div style="padding: 6px 8px 4px; font-size: 11px; font-weight: 500; color: #8C8F9C">Workspaces of Kestrel Studio</div>
+<a href="OrgHome.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; background: #181A22">Mango Market<span style="color: #8C8F9C; font-size: 11px">Client</span><svg style="margin-left: auto" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Current"><path d="M20 6 9 17l-5-5"/></svg></a>
+<a href="OrgHome.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE">Harbor Clinic<span style="color: #8C8F9C; font-size: 11px">Client</span></a>
+<a href="OrgHome.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE">Internal</a>
+<div style="height: 1px; background: #24262F; margin: 6px 0"></div>
+<button type="button" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 32px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New workspace</button>
+</div>
+</sc-if>
+</div>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<a href="Approvals.dc.html" aria-label="Approvals, 2 waiting" title="Approvals (G I)" class="hv" style="position: relative; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+<span style="position: absolute; top: 3px; right: 2px; min-width: 15px; height: 15px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center">2</span>
+</a>
+<button type="button" aria-label="Account: Marc Etienne" title="Marc Etienne" style="width: 28px; height: 28px; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; cursor: pointer; margin-left: 4px">ME</button>
+</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<!-- ORG SIDEBAR -->
+<aside aria-label="Organization" style="width: 240px; flex: none; box-sizing: border-box; border-right: 1px solid #24262F; background: #0B0C10; padding: 12px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto">
+<button type="button" class="hv" title="Switch organization" style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #E8E9EE; cursor: pointer; text-align: left">
+<span style="width: 28px; height: 28px; flex: none; box-sizing: border-box; border-radius: 8px; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">KS</span>
+<span style="display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.35"><span style="font-size: 13px; font-weight: 500">Kestrel Studio</span><span style="font-size: 11px; color: #8C8F9C">Organization · 4 members</span></span>
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></svg>
+</button>
+<nav aria-label="Organization sections" style="display: flex; flex-direction: column; gap: 2px">
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Projects</a>
+<a href="Approvals.dc.html" title="Approvals (G I)" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>Approvals<span style="margin-left: auto; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; justify-content: center">2<span style="position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap"> waiting</span></span></a>
+<a href="Connections.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a6 6 0 0 1-12 0V8z"/></svg>Connections</a>
+<a href="Members.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Members &amp; Teams</a>
+<a href="Roles.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Roles</a>
+<a href="AuditLog.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; background: #181A22; color: #E8E9EE; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M9 12h6M9 16h4"/></svg>Audit log</a>
+<a href="Usage.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>Usage</a>
+<button type="button" class="hv" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px; background: transparent; border: none; cursor: pointer; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg>Settings</button>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="padding: 0 10px 6px; font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Workspaces</div>
+<a href="OrgHome.dc.html" aria-current="true" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #E8E9EE; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #7C8CFF"></span>Mango Market<span style="margin-left: auto; font-size: 11px; color: #8C8F9C">2</span></a>
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; box-sizing: border-box; border-radius: 50%; border: 1px solid #3A3D4A"></span>Harbor Clinic<span style="margin-left: auto; font-size: 11px">2</span></a>
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; box-sizing: border-box; border-radius: 50%; border: 1px solid #3A3D4A"></span>Internal<span style="margin-left: auto; font-size: 11px">2</span></a>
+<button type="button" class="hv" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 12px; background: transparent; border: none; cursor: pointer; text-align: left"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New workspace</button>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 2px; font-size: 12px">
+<a href="https://docs.yari.run" class="hv" style="display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; border-radius: 8px; color: #8C8F9C">Docs<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+<button type="button" class="hv" title="Keyboard shortcuts (?)" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 28px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px; text-align: left">Keyboard shortcuts<kbd style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">?</kbd></button>
+</div>
+</aside>
+
+<!-- CONTENT -->
+<main style="flex: 1; min-width: 0; overflow-y: auto">
+<div style="max-width: 1120px; margin: 0 auto; padding: 32px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h1 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Audit log</h1>
+<p style="margin: 0; font-size: 13px; color: #8C8F9C">Every change by people, keys, CI and the agent. Kept for 365 days.</p>
+</div>
+<div style="position: relative; flex: none">
+<button type="button" onClick="{{toggleExport}}" aria-haspopup="menu" aria-expanded="{{exportOpen}}" title="Export events" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Export<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<sc-if value="{{exportOpen}}" hint-placeholder-val="{{ false }}">
+<div role="menu" aria-label="Export format" style="position: absolute; top: 38px; right: 0; width: 220px; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 6px; z-index: 20; animation: yr-in .14s ease-out">
+<div style="padding: 6px 8px 4px; font-size: 11px; font-weight: 500; color: #8C8F9C">Export {{totalLabel}} events</div>
+<button type="button" role="menuitem" onClick="{{exportCsv}}" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 34px; padding: 0 8px; border-radius: 8px; background: transparent; border: none; color: #E8E9EE; cursor: pointer; font-size: 13px; text-align: left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>CSV<span style="margin-left: auto; font-size: 11px; color: #8C8F9C">Spreadsheets</span></button>
+<button type="button" role="menuitem" onClick="{{exportJson}}" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 34px; padding: 0 8px; border-radius: 8px; background: transparent; border: none; color: #E8E9EE; cursor: pointer; font-size: 13px; text-align: left"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg>JSON<span style="margin-left: auto; font-size: 11px; color: #8C8F9C">SIEM, scripts</span></button>
+</div>
+</sc-if>
+</div>
+</div>
+
+<!-- filters -->
+<div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap">
+<label style="position: relative; display: flex; align-items: center; width: 260px">
+<span style="position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap">Search events</span>
+<svg style="position: absolute; left: 10px; color: #8C8F9C" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+<input type="search" value="{{q}}" onInput="{{onSearch}}" placeholder="Search actor, action, target or ID" style="width: 100%; height: 32px; box-sizing: border-box; padding: 0 10px 0 32px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; color: #E8E9EE">
+</label>
+<div role="group" aria-label="Filter by actor kind" style="display: inline-flex; gap: 4px">
+<sc-for list="{{pills}}" as="f" hint-placeholder-count="5">
+<button type="button" onClick="{{f.pick}}" aria-pressed="{{f.pressed}}" style="{{f.style}}">{{f.label}}<span style="font-size: 11px; color: #8C8F9C">{{f.count}}</span></button>
+</sc-for>
+</div>
+<span style="flex: 1"></span>
+<label style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C">
+<span>Environment</span>
+<select value="{{env}}" onChange="{{onEnv}}" style="height: 32px; padding: 0 8px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; color: #E8E9EE; font-size: 13px; cursor: pointer">
+<option value="all">All environments</option>
+<option value="production">production</option>
+<option value="staging">staging</option>
+<option value="pr-42">pr-42</option>
+</select>
+</label>
+<label style="display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C">
+<span>Date</span>
+<select value="{{range}}" onChange="{{onRange}}" style="height: 32px; padding: 0 8px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; color: #E8E9EE; font-size: 13px; cursor: pointer">
+<option value="recent">Today and yesterday</option>
+<option value="today">Today</option>
+</select>
+</label>
+</div>
+
+<sc-if value="{{noResults}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="padding: 40px 20px; text-align: center; border: 1px dashed #24262F; border-radius: 10px; color: #8C8F9C">No events match these filters. <button type="button" onClick="{{resetFilters}}" style="background: transparent; border: none; padding: 0; color: #7C8CFF; cursor: pointer">Reset filters</button></div>
+</sc-if>
+
+<sc-if value="{{hasResults}}" hint-placeholder-val="{{ true }}">
+<div role="table" aria-label="Audit log events" style="border: 1px solid #24262F; border-radius: 10px; background: #121319; overflow: hidden">
+<div role="row" style="display: grid; grid-template-columns: 56px minmax(0, 1.3fr) minmax(0, 2fr) minmax(0, 0.9fr) 118px 92px; gap: 12px; align-items: center; height: 32px; padding: 0 14px; font-size: 11px; font-weight: 500; color: #8C8F9C">
+<span role="columnheader">Time</span><span role="columnheader">Actor</span><span role="columnheader">Action</span><span role="columnheader">Target</span><span role="columnheader">Environment</span><span role="columnheader">Linked</span>
+</div>
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="2">
+<div role="rowgroup">
+<div role="row" style="display: flex; align-items: baseline; gap: 8px; padding: 8px 14px; border-top: 1px solid #24262F; background: #0F1015">
+<span role="rowheader" style="font-size: 12px; font-weight: 500; color: #E8E9EE">{{g.label}}</span><span style="font-size: 11px; color: #8C8F9C">{{g.meta}}</span>
+</div>
+<sc-for list="{{g.rows}}" as="r" hint-placeholder-count="6">
+<div role="row" class="hv" style="display: grid; grid-template-columns: 56px minmax(0, 1.3fr) minmax(0, 2fr) minmax(0, 0.9fr) 118px 92px; gap: 12px; align-items: center; min-height: 44px; box-sizing: border-box; padding: 10px 14px; border-top: 1px solid #24262F">
+
+<span role="cell" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">{{r.time}}</span>
+
+<span role="cell" style="display: flex; align-items: center; gap: 8px; min-width: 0">
+<sc-if value="{{r.isHuman}}" hint-placeholder-val="{{ true }}"><span aria-hidden="true" style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; color: #E8E9EE">{{r.initials}}</span></sc-if>
+<sc-if value="{{r.isAgent}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); display: inline-flex; align-items: center; justify-content: center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg></span></sc-if>
+<sc-if value="{{r.isCi}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3 12h6M15 12h6"/></svg></span></sc-if>
+<sc-if value="{{r.isKey}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg></span></sc-if>
+<sc-if value="{{r.isSystem}}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg></span></sc-if>
+<span style="display: flex; align-items: baseline; gap: 5px; min-width: 0; flex-wrap: wrap">
+<span style="font-size: 13px; font-weight: 500; white-space: nowrap">{{r.actor}}</span>
+<sc-if value="{{r.hasSes}}" hint-placeholder-val="{{ false }}"><span style="color: #8C8F9C" aria-hidden="true">·</span><a href="{{r.sesHref}}" title="Open session timeline" style="font-family: 'JetBrains Mono', monospace; font-size: 12px">{{r.ses}}</a></sc-if>
+<sc-if value="{{r.hasKindLabel}}" hint-placeholder-val="{{ true }}"><span style="font-size: 12px; color: #8C8F9C; white-space: nowrap">· {{r.kindLabel}}</span></sc-if>
+</span>
+</span>
+
+<span role="cell" style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<span style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap">
+<sc-if value="{{r.guard}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#F26D6D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></sc-if>
+<span style="font-size: 13px">{{r.action}}</span>
+<sc-if value="{{r.hasCode}}" hint-placeholder-val="{{ true }}"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE; background: #181A22; border: 1px solid #24262F; border-radius: 4px; padding: 0 5px">{{r.code}}</span></sc-if>
+<sc-if value="{{r.failed}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px; border-radius: 6px; background: rgba(242,109,109,0.12); color: #F26D6D; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>Failed</span></sc-if>
+<sc-if value="{{r.reauth}}" hint-placeholder-val="{{ false }}"><span title="Lina confirmed her identity again before the value was shown" style="display: inline-flex; align-items: center; gap: 4px; height: 20px; padding: 0 7px; box-sizing: border-box; border-radius: 6px; border: 1px solid #24262F; color: #8C8F9C; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>re-authenticated</span></sc-if>
+</span>
+<sc-if value="{{r.hasNote}}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; color: #8C8F9C">{{r.note}}</span></sc-if>
+</span>
+
+<span role="cell" style="min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap"><span style="{{r.targetStyle}}">{{r.target}}</span></span>
+
+<span role="cell">
+<sc-if value="{{r.isProd}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 7px; box-sizing: border-box; border: 1px solid #24262F; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #E8E9EE"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#E9B949" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Protected"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>production</span></sc-if>
+<sc-if value="{{r.isOtherEnv}}" hint-placeholder-val="{{ true }}"><span style="display: inline-flex; align-items: center; height: 22px; padding: 0 7px; box-sizing: border-box; border: 1px solid #24262F; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">{{r.env}}</span></sc-if>
+<sc-if value="{{r.noEnv}}" hint-placeholder-val="{{ false }}"><span style="color: #8C8F9C" aria-label="No environment">—</span></sc-if>
+</span>
+
+<span role="cell">
+<sc-if value="{{r.hasHref}}" hint-placeholder-val="{{ true }}"><a href="{{r.href}}" title="{{r.linkTitle}}" style="{{r.linkStyle}}">{{r.link}}</a></sc-if>
+<sc-if value="{{r.linkPlain}}" hint-placeholder-val="{{ false }}"><span title="Plan on kestrel-site" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">{{r.link}}</span></sc-if>
+<sc-if value="{{r.noLink}}" hint-placeholder-val="{{ false }}"><span style="color: #8C8F9C" aria-label="Nothing linked">—</span></sc-if>
+</span>
+
+</div>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</sc-if>
+
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<span style="font-size: 12px; color: #8C8F9C" aria-live="polite">{{footerLabel}}</span>
+<nav aria-label="Pagination" style="display: inline-flex; align-items: center; gap: 4px">
+<button type="button" disabled aria-label="Previous page" title="Previous page" style="width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: transparent; border: 1px solid #24262F; color: #8C8F9C; opacity: .45; cursor: not-allowed"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg></button>
+<button type="button" aria-current="page" aria-label="Page 1" style="min-width: 28px; height: 28px; padding: 0 6px; border-radius: 8px; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE; font-size: 12px; font-weight: 500; cursor: pointer">1</button>
+<button type="button" aria-label="Page 2" class="hv" style="min-width: 28px; height: 28px; padding: 0 6px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #8C8F9C; font-size: 12px; cursor: pointer">2</button>
+<button type="button" aria-label="Page 3" class="hv" style="min-width: 28px; height: 28px; padding: 0 6px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #8C8F9C; font-size: 12px; cursor: pointer">3</button>
+<span style="color: #8C8F9C; font-size: 12px; padding: 0 4px" aria-hidden="true">…</span>
+<button type="button" aria-label="Page 18" class="hv" style="min-width: 28px; height: 28px; padding: 0 6px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #8C8F9C; font-size: 12px; cursor: pointer">18</button>
+<button type="button" aria-label="Next page" title="Next page" class="hvb" style="width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button>
+</nav>
+</div>
+
+</div>
+</main>
+</div>
+
+<sc-if value="{{showToast}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: absolute; right: 24px; bottom: 24px; display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 14px; background: #181A22; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); font-size: 13px; z-index: 30; animation: yr-in .16s ease-out">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<span>{{toastText}}</span>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">{{toastFile}}</span>
+<button type="button" onClick="{{closeToast}}" aria-label="Dismiss" title="Dismiss (Esc)" class="hv" style="width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"kind":{"editor":"enum","options":["all","human","agent","ci","key"],"default":"all"},"$preview":{"width":1440,"height":1000}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { wsOpen: false, q: '', kind: (props && props.kind) || 'all', env: 'all', range: 'recent', exportOpen: false, exported: null };
+  }
+  renderVals() {
+    const s = this.state;
+    const R = [
+      { day: 'today', time: '15:44', kind: 'agent', actor: 'Agent', ses: 'ses_b410', sesHref: 'AgentWaiting.dc.html', action: 'Requested approval', note: 'Wake worker and raise concurrency to 4 · +$5.00 / month', target: 'worker', mono: true, env: 'production', link: 'plan_9KD1', href: 'AgentWaiting.dc.html' },
+      { day: 'today', time: '15:40', kind: 'human', actor: 'Marc Etienne', initials: 'ME', kindLabel: 'Developer', action: 'Requested approval', note: '4 changes across 3 providers · +$7.00 / month', target: 'mango-shop', mono: true, env: 'production', link: 'plan_7Q2M', href: 'PlanReview.dc.html' },
+      { day: 'today', time: '15:31', kind: 'agent', actor: 'Agent', ses: 'ses_2c91', sesHref: 'AgentOps.dc.html', action: 'Applied plan', note: 'Rebuild api on staging with Node 22 · deployed 9d02b6f', target: 'api', mono: true, env: 'staging', link: 'plan_5B8X', href: 'AgentOps.dc.html' },
+      { day: 'today', time: '15:27', kind: 'agent', actor: 'Agent', ses: 'ses_2c91', sesHref: 'AgentOps.dc.html', guard: true, action: 'Blocked by guardrail', code: 'delete database', note: 'Agents cannot delete databases. Listed in the plan notes for a human to decide.', target: 'postgres-old', mono: true, env: 'staging', link: 'ses_2c91', href: 'AgentOps.dc.html' },
+      { day: 'today', time: '15:12', kind: 'human', actor: 'Marc Etienne', initials: 'ME', kindLabel: 'Developer', action: 'Deployed', code: 'c41e9a2', failed: true, note: 'Bump sharp to 0.34 · npm ci exited with code 1', target: 'api', mono: true, env: 'staging' },
+      { day: 'today', time: '15:02', kind: 'ci', actor: 'github-actions', kindLabel: 'CI', action: 'Deployed', code: '7b11f3e', target: 'api', mono: true, env: 'pr-42' },
+      { day: 'today', time: '14:48', kind: 'human', actor: 'Lina Pierre', initials: 'LP', kindLabel: 'Admin', action: 'Revealed secret', code: 'STRIPE_SECRET_KEY', reauth: true, target: 'api', mono: true, env: 'production' },
+      { day: 'today', time: '14:10', kind: 'key', actor: 'deploy-bot', kindLabel: 'API key · key_…9f2c', action: 'Created environment', code: 'pr-42', target: 'mango-shop', mono: true, env: 'pr-42' },
+      { day: 'today', time: '13:55', kind: 'human', actor: 'Sami Joseph', initials: 'SJ', kindLabel: 'Owner', action: 'Changed role of Ana Ruiz to Viewer', target: 'mango-shop', mono: true, env: '' },
+      { day: 'today', time: '12:30', kind: 'human', actor: 'Lina Pierre', initials: 'LP', kindLabel: 'Admin', action: 'Connected provider Resend', note: 'API key, account-wide: Resend has no scoped keys', target: 'Kestrel Studio', mono: false, env: '' },
+      { day: 'today', time: '11:02', kind: 'system', actor: 'yari.run', kindLabel: 'System', action: 'Detected drift', note: 'Changed outside yari.run: replicas 1 → 2, LOG_LEVEL added', target: 'api', mono: true, env: 'staging', link: 'Review drift', href: 'DriftReview.dc.html', plainLink: true },
+      { day: 'yesterday', time: '18:20', kind: 'human', actor: 'Sami Joseph', initials: 'SJ', kindLabel: 'Owner', action: 'Approved plan', note: 'Requested by Lina Pierre', target: 'kestrel-site', mono: true, env: 'production', link: 'plan_2WQA' }
+    ];
+    const q = (s.q || '').trim().toLowerCase();
+    const text = (r) => [r.actor, r.ses, r.kindLabel, r.action, r.code, r.note, r.target, r.env, r.link].join(' ').toLowerCase();
+    const base = R.filter((r) => (!q || text(r).indexOf(q) !== -1) && (s.env === 'all' || r.env === s.env) && (s.range === 'recent' || r.day === 'today'));
+    const count = (k) => base.filter((r) => k === 'all' || r.kind === k).length;
+    const pillOn = 'display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE';
+    const pillOff = 'display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; background: transparent; border: 1px solid transparent; color: #8C8F9C';
+    const pills = [['all', 'All'], ['human', 'Human'], ['agent', 'Agent'], ['ci', 'CI'], ['key', 'API key']].map(([id, label]) => ({
+      label: label, count: String(count(id)),
+      pressed: s.kind === id ? 'true' : 'false',
+      style: s.kind === id ? pillOn : pillOff,
+      pick: () => this.setState({ kind: id })
+    }));
+    const shown = base.filter((r) => s.kind === 'all' || r.kind === s.kind);
+    const linkMono = 'font-family: \'JetBrains Mono\', monospace; font-size: 12px; white-space: nowrap';
+    const linkSans = 'font-size: 12px; white-space: nowrap';
+    const row = (r) => ({
+      time: r.time, actor: r.actor, initials: r.initials || '',
+      isHuman: r.kind === 'human', isAgent: r.kind === 'agent', isCi: r.kind === 'ci', isKey: r.kind === 'key', isSystem: r.kind === 'system',
+      ses: r.ses || '', sesHref: r.sesHref || '', hasSes: !!r.ses,
+      kindLabel: r.kindLabel || '', hasKindLabel: !!r.kindLabel,
+      guard: !!r.guard, action: r.action, code: r.code || '', hasCode: !!r.code,
+      failed: !!r.failed, reauth: !!r.reauth, note: r.note || '', hasNote: !!r.note,
+      target: r.target,
+      targetStyle: r.mono ? 'font-family: \'JetBrains Mono\', monospace; font-size: 12px; color: #E8E9EE' : 'font-size: 13px; color: #E8E9EE',
+      env: r.env, isProd: r.env === 'production', isOtherEnv: !!r.env && r.env !== 'production', noEnv: !r.env,
+      link: r.link || '', href: r.href || '', hasHref: !!r.href, linkPlain: !!r.link && !r.href, noLink: !r.link,
+      linkStyle: r.plainLink ? linkSans : linkMono,
+      linkTitle: r.plainLink ? 'Review drift on api, staging' : 'Open ' + (r.link || '')
+    });
+    const groups = [
+      { id: 'today', label: 'Today', date: 'Sunday 8 Nov' },
+      { id: 'yesterday', label: 'Yesterday', date: 'Saturday 7 Nov' }
+    ].map((g) => {
+      const rows = shown.filter((r) => r.day === g.id);
+      return { label: g.label + ' · ' + g.date, meta: rows.length + (rows.length === 1 ? ' event' : ' events'), rows: rows.map(row) };
+    }).filter((g) => g.rows.length > 0);
+    const total = s.range === 'today' ? 197 : 214;
+    const filtered = !!q || s.env !== 'all' || s.kind !== 'all';
+    const footerLabel = filtered
+      ? 'Showing ' + shown.length + (shown.length === 1 ? ' matching event' : ' matching events') + ' on this page · ' + total + ' in total'
+      : 'Showing ' + shown.length + ' of ' + total + ' events';
+    const doExport = (fmt) => this.setState({ exportOpen: false, exported: fmt });
+    return {
+      wsOpen: s.wsOpen,
+      toggleWs: () => this.setState({ wsOpen: !this.state.wsOpen }),
+      exportOpen: s.exportOpen,
+      toggleExport: () => this.setState({ exportOpen: !this.state.exportOpen }),
+      exportCsv: () => doExport('CSV'),
+      exportJson: () => doExport('JSON'),
+      totalLabel: String(total),
+      showToast: !!s.exported,
+      toastText: 'Exported ' + total + ' events as ' + (s.exported || 'CSV'),
+      toastFile: 'audit-log-2026-11-08.' + (s.exported === 'JSON' ? 'json' : 'csv'),
+      closeToast: () => this.setState({ exported: null }),
+      q: s.q, env: s.env, range: s.range,
+      onSearch: (e) => this.setState({ q: e.target.value }),
+      onEnv: (e) => this.setState({ env: e.target.value }),
+      onRange: (e) => this.setState({ range: e.target.value }),
+      resetFilters: () => this.setState({ q: '', env: 'all', kind: 'all', range: 'recent' }),
+      pills: pills,
+      groups: groups,
+      noResults: groups.length === 0,
+      hasResults: groups.length > 0,
+      footerLabel: footerLabel
+    };
+  }
+}
+</script>
+</body>
+</html>

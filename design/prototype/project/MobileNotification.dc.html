@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mobile · Lock screen</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+.nt:hover{background:rgba(30,32,42,0.94) !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #0E0F14; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 14px; line-height: 1.5; display: flex; flex-direction: column">
+
+<!-- clock -->
+<div style="flex: none; padding-top: 88px; display: flex; flex-direction: column; align-items: center; gap: 2px">
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: #8C8F9C">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Locked
+</span>
+<time datetime="2026-11-08T15:47" style="font-size: 64px; font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; color: #E8E9EE">15:47</time>
+<span style="font-size: 16px; font-weight: 500; color: #E8E9EE">Sunday 8 November</span>
+</div>
+
+<!-- notification stack -->
+<section aria-label="Notifications" style="flex: none; margin-top: 56px; padding: 0 12px; display: flex; flex-direction: column; gap: 8px">
+
+<a href="MobileApproval.dc.html" class="nt" aria-label="yari.run, now. Approval needed, mango-shop production. Marc Etienne wants to deploy 4 changes across 3 providers. About +$7.00 per month." style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px 14px; background: rgba(24,26,34,0.92); border-radius: 16px; color: #E8E9EE; animation: yr-in .3s ease-out">
+<span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C">
+<span style="width: 20px; height: 20px; border-radius: 6px; background: #0B0C10; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+</span>
+<span style="font-weight: 500">yari.run</span>
+<span style="margin-left: auto">now</span>
+</span>
+<span style="margin-top: 2px; font-size: 14px; font-weight: 600">Approval needed · mango-shop production</span>
+<span style="font-size: 14px; color: #E8E9EE">Marc Etienne wants to deploy 4 changes across 3 providers. About +$7.00 per month.</span>
+</a>
+
+<a href="MobileApprovals.dc.html" class="nt" aria-label="yari.run, 12 minutes ago. Agent is waiting for approval on mango-shop production. Wake worker and raise concurrency to 4. About +$5.00 per month." style="display: flex; flex-direction: column; gap: 4px; padding: 12px 14px 14px; background: rgba(24,26,34,0.92); border-radius: 16px; color: #E8E9EE">
+<span style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C">
+<span style="width: 20px; height: 20px; border-radius: 6px; background: #0B0C10; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box">
+<svg width="12" height="12" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+</span>
+<span style="font-weight: 500">yari.run</span>
+<span style="margin-left: auto">12 min ago</span>
+</span>
+<span style="margin-top: 2px; font-size: 14px; font-weight: 600">Agent is waiting for approval on mango-shop production</span>
+<span style="font-size: 14px; color: #E8E9EE">Wake worker and raise concurrency to 4. About +$5.00 per month.</span>
+</a>
+
+<p style="margin: 8px 0 0; text-align: center; font-size: 12px; color: #8C8F9C">Tap a notification to review</p>
+</section>
+
+<span style="flex: 1"></span>
+
+<!-- bottom -->
+<div style="flex: none; padding-bottom: 12px; display: flex; flex-direction: column; align-items: center; gap: 14px">
+<span style="font-size: 13px; color: #8C8F9C">Swipe up to open</span>
+<span aria-hidden="true" style="width: 134px; height: 5px; border-radius: 3px; background: #8C8F9C"></span>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>

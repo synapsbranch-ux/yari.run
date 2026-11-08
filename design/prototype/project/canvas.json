@@ -1,0 +1,665 @@
+{
+ "v": 3,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-08T16:05:00Z"
+ },
+ "title": "yari.run prototype",
+ "launch": {
+  "view": "canvas",
+  "page": "start"
+ },
+ "pages": [
+  {
+   "id": "start",
+   "name": "Start"
+  },
+  {
+   "id": "onboarding",
+   "name": "Onboarding"
+  },
+  {
+   "id": "org",
+   "name": "Organization"
+  },
+  {
+   "id": "canvas",
+   "name": "Canvas"
+  },
+  {
+   "id": "approvals",
+   "name": "Approvals"
+  },
+  {
+   "id": "agent",
+   "name": "Agent"
+  },
+  {
+   "id": "code",
+   "name": "Code mode"
+  },
+  {
+   "id": "light",
+   "name": "Light theme"
+  },
+  {
+   "id": "states",
+   "name": "States"
+  },
+  {
+   "id": "mobile",
+   "name": "Mobile"
+  }
+ ],
+ "boards": {
+  "Main.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 1000,
+   "title": "Prototype index",
+   "page": "start",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Tokens.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 1400,
+   "title": "Tokens \u00b7 dark and light",
+   "page": "start",
+   "expand": "fill"
+  },
+  "ComponentsBase.dc.html": {
+   "x": 3040,
+   "y": 0,
+   "w": 1440,
+   "h": 1900,
+   "title": "Components \u00b7 basics",
+   "page": "start",
+   "expand": "fill"
+  },
+  "ComponentsProduct.dc.html": {
+   "x": 4560,
+   "y": 0,
+   "w": 1440,
+   "h": 2300,
+   "title": "Components \u00b7 product",
+   "page": "start",
+   "expand": "fill"
+  },
+  "Onboarding1.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "1 \u00b7 Welcome",
+   "page": "onboarding",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Onboarding2.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "2 \u00b7 Connect a provider",
+   "page": "onboarding",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Onboarding3.dc.html": {
+   "x": 3040,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "3 \u00b7 Create a project",
+   "page": "onboarding",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Onboarding4.dc.html": {
+   "x": 4560,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "4 \u00b7 Review",
+   "page": "onboarding",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "OrgHome.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Organization home",
+   "page": "org",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Connections.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Connections",
+   "page": "org",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Members.dc.html": {
+   "x": 3040,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Members & Teams",
+   "page": "org",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Permissions.dc.html": {
+   "x": 4560,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Environment permissions",
+   "page": "org",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Roles.dc.html": {
+   "x": 6080,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Roles",
+   "page": "org",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "AuditLog.dc.html": {
+   "x": 7600,
+   "y": 0,
+   "w": 1440,
+   "h": 1000,
+   "title": "Audit log",
+   "page": "org",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Usage.dc.html": {
+   "x": 9120,
+   "y": 0,
+   "w": 1440,
+   "h": 1100,
+   "title": "Usage",
+   "page": "org",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Canvas.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Canvas \u00b7 production",
+   "page": "canvas",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "CanvasStaging.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Canvas \u00b7 staging (failed + drift)",
+   "page": "canvas",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "DriftReview.dc.html": {
+   "x": 3040,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Drift review",
+   "page": "canvas",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Palette.dc.html": {
+   "x": 4560,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Command palette",
+   "page": "canvas",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "ServicePanel.dc.html": {
+   "x": 6080,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Service panel",
+   "page": "canvas",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "PlanReview.dc.html": {
+   "x": 7600,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Plan review \u00b7 production",
+   "page": "canvas",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "PlanApply.dc.html": {
+   "x": 9120,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Plan \u00b7 applying \u2192 applied",
+   "page": "canvas",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "PlanFailed.dc.html": {
+   "x": 10640,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Plan \u00b7 failed",
+   "page": "canvas",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Approvals.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Approvals inbox",
+   "page": "approvals",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "ApprovalsEmpty.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Approvals \u00b7 empty",
+   "page": "approvals",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "AgentOps.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Agent \u00b7 Ops mode (fix staging)",
+   "page": "agent",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "AgentWaiting.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Agent \u00b7 waiting for approval",
+   "page": "agent",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "AgentBudget.dc.html": {
+   "x": 3040,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Agent \u00b7 budget reached",
+   "page": "agent",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "CodeStart.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Code \u00b7 start",
+   "page": "code",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "CodeWorking.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Code \u00b7 working",
+   "page": "code",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "CanvasPR42.dc.html": {
+   "x": 3040,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Canvas \u00b7 pr-42 (postgres added)",
+   "page": "code",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "CodePromote.dc.html": {
+   "x": 4560,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Code \u00b7 promote to production",
+   "page": "code",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "CanvasLight.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Canvas \u00b7 light",
+   "page": "light",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "PlanReviewLight.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Plan review \u00b7 light",
+   "page": "light",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "CodeLight.dc.html": {
+   "x": 3040,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Code mode \u00b7 light",
+   "page": "light",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "EmptyProjects.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Empty \u00b7 no projects",
+   "page": "states",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "EmptyConnections.dc.html": {
+   "x": 1520,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Empty \u00b7 no connections",
+   "page": "states",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "ProviderPlanned.dc.html": {
+   "x": 3040,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Provider planned",
+   "page": "states",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "Loading.dc.html": {
+   "x": 4560,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Loading skeletons",
+   "page": "states",
+   "expand": "fill"
+  },
+  "ErrorState.dc.html": {
+   "x": 6080,
+   "y": 0,
+   "w": 1440,
+   "h": 900,
+   "title": "Error \u00b7 provider unreachable",
+   "page": "states",
+   "expand": "fill",
+   "is_interactive": true
+  },
+  "MobileProjects.dc.html": {
+   "x": 0,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "title": "Mobile \u00b7 Projects",
+   "page": "mobile",
+   "is_interactive": true
+  },
+  "MobileProject.dc.html": {
+   "x": 470,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "title": "Mobile \u00b7 mango-shop",
+   "page": "mobile",
+   "is_interactive": true
+  },
+  "MobileNotification.dc.html": {
+   "x": 940,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "title": "Mobile \u00b7 notification",
+   "page": "mobile",
+   "is_interactive": true
+  },
+  "MobileApprovals.dc.html": {
+   "x": 1410,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "title": "Mobile \u00b7 Approvals",
+   "page": "mobile",
+   "is_interactive": true
+  },
+  "MobileApproval.dc.html": {
+   "x": 1880,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "title": "Mobile \u00b7 approval detail",
+   "page": "mobile",
+   "is_interactive": true
+  },
+  "MobileAgent.dc.html": {
+   "x": 2350,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "title": "Mobile \u00b7 Agent sessions",
+   "page": "mobile",
+   "is_interactive": true
+  },
+  "MobileAgentSession.dc.html": {
+   "x": 2820,
+   "y": 0,
+   "w": 390,
+   "h": 844,
+   "title": "Mobile \u00b7 live session",
+   "page": "mobile",
+   "is_interactive": true
+  },
+  "Tray.dc.html": {
+   "x": 3290,
+   "y": 0,
+   "w": 480,
+   "h": 420,
+   "title": "Desktop tray",
+   "page": "mobile",
+   "is_interactive": true
+  }
+ },
+ "order": [
+  "Main.dc.html",
+  "Tokens.dc.html",
+  "ComponentsBase.dc.html",
+  "ComponentsProduct.dc.html",
+  "Onboarding1.dc.html",
+  "Onboarding2.dc.html",
+  "Onboarding3.dc.html",
+  "Onboarding4.dc.html",
+  "OrgHome.dc.html",
+  "Connections.dc.html",
+  "Members.dc.html",
+  "Permissions.dc.html",
+  "Roles.dc.html",
+  "AuditLog.dc.html",
+  "Usage.dc.html",
+  "Canvas.dc.html",
+  "CanvasStaging.dc.html",
+  "DriftReview.dc.html",
+  "Palette.dc.html",
+  "ServicePanel.dc.html",
+  "PlanReview.dc.html",
+  "PlanApply.dc.html",
+  "PlanFailed.dc.html",
+  "Approvals.dc.html",
+  "ApprovalsEmpty.dc.html",
+  "AgentOps.dc.html",
+  "AgentWaiting.dc.html",
+  "AgentBudget.dc.html",
+  "CodeStart.dc.html",
+  "CodeWorking.dc.html",
+  "CanvasPR42.dc.html",
+  "CodePromote.dc.html",
+  "CanvasLight.dc.html",
+  "PlanReviewLight.dc.html",
+  "CodeLight.dc.html",
+  "EmptyProjects.dc.html",
+  "EmptyConnections.dc.html",
+  "ProviderPlanned.dc.html",
+  "Loading.dc.html",
+  "ErrorState.dc.html",
+  "MobileProjects.dc.html",
+  "MobileProject.dc.html",
+  "MobileNotification.dc.html",
+  "MobileApprovals.dc.html",
+  "MobileApproval.dc.html",
+  "MobileAgent.dc.html",
+  "MobileAgentSession.dc.html",
+  "Tray.dc.html"
+ ],
+ "notes": {
+  "t_start": {
+   "x": 0,
+   "y": -300,
+   "text": "yari.run \u00b7 prototype",
+   "kind": "title1",
+   "maxW": 6000,
+   "page": "start"
+  },
+  "t_onboarding": {
+   "x": 0,
+   "y": -300,
+   "text": "Flow 4 \u00b7 Onboarding",
+   "kind": "title1",
+   "maxW": 6000,
+   "page": "onboarding"
+  },
+  "t_org": {
+   "x": 0,
+   "y": -300,
+   "text": "Organization: projects, connections, people, governance",
+   "kind": "title1",
+   "maxW": 10560,
+   "page": "org"
+  },
+  "t_canvas": {
+   "x": 0,
+   "y": -300,
+   "text": "Canvas, palette, service panel, plans",
+   "kind": "title1",
+   "maxW": 12080,
+   "page": "canvas"
+  },
+  "t_approvals": {
+   "x": 0,
+   "y": -300,
+   "text": "Approvals",
+   "kind": "title1",
+   "maxW": 2960,
+   "page": "approvals"
+  },
+  "t_agent": {
+   "x": 0,
+   "y": -300,
+   "text": "Agent \u00b7 Ops mode",
+   "kind": "title1",
+   "maxW": 4480,
+   "page": "agent"
+  },
+  "t_code": {
+   "x": 0,
+   "y": -300,
+   "text": "Code mode",
+   "kind": "title1",
+   "maxW": 6000,
+   "page": "code"
+  },
+  "t_light": {
+   "x": 0,
+   "y": -300,
+   "text": "Light theme \u00b7 hero screens",
+   "kind": "title1",
+   "maxW": 4480,
+   "page": "light"
+  },
+  "t_states": {
+   "x": 0,
+   "y": -300,
+   "text": "Empty, loading and error states",
+   "kind": "title1",
+   "maxW": 7520,
+   "page": "states"
+  },
+  "t_mobile": {
+   "x": 0,
+   "y": -300,
+   "text": "Mobile (390 px) and desktop tray",
+   "kind": "title1",
+   "maxW": 3770,
+   "page": "mobile"
+  },
+  "n_start": {
+   "x": 0,
+   "y": 1120,
+   "text": "Press Play on the index (Main) to walk the four flows. Every blue-marked artboard is clickable. Desktop frames are 1440 px wide, mobile frames 390 px.",
+   "w": 420,
+   "fill": "gray",
+   "page": "start"
+  }
+ },
+ "designSystems": []
+}

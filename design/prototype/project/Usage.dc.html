@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Usage · Kestrel Studio</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+<div style="width: 100%; height: 1100px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 1100px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR (organization) -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<span style="width: 1px; height: 20px; background: #24262F"></span>
+<nav aria-label="Breadcrumb" style="display: flex; align-items: center; gap: 2px; min-width: 0">
+<button type="button" title="Switch organization" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; background: transparent; border: none; cursor: pointer">Kestrel Studio<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<span style="color: #3A3D4A" aria-hidden="true">/</span>
+<div style="position: relative">
+<button type="button" onClick="{{toggleWs}}" aria-haspopup="menu" aria-expanded="{{wsOpen}}" title="Switch workspace" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; font-size: 13px; background: transparent; border: none; cursor: pointer">Mango Market<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
+<sc-if value="{{wsOpen}}" hint-placeholder-val="{{ false }}">
+<div role="menu" style="position: absolute; top: 34px; left: 0; width: 240px; background: #121319; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); padding: 6px; z-index: 20; animation: yr-in .14s ease-out">
+<div style="padding: 6px 8px 4px; font-size: 11px; font-weight: 500; color: #8C8F9C">Workspaces of Kestrel Studio</div>
+<a href="OrgHome.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE; background: #181A22">Mango Market<span style="color: #8C8F9C; font-size: 11px">Client</span><svg style="margin-left: auto" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-label="Current"><path d="M20 6 9 17l-5-5"/></svg></a>
+<a href="OrgHome.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE">Harbor Clinic<span style="color: #8C8F9C; font-size: 11px">Client</span></a>
+<a href="OrgHome.dc.html" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 8px; border-radius: 8px; color: #E8E9EE">Internal</a>
+<div style="height: 1px; background: #24262F; margin: 6px 0"></div>
+<button type="button" role="menuitem" class="hv" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 32px; padding: 0 8px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New workspace</button>
+</div>
+</sc-if>
+</div>
+</nav>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 8px">
+<a href="Approvals.dc.html" aria-label="Approvals, 2 waiting" title="Approvals (G I)" class="hv" style="position: relative; width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; color: #8C8F9C">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+<span style="position: absolute; top: 3px; right: 2px; min-width: 15px; height: 15px; padding: 0 4px; box-sizing: border-box; border-radius: 8px; background: #E9B949; color: #0B0C10; font-size: 10px; font-weight: 600; line-height: 15px; text-align: center">2</span>
+</a>
+<button type="button" aria-label="Account: Marc Etienne" title="Marc Etienne" style="width: 28px; height: 28px; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; cursor: pointer; margin-left: 4px">ME</button>
+</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<!-- ORG SIDEBAR -->
+<aside aria-label="Organization" style="width: 240px; flex: none; box-sizing: border-box; border-right: 1px solid #24262F; background: #0B0C10; padding: 12px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto">
+<button type="button" class="hv" title="Switch organization" style="display: flex; align-items: center; gap: 10px; width: 100%; padding: 6px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #E8E9EE; cursor: pointer; text-align: left">
+<span style="width: 28px; height: 28px; flex: none; box-sizing: border-box; border-radius: 8px; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">KS</span>
+<span style="display: flex; flex-direction: column; min-width: 0; flex: 1; line-height: 1.35"><span style="font-size: 13px; font-weight: 500">Kestrel Studio</span><span style="font-size: 11px; color: #8C8F9C">Organization · 4 members</span></span>
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 15 5 5 5-5M7 9l5-5 5 5"/></svg>
+</button>
+<nav aria-label="Organization sections" style="display: flex; flex-direction: column; gap: 2px">
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Projects</a>
+<a href="Approvals.dc.html" title="Approvals (G I)" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>Approvals<span style="margin-left: auto; min-width: 18px; height: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-size: 11px; font-weight: 500; display: inline-flex; align-items: center; justify-content: center">2<span style="position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap"> waiting</span></span></a>
+<a href="Connections.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5M9 8V2M15 8V2M18 8v5a6 6 0 0 1-12 0V8z"/></svg>Connections</a>
+<a href="Members.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Members &amp; Teams</a>
+<a href="Roles.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>Roles</a>
+<a href="AuditLog.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect width="8" height="4" x="8" y="2" rx="1"/><path d="M9 12h6M9 16h4"/></svg>Audit log</a>
+<a href="Usage.dc.html" aria-current="page" style="display: flex; align-items: center; gap: 10px; height: 32px; padding: 0 10px; border-radius: 8px; background: #181A22; color: #E8E9EE; font-size: 13px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>Usage</a>
+<button type="button" class="hv" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 32px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px; background: transparent; border: none; cursor: pointer; text-align: left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg>Settings</button>
+</nav>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<div style="padding: 0 10px 6px; font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Workspaces</div>
+<a href="OrgHome.dc.html" aria-current="true" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #E8E9EE; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #7C8CFF"></span>Mango Market<span style="margin-left: auto; font-size: 11px; color: #8C8F9C">2</span></a>
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; box-sizing: border-box; border-radius: 50%; border: 1px solid #3A3D4A"></span>Harbor Clinic<span style="margin-left: auto; font-size: 11px">2</span></a>
+<a href="OrgHome.dc.html" class="hv" style="display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 13px"><span aria-hidden="true" style="width: 6px; height: 6px; box-sizing: border-box; border-radius: 50%; border: 1px solid #3A3D4A"></span>Internal<span style="margin-left: auto; font-size: 11px">2</span></a>
+<button type="button" class="hv" style="display: flex; align-items: center; gap: 10px; width: 100%; height: 30px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; font-size: 12px; background: transparent; border: none; cursor: pointer; text-align: left"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg>New workspace</button>
+</div>
+<div style="margin-top: auto; display: flex; flex-direction: column; gap: 2px; font-size: 12px">
+<a href="https://docs.yari.run" class="hv" style="display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 10px; border-radius: 8px; color: #8C8F9C">Docs<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg></a>
+<button type="button" class="hv" title="Keyboard shortcuts (?)" style="display: flex; align-items: center; gap: 8px; width: 100%; height: 28px; padding: 0 10px; border-radius: 8px; color: #8C8F9C; background: transparent; border: none; cursor: pointer; font-size: 12px; text-align: left">Keyboard shortcuts<kbd style="margin-left: auto; font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 0 4px; border: 1px solid #2F323D; border-radius: 4px; color: #8C8F9C; background: transparent">?</kbd></button>
+</div>
+</aside>
+
+<!-- CONTENT -->
+<main style="flex: 1; min-width: 0; overflow-y: auto">
+<div style="max-width: 1120px; margin: 0 auto; padding: 32px 40px; box-sizing: border-box; display: flex; flex-direction: column; gap: 20px">
+
+<div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<h1 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Usage</h1>
+<p style="margin: 0; font-size: 13px; color: #8C8F9C">Agent credits and activity across Kestrel Studio. Provider bills stay with your providers.</p>
+</div>
+<label style="flex: none; display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: #8C8F9C">
+<span>Period</span>
+<select value="{{period}}" onChange="{{onPeriod}}" style="height: 32px; padding: 0 8px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; color: #E8E9EE; font-size: 13px; cursor: pointer">
+<option value="nov">Nov 1 – 8, 2026</option>
+<option value="7d">Last 7 days</option>
+</select>
+</label>
+</div>
+
+<!-- stat tiles -->
+<div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 12px">
+<div style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; color: #8C8F9C">Agent credits</span>
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums">$55.25</span>
+<span role="meter" aria-label="Agent credits used this month" aria-valuemin="0" aria-valuemax="{{limitNum}}" aria-valuenow="55.25" style="display: block; height: 4px; border-radius: 2px; background: #24262F; overflow: hidden; margin-top: 2px"><span style="{{meterFill}}"></span></span>
+<span style="font-size: 12px; color: #8C8F9C">{{meterLabel}}</span>
+</div>
+<div style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; color: #8C8F9C">Agent sessions</span>
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums">23</span>
+<span style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #8C8F9C"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #7C8CFF; animation: yr-pulse 1.6s ease-in-out infinite"></span>1 running now</span>
+</div>
+<div style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; color: #8C8F9C">Plans applied</span>
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums">41</span>
+<span style="font-size: 12px; color: #8C8F9C">By people, CI and the agent</span>
+</div>
+<div style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 12px; color: #8C8F9C">Approvals</span>
+<span style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em; font-variant-numeric: tabular-nums">9</span>
+<a href="Approvals.dc.html" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 4px; font-size: 12px">2 waiting now<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+</div>
+</div>
+
+<!-- charts -->
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+<section aria-labelledby="ch-ws" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="ch-ws" style="margin: 0; font-size: 14px; font-weight: 500">Spend by workspace</h2>
+<span style="font-size: 12px; color: #8C8F9C">$55.25 total</span>
+</div>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{byWorkspace}}" as="b" hint-placeholder-count="3">
+<li title="{{b.tip}}" style="display: grid; grid-template-columns: 136px minmax(0, 1fr); gap: 12px; align-items: center">
+<span style="{{b.labelStyle}}">{{b.label}}</span>
+<span style="position: relative; display: flex; align-items: center; height: 20px">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 6px; height: 8px; border-radius: 4px; background: #24262F"></span>
+<span aria-hidden="true" style="{{b.fill}}"></span>
+<span style="position: relative; margin-left: 4px; padding: 0 6px; background: #121319; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">{{b.value}}</span>
+</span>
+</li>
+</sc-for>
+</ul>
+</section>
+<section aria-labelledby="ch-model" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; justify-content: space-between">
+<h2 id="ch-model" style="margin: 0; font-size: 14px; font-weight: 500">Spend by model</h2>
+<span style="font-size: 12px; color: #8C8F9C">$55.25 total</span>
+</div>
+<ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px">
+<sc-for list="{{byModel}}" as="b" hint-placeholder-count="3">
+<li title="{{b.tip}}" style="display: grid; grid-template-columns: 136px minmax(0, 1fr); gap: 12px; align-items: center">
+<span style="{{b.labelStyle}}">{{b.label}}</span>
+<span style="display: flex; flex-direction: column">
+<span style="position: relative; display: flex; align-items: center; height: 20px">
+<span aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 6px; height: 8px; border-radius: 4px; background: #24262F"></span>
+<span aria-hidden="true" style="{{b.fill}}"></span>
+<span style="position: relative; margin-left: 4px; padding: 0 6px; background: #121319; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #E8E9EE">{{b.value}}</span>
+</span>
+<sc-if value="{{b.hasNote}}" hint-placeholder-val="{{ false }}"><span style="font-size: 11px; color: #8C8F9C; margin-top: 2px">{{b.note}}</span></sc-if>
+</span>
+</li>
+</sc-for>
+</ul>
+</section>
+</div>
+
+<!-- sessions -->
+<section aria-labelledby="t-ses" style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 12px">
+<h2 id="t-ses" style="margin: 0; font-size: 14px; font-weight: 500">Recent agent sessions</h2>
+<div role="group" aria-label="Filter by mode" style="display: inline-flex; gap: 4px">
+<sc-for list="{{modePills}}" as="f" hint-placeholder-count="3">
+<button type="button" onClick="{{f.pick}}" aria-pressed="{{f.pressed}}" style="{{f.style}}">{{f.label}}<span style="font-size: 11px; color: #8C8F9C">{{f.count}}</span></button>
+</sc-for>
+</div>
+</div>
+<div role="table" aria-label="Recent agent sessions" style="border: 1px solid #24262F; border-radius: 10px; background: #121319; overflow: hidden">
+<div role="row" style="display: grid; grid-template-columns: minmax(0, 2.2fr) 84px 150px 84px 72px 196px; gap: 12px; align-items: center; height: 32px; padding: 0 14px; font-size: 11px; font-weight: 500; color: #8C8F9C">
+<span role="columnheader">Session</span><span role="columnheader">Mode</span><span role="columnheader">Started by</span><span role="columnheader">Duration</span><span role="columnheader" style="text-align: right">Cost</span><span role="columnheader">Outcome</span>
+</div>
+<sc-for list="{{sessions}}" as="r" hint-placeholder-count="6">
+<div role="row" class="hv" style="display: grid; grid-template-columns: minmax(0, 2.2fr) 84px 150px 84px 72px 196px; gap: 12px; align-items: center; min-height: 52px; box-sizing: border-box; padding: 8px 14px; border-top: 1px solid #24262F">
+<span role="cell" style="display: flex; flex-direction: column; min-width: 0; line-height: 1.4">
+<sc-if value="{{r.hasHref}}" hint-placeholder-val="{{ true }}"><a href="{{r.href}}" style="display: flex; align-items: baseline; gap: 8px; min-width: 0; color: #E8E9EE"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #7C8CFF">{{r.id}}</span><span style="font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.title}}</span></a></sc-if>
+<sc-if value="{{r.noHref}}" hint-placeholder-val="{{ false }}"><span style="display: flex; align-items: baseline; gap: 8px; min-width: 0"><span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #8C8F9C">{{r.id}}</span><span style="font-size: 13px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.title}}</span></span></sc-if>
+<span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #8C8F9C">{{r.where}}</span>
+</span>
+<span role="cell">
+<span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 7px; box-sizing: border-box; border: 1px solid #24262F; border-radius: 6px; font-size: 11px; font-weight: 500; color: #E8E9EE">
+<sc-if value="{{r.isCode}}" hint-placeholder-val="{{ false }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 18 6-6-6-6M8 6l-6 6 6 6"/></svg></sc-if>
+<sc-if value="{{r.isOps}}" hint-placeholder-val="{{ true }}"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 4h-7M10 4H3M21 12h-9M8 12H3M21 20h-5M12 20H3M14 2v4M8 10v4M16 18v4"/></svg></sc-if>
+{{r.mode}}</span>
+</span>
+<span role="cell" style="display: flex; align-items: center; gap: 8px; min-width: 0">
+<span aria-hidden="true" style="width: 24px; height: 24px; flex: none; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600">{{r.ini}}</span>
+<span style="font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{r.by}}</span>
+</span>
+<span role="cell" style="font-size: 13px; color: #8C8F9C; font-variant-numeric: tabular-nums">{{r.dur}}</span>
+<span role="cell" style="text-align: right; font-family: 'JetBrains Mono', monospace; font-size: 12px">{{r.cost}}</span>
+<span role="cell">
+<sc-if value="{{r.isRunning}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 6px; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE; font-size: 11px; font-weight: 500"><span aria-hidden="true" style="width: 6px; height: 6px; border-radius: 50%; background: #7C8CFF; animation: yr-pulse 1.6s ease-in-out infinite"></span>Running</span></sc-if>
+<sc-if value="{{r.isWaiting}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(233,185,73,0.12); color: #E9B949; font-size: 11px; font-weight: 500; white-space: nowrap"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Waiting for approval</span></sc-if>
+<sc-if value="{{r.isDone}}" hint-placeholder-val="{{ true }}"><span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{{r.outLabel}}</span></sc-if>
+<sc-if value="{{r.isBudget}}" hint-placeholder-val="{{ false }}"><span title="This session reached its $2.00 budget. Raise it or start a new session." style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; border-radius: 6px; background: rgba(242,109,109,0.12); color: #F26D6D; font-size: 11px; font-weight: 500"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 14 4-4"/><path d="M3.34 19a10 10 0 1 1 17.32 0"/></svg>Budget reached</span></sc-if>
+<sc-if value="{{r.isAnswered}}" hint-placeholder-val="{{ false }}"><span style="display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 8px; box-sizing: border-box; border-radius: 6px; border: 1px solid #24262F; color: #8C8F9C; font-size: 11px; font-weight: 500"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Answered</span></sc-if>
+</span>
+</div>
+</sc-for>
+</div>
+<span style="font-size: 12px; color: #8C8F9C">{{sessionsFoot}}</span>
+</section>
+
+<!-- budget settings -->
+<section aria-labelledby="t-budget" style="background: #121319; border: 1px solid #24262F; border-radius: 10px; padding: 16px 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 id="t-budget" style="margin: 0; font-size: 14px; font-weight: 500">Agent budgets</h2>
+<sc-if value="{{notEditing}}" hint-placeholder-val="{{ true }}"><span style="font-size: 13px; color: #8C8F9C">{{budgetLine}}</span></sc-if>
+<sc-if value="{{editing}}" hint-placeholder-val="{{ false }}"><span style="font-size: 13px; color: #8C8F9C">Sessions stop when they reach their budget. Admins get an email at the alert threshold.</span></sc-if>
+</div>
+<sc-if value="{{notEditing}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{startEdit}}" class="hvb" style="flex: none; display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 13px; font-weight: 500; cursor: pointer">Edit</button>
+</sc-if>
+</div>
+<sc-if value="{{editing}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; animation: yr-in .14s ease-out">
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #8C8F9C">Default session budget
+<span style="position: relative; display: flex; align-items: center"><span aria-hidden="true" style="position: absolute; left: 10px; color: #8C8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px">$</span><input type="text" inputmode="decimal" value="{{dBudget}}" onInput="{{onBudget}}" style="width: 140px; height: 32px; box-sizing: border-box; padding: 0 10px 0 24px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 12px"></span>
+</label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #8C8F9C">Monthly limit
+<span style="position: relative; display: flex; align-items: center"><span aria-hidden="true" style="position: absolute; left: 10px; color: #8C8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px">$</span><input type="text" inputmode="decimal" value="{{dLimit}}" onInput="{{onLimit}}" style="width: 140px; height: 32px; box-sizing: border-box; padding: 0 10px 0 24px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 12px"></span>
+</label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: #8C8F9C">Alert at
+<span style="position: relative; display: flex; align-items: center"><input type="text" inputmode="numeric" value="{{dAlert}}" onInput="{{onAlert}}" style="width: 100px; height: 32px; box-sizing: border-box; padding: 0 26px 0 10px; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 12px"><span aria-hidden="true" style="position: absolute; right: 10px; color: #8C8F9C; font-family: 'JetBrains Mono', monospace; font-size: 12px">%</span></span>
+</label>
+<span style="flex: 1; min-width: 160px; font-size: 12px; color: #8C8F9C; padding-bottom: 7px" aria-live="polite">{{draftHint}}</span>
+<div style="display: flex; gap: 8px">
+<button type="button" onClick="{{cancelEdit}}" class="hv" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #8C8F9C; font-size: 13px; font-weight: 500; cursor: pointer" title="Cancel (Esc)">Cancel</button>
+<button type="button" onClick="{{save}}" disabled="{{saveDisabled}}" style="{{saveStyle}}" title="Save (⌘↵)">Save</button>
+</div>
+</div>
+</sc-if>
+</section>
+
+</div>
+</main>
+</div>
+
+<sc-if value="{{showToast}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: absolute; right: 24px; bottom: 24px; display: flex; align-items: center; gap: 10px; padding: 10px 10px 10px 14px; background: #181A22; border: 1px solid #24262F; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.45); font-size: 13px; z-index: 30; animation: yr-in .16s ease-out">
+<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<span>Budget settings saved. New sessions use them right away.</span>
+<button type="button" onClick="{{closeToast}}" aria-label="Dismiss" title="Dismiss (Esc)" class="hv" style="width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { wsOpen: false, period: 'nov', mode: 'all', budget: 2, limit: 150, alert: 80, editing: false, dBudget: '2.00', dLimit: '150', dAlert: '80', saved: false };
+  }
+  renderVals() {
+    const s = this.state;
+    const money = (n) => '$' + n.toFixed(2);
+    const whole = (n) => (Math.round(n) === n ? '$' + n : money(n));
+    const spend = 55.25;
+    const pct = Math.round((spend / s.limit) * 100);
+    const meterColor = pct >= 100 ? '#F26D6D' : (pct > 90 ? '#E9B949' : '#7C8CFF');
+    const bars = (list, labelMono) => {
+      const max = Math.max.apply(null, list.map((x) => x.v));
+      return list.map((x) => {
+        const w = max > 0 ? Math.round((x.v / max) * 78 * 10) / 10 : 0;
+        return {
+          label: x.label, value: money(x.v), note: x.note || '', hasNote: !!x.note,
+          tip: x.label + ': ' + money(x.v) + ' · ' + Math.round((x.v / spend) * 100) + '% of spend',
+          labelStyle: (labelMono ? 'font-family: \'JetBrains Mono\', monospace; font-size: 12px;' : 'font-size: 13px;') + ' color: #E8E9EE; white-space: nowrap; overflow: hidden; text-overflow: ellipsis',
+          fill: 'position: relative; flex: none; height: 8px; border-radius: 4px; background: #7C8CFF; width: ' + w + '%'
+        };
+      });
+    };
+    const S = [
+      { id: 'ses_7f3a', title: 'Add product reviews', where: 'mango-shop · pr-42', mode: 'Code', by: 'Marc Etienne', ini: 'ME', dur: '46 min', cost: '$1.36', out: 'running', href: 'CodeWorking.dc.html' },
+      { id: 'ses_b410', title: "Wake worker for Monday's sale", where: 'mango-shop · production', mode: 'Ops', by: 'Marc Etienne', ini: 'ME', dur: '6 min', cost: '$0.31', out: 'waiting', href: 'AgentWaiting.dc.html' },
+      { id: 'ses_2c91', title: 'Why is api failing on staging?', where: 'mango-shop · staging', mode: 'Ops', by: 'Marc Etienne', ini: 'ME', dur: '9 min', cost: '$0.84', out: 'fixed', href: 'AgentOps.dc.html' },
+      { id: 'ses_91ee', title: 'Add a staging copy of postgres', where: 'mango-shop · staging', mode: 'Ops', by: 'Lina Pierre', ini: 'LP', dur: '4 min', cost: '$0.22', out: 'applied' },
+      { id: 'ses_60ab', title: 'Harbor: booking reminders page', where: 'harbor-portal · staging', mode: 'Code', by: 'Lina Pierre', ini: 'LP', dur: '1 h 12 min', cost: '$2.00', out: 'budget', href: 'AgentBudget.dc.html' },
+      { id: 'ses_33c0', title: "Explain last night's latency spike", where: 'mango-shop · production', mode: 'Ops', by: 'Sami Joseph', ini: 'SJ', dur: '3 min', cost: '$0.09', out: 'answered' }
+    ];
+    const pillOn = 'display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; background: #181A22; border: 1px solid #2F323D; color: #E8E9EE';
+    const pillOff = 'display: inline-flex; align-items: center; gap: 6px; height: 28px; padding: 0 10px; border-radius: 8px; font-size: 12px; font-weight: 500; cursor: pointer; background: transparent; border: 1px solid transparent; color: #8C8F9C';
+    const modePills = [['all', 'All'], ['Ops', 'Ops'], ['Code', 'Code']].map(([id, label]) => ({
+      label: label, count: String(S.filter((x) => id === 'all' || x.mode === id).length),
+      pressed: s.mode === id ? 'true' : 'false', style: s.mode === id ? pillOn : pillOff,
+      pick: () => this.setState({ mode: id })
+    }));
+    const shown = S.filter((x) => s.mode === 'all' || x.mode === s.mode);
+    const sessions = shown.map((x) => ({
+      id: x.id, title: x.title, where: x.where, mode: x.mode, by: x.by, ini: x.ini, dur: x.dur, cost: x.cost,
+      href: x.href || '', hasHref: !!x.href, noHref: !x.href,
+      isCode: x.mode === 'Code', isOps: x.mode === 'Ops',
+      isRunning: x.out === 'running', isWaiting: x.out === 'waiting', isBudget: x.out === 'budget', isAnswered: x.out === 'answered',
+      isDone: x.out === 'fixed' || x.out === 'applied', outLabel: x.out === 'fixed' ? 'Fixed' : 'Applied'
+    }));
+    const num = (v) => { const n = parseFloat(String(v).replace(',', '.')); return isFinite(n) ? n : NaN; };
+    const db = num(s.dBudget), dl = num(s.dLimit), da = num(s.dAlert);
+    const valid = db > 0 && dl > 0 && da > 0 && da <= 100 && db <= dl;
+    const draftHint = valid
+      ? 'Alert email at ' + money(dl * da / 100) + ' of ' + whole(dl) + '. You have used ' + money(spend) + ' so far.'
+      : 'Use amounts above $0, a session budget below the monthly limit, and an alert between 1 and 100%.';
+    const btnBase = 'display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 13px; font-weight: 500;';
+    return {
+      wsOpen: s.wsOpen,
+      toggleWs: () => this.setState({ wsOpen: !this.state.wsOpen }),
+      period: s.period,
+      onPeriod: (e) => this.setState({ period: e.target.value }),
+      limitNum: String(s.limit),
+      meterFill: 'display: block; height: 4px; border-radius: 2px; background: ' + meterColor + '; width: ' + Math.min(100, pct) + '%',
+      meterLabel: 'of ' + whole(s.limit) + ' monthly limit · ' + pct + '%',
+      byWorkspace: bars([{ label: 'Mango Market', v: 38.40 }, { label: 'Harbor Clinic', v: 12.10 }, { label: 'Internal', v: 4.75 }], false),
+      byModel: bars([{ label: 'claude-sonnet-5-5', v: 41.20 }, { label: 'gpt-5.5', v: 14.05 }, { label: 'local-llama', v: 0, note: 'self-hosted · 3.1 h of compute' }], true),
+      modePills: modePills,
+      sessions: sessions,
+      sessionsFoot: 'Showing ' + sessions.length + ' of 23 sessions from Nov 1 – 8. Open a session to see its full timeline.',
+      editing: s.editing, notEditing: !s.editing,
+      budgetLine: 'Default session budget ' + money(s.budget) + ' · Monthly limit ' + whole(s.limit) + ' · Alerts at ' + s.alert + '%',
+      startEdit: () => this.setState({ editing: true, saved: false, dBudget: this.state.budget.toFixed(2), dLimit: String(this.state.limit), dAlert: String(this.state.alert) }),
+      cancelEdit: () => this.setState({ editing: false }),
+      dBudget: s.dBudget, dLimit: s.dLimit, dAlert: s.dAlert,
+      onBudget: (e) => this.setState({ dBudget: e.target.value }),
+      onLimit: (e) => this.setState({ dLimit: e.target.value }),
+      onAlert: (e) => this.setState({ dAlert: e.target.value }),
+      draftHint: draftHint,
+      saveDisabled: !valid,
+      saveStyle: btnBase + (valid ? ' cursor: pointer' : ' opacity: .45; cursor: not-allowed'),
+      save: () => { if (!valid) return; this.setState({ editing: false, saved: true, budget: db, limit: dl, alert: Math.round(da) }); },
+      showToast: s.saved,
+      closeToast: () => this.setState({ saved: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

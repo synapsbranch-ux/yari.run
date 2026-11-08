@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Onboarding · Connect a provider</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap">
+<style>
+body{margin:0;background:#0B0C10}
+a{color:#7C8CFF;text-decoration:none}a:hover{color:#A9B4FF}
+*:focus-visible{outline:2px solid #7C8CFF;outline-offset:2px}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+.hv:hover{background:#181A22 !important}
+.hvb:hover{border-color:#2F323D !important}
+@keyframes yr-pulse{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes yr-spin{to{transform:rotate(360deg)}}
+@keyframes yr-shimmer{0%{background-position:-400px 0}100%{background-position:400px 0}}
+@keyframes yr-in{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+input::placeholder,textarea::placeholder{color:#8C8F9C}
+</style>
+</helmet>
+<div style="width: 100%; height: 900px; overflow-x: auto; overflow-y: hidden; background: #0B0C10; color: #E8E9EE; font-family: Inter, system-ui, sans-serif; font-size: 13px; line-height: 1.5">
+<div style="min-width: 1200px; height: 900px; display: flex; flex-direction: column; position: relative">
+
+<!-- TOP BAR (minimal, onboarding) -->
+<header style="height: 48px; flex: none; display: flex; align-items: center; gap: 12px; padding: 0 12px 0 14px; border-bottom: 1px solid #24262F; background: #0B0C10; position: relative; z-index: 5">
+<a href="Main.dc.html" aria-label="yari.run home" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; padding: 4px 6px; border-radius: 8px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 20 14.2 9.8" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round"/><path d="M13 11 16.6 5.6 21 3 18.4 7.4Z" fill="#7C8CFF"/></svg>
+<span style="font-weight: 600; font-size: 14px; letter-spacing: -0.01em">yari<span style="color: #8C8F9C">.run</span></span>
+</a>
+<div style="margin-left: auto; display: flex; align-items: center; gap: 10px">
+<span style="font-size: 13px; color: #8C8F9C">Sami Joseph</span>
+<span aria-hidden="true" style="width: 28px; height: 28px; box-sizing: border-box; border-radius: 50%; background: #181A22; border: 1px solid #24262F; color: #E8E9EE; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">SJ</span>
+<a href="Main.dc.html" class="hv" style="display: inline-flex; align-items: center; height: 26px; padding: 0 8px; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 12px; font-weight: 500">Sign out</a>
+</div>
+</header>
+
+<div style="flex: 1; display: flex; min-height: 0">
+
+<!-- MAIN COLUMN -->
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column">
+
+<!-- STEPPER -->
+<nav aria-label="Setup progress" style="flex: none; padding: 28px 40px 0">
+<ol style="max-width: 880px; margin: 0 auto; padding: 0; list-style: none; display: flex; align-items: center; gap: 12px">
+<li style="flex: 1; display: flex; align-items: center; gap: 12px">
+<a href="Onboarding1.dc.html" aria-label="Step 1, Welcome, done" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; font-size: 13px; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); color: #7C8CFF; display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>Welcome</a>
+<span aria-hidden="true" style="flex: 1; min-width: 24px; height: 1px; background: rgba(124,140,255,0.45)"></span>
+</li>
+<li style="flex: 1; display: flex; align-items: center; gap: 12px">
+<span aria-current="step" style="display: inline-flex; align-items: center; gap: 8px; color: #E8E9EE; font-size: 13px; font-weight: 500; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">2</span>Connect a provider</span>
+<span aria-hidden="true" style="flex: 1; min-width: 24px; height: 1px; background: #2F323D"></span>
+</li>
+<li style="flex: 1; display: flex; align-items: center; gap: 12px">
+<span style="display: inline-flex; align-items: center; gap: 8px; color: #8C8F9C; font-size: 13px; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: transparent; border: 1px solid #2F323D; color: #8C8F9C; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">3</span>Create a project</span>
+<span aria-hidden="true" style="flex: 1; min-width: 24px; height: 1px; background: #2F323D"></span>
+</li>
+<li style="flex: none; display: flex; align-items: center">
+<span style="display: inline-flex; align-items: center; gap: 8px; color: #8C8F9C; font-size: 13px; white-space: nowrap"><span style="width: 22px; height: 22px; box-sizing: border-box; border-radius: 50%; background: transparent; border: 1px solid #2F323D; color: #8C8F9C; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; justify-content: center">4</span>Review</span>
+</li>
+</ol>
+</nav>
+
+<!-- CONTENT -->
+<main style="flex: 1; min-height: 0; overflow-y: auto; padding: 0 40px">
+<div style="max-width: 880px; margin: 0 auto; padding: 40px 0 48px; display: flex; flex-direction: column; gap: 24px">
+
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-size: 11px; font-weight: 500; letter-spacing: 0.02em; color: #8C8F9C">Step 2 of 4</span>
+<h1 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Connect your first provider</h1>
+<p style="margin: 0; font-size: 13px; color: #8C8F9C; max-width: 620px">yari.run deploys into your own accounts. You keep the bill and the data.</p>
+</div>
+
+<!-- search + filters -->
+<div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap">
+<div style="position: relative; width: 280px">
+<label for="prov-q" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">Search providers</label>
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="position: absolute; left: 10px; top: 9px"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+<input id="prov-q" type="text" value="{{q}}" onInput="{{onQ}}" placeholder="Search providers or kinds" autocomplete="off" class="hvb" style="height: 32px; box-sizing: border-box; width: 100%; background: #0B0C10; border: 1px solid #24262F; border-radius: 8px; padding: 0 32px 0 32px; color: #E8E9EE; font-size: 13px">
+<sc-if value="{{hasQuery}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{clearQ}}" aria-label="Clear search" title="Clear search" class="hv" style="position: absolute; right: 4px; top: 4px; width: 24px; height: 24px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: transparent; border: none; color: #8C8F9C; cursor: pointer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</sc-if>
+</div>
+<div role="group" aria-label="Filter by category" style="display: flex; gap: 6px; flex-wrap: wrap">
+<sc-for list="{{pills}}" as="c" hint-placeholder-count="6">
+<button type="button" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}" class="hv" style="{{c.style}}">{{c.label}}<span style="color: #8C8F9C; font-size: 11px; font-weight: 400">{{c.count}}</span></button>
+</sc-for>
+</div>
+</div>
+
+<!-- grid grouped by category -->
+<div style="display: flex; flex-direction: column; gap: 24px">
+<sc-for list="{{groups}}" as="g" hint-placeholder-count="5">
+<section aria-label="{{g.name}}" style="display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; align-items: baseline; gap: 10px">
+<h2 style="margin: 0; font-size: 12px; font-weight: 500; color: #E8E9EE">{{g.name}}</h2>
+<span style="font-size: 11px; color: #8C8F9C">{{g.meta}}</span>
+</div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<sc-for list="{{g.items}}" as="p" hint-placeholder-count="3">
+<sc-if value="{{p.available}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{p.pick}}" aria-pressed="{{p.selected}}" aria-label="{{p.aria}}" class="{{p.cls}}" style="{{p.style}}">
+<span style="display: flex; align-items: center; gap: 8px; width: 100%">
+<span style="font-size: 14px; font-weight: 500; color: #E8E9EE">{{p.name}}</span>
+<sc-if value="{{p.showAvailable}}" hint-placeholder-val="{{ true }}">
+<span style="margin-left: auto; display: inline-flex; align-items: center; height: 20px; padding: 0 8px; border-radius: 6px; border: 1px solid #2F323D; color: #E8E9EE; font-size: 11px; font-weight: 500">Available</span>
+</sc-if>
+<sc-if value="{{p.connected}}" hint-placeholder-val="{{ false }}">
+<span style="margin-left: auto; display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 8px; border-radius: 6px; background: rgba(61,214,140,0.12); color: #3DD68C; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Connected</span>
+</sc-if>
+</span>
+<span style="font-size: 12px; color: #8C8F9C">{{p.kinds}}</span>
+</button>
+</sc-if>
+<sc-if value="{{p.planned}}" hint-placeholder-val="{{ false }}">
+<button type="button" disabled aria-label="{{p.aria}}" title="Planned. Not supported yet." style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; min-height: 76px; box-sizing: border-box; padding: 14px; border-radius: 10px; text-align: left; background: transparent; border: 1px dashed #24262F; cursor: not-allowed; font-size: 13px">
+<span style="display: flex; align-items: center; gap: 8px; width: 100%">
+<span style="font-size: 14px; font-weight: 500; color: #8C8F9C">{{p.name}}</span>
+<span style="margin-left: auto; display: inline-flex; align-items: center; gap: 5px; height: 20px; padding: 0 8px; border-radius: 6px; background: rgba(107,111,125,0.16); color: #8C8F9C; font-size: 11px; font-weight: 500"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#6B6F7D" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Planned</span>
+</span>
+<span style="font-size: 12px; color: #8C8F9C">{{p.kinds}}</span>
+</button>
+</sc-if>
+</sc-for>
+</div>
+</section>
+</sc-for>
+
+<sc-if value="{{noResults}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 40px 0; text-align: center">
+<span style="width: 40px; height: 40px; box-sizing: border-box; border-radius: 10px; background: #181A22; border: 1px solid #24262F; display: inline-flex; align-items: center; justify-content: center; color: #8C8F9C"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span>
+<span style="font-size: 14px; font-weight: 500">No providers match “{{q}}”</span>
+<span style="font-size: 13px; color: #8C8F9C; max-width: 360px">Try a provider name or a kind such as database, bucket or email.</span>
+<button type="button" onClick="{{clearAll}}" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; color: #E8E9EE; border: 1px solid #24262F; font-size: 13px; font-weight: 500; cursor: pointer">Clear search and filters</button>
+</div>
+</sc-if>
+</div>
+
+</div>
+</main>
+
+<!-- FOOTER -->
+<footer style="flex: none; border-top: 1px solid #24262F; padding: 14px 40px; background: #0B0C10">
+<div style="max-width: 880px; margin: 0 auto; display: flex; align-items: center; gap: 12px">
+<a href="Onboarding1.dc.html" class="hv" title="Back (⌘[)" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 13px; font-weight: 500"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Back</a>
+<sc-if value="{{anyConnected}}" hint-placeholder-val="{{ false }}">
+<span aria-live="polite" style="margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #8C8F9C"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>{{footNote}}</span>
+<a href="Onboarding3.dc.html" title="Continue (⌘↵)" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500">Continue<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+</sc-if>
+<sc-if value="{{noneConnected}}" hint-placeholder-val="{{ true }}">
+<span style="margin-left: auto; font-size: 12px; color: #8C8F9C">No provider connected yet. You can connect one later from Connections.</span>
+<a href="Onboarding3.dc.html" class="hv" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 13px; font-weight: 500">Skip for now</a>
+<a href="Onboarding3.dc.html" title="Continue (⌘↵)" class="hvb" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #181A22; color: #E8E9EE; border: 1px solid #24262F; font-size: 13px; font-weight: 500">Continue<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+</sc-if>
+</div>
+</footer>
+</div>
+
+<!-- CONNECT PANEL -->
+<sc-if value="{{panelOpen}}" hint-placeholder-val="{{ false }}">
+<aside aria-labelledby="panel-h" onKeyDown="{{panelKey}}" style="width: 440px; flex: none; min-height: 0; display: flex; flex-direction: column; background: #121319; border-left: 1px solid #24262F; box-shadow: 0 12px 40px rgba(0,0,0,0.45); animation: yr-in .16s ease-out; position: relative; z-index: 4">
+<div style="padding: 20px 24px 16px; display: flex; align-items: flex-start; gap: 12px">
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0">
+<h2 id="panel-h" style="margin: 0; font-size: 16px; font-weight: 600">{{panelTitle}}</h2>
+<span style="font-size: 12px; color: #8C8F9C">{{sel.cat}} · {{sel.kinds}}</span>
+</div>
+<button type="button" onClick="{{closePanel}}" aria-label="Close (Esc)" title="Close (Esc)" class="hv" style="margin-left: auto; width: 32px; height: 32px; flex: none; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; background: transparent; border: 1px solid transparent; color: #8C8F9C; cursor: pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+</div>
+
+<!-- mini stepper -->
+<ol aria-label="Connection steps" style="margin: 0; padding: 0 24px 16px; list-style: none; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #24262F">
+<sc-for list="{{psteps}}" as="st" hint-placeholder-count="3">
+<li style="{{st.liStyle}}">
+<sc-if value="{{st.clickable}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{st.go}}" aria-label="{{st.aria}}" class="hv" style="display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 6px 0 2px; border-radius: 8px; background: transparent; border: none; cursor: pointer; font-size: 12px; color: #E8E9EE; white-space: nowrap"><span style="{{st.dotStyle}}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>{{st.label}}</button>
+</sc-if>
+<sc-if value="{{st.inert}}" hint-placeholder-val="{{ true }}">
+<span aria-current="{{st.ariaCurrent}}" style="{{st.labelStyle}}">
+<span style="{{st.dotStyle}}">
+<sc-if value="{{st.done}}" hint-placeholder-val="{{ false }}"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></sc-if>
+<sc-if value="{{st.notDone}}" hint-placeholder-val="{{ true }}">{{st.num}}</sc-if>
+</span>{{st.label}}</span>
+</sc-if>
+<sc-if value="{{st.connector}}" hint-placeholder-val="{{ true }}">
+<span aria-hidden="true" style="flex: 1; min-width: 16px; height: 1px; background: #2F323D"></span>
+</sc-if>
+</li>
+</sc-for>
+</ol>
+
+<!-- panel body -->
+<div style="flex: 1; min-height: 0; overflow-y: auto; padding: 20px 24px; display: flex; flex-direction: column; gap: 16px">
+
+<sc-if value="{{bMethod}}" hint-placeholder-val="{{ true }}">
+<fieldset style="margin: 0; padding: 0; border: none; display: flex; flex-direction: column; gap: 8px">
+<legend style="padding: 0; margin-bottom: 8px; font-size: 12px; font-weight: 500">How should yari.run connect?</legend>
+<sc-for list="{{methods}}" as="m" hint-placeholder-count="2">
+<label class="{{m.cls}}" style="{{m.style}}">
+<input type="radio" name="auth-method" value="{{m.id}}" checked="{{m.checked}}" onChange="{{m.pick}}" style="margin: 3px 0 0; accent-color: #7C8CFF; flex: none">
+<span style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 13px; font-weight: 500; color: #E8E9EE">{{m.label}}</span>
+<span style="font-size: 12px; color: #8C8F9C">{{m.desc}}</span>
+</span>
+</label>
+</sc-for>
+</fieldset>
+<sc-if value="{{needSecret}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<label for="secret-in" style="font-size: 12px; font-weight: 500">{{method.field}}</label>
+<input id="secret-in" type="password" value="{{tok}}" onInput="{{onTok}}" autocomplete="off" spellcheck="false" class="hvb" style="height: 32px; box-sizing: border-box; width: 100%; background: #181A22; border: 1px solid #24262F; border-radius: 8px; padding: 0 10px; color: #E8E9EE; font-family: 'JetBrains Mono', monospace; font-size: 12px">
+<span style="font-size: 12px; color: #8C8F9C">{{method.help}}</span>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{bScopes}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 12px; font-weight: 500">yari.run will ask for</span>
+<ul style="margin: 0; padding: 0; list-style: none; border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<sc-for list="{{scopes}}" as="sc" hint-placeholder-count="4">
+<li style="{{sc.style}}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><path d="M20 6 9 17l-5-5"/></svg><span>{{sc.text}}</span></li>
+</sc-for>
+</ul>
+</div>
+<sc-if value="{{sel.accountWide}}" hint-placeholder-val="{{ false }}">
+<div role="note" style="display: flex; align-items: flex-start; gap: 10px; padding: 12px; border: 1px solid #2F323D; border-radius: 8px; background: #181A22; font-size: 12px; color: #E8E9EE">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#8C8F9C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 1px"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></svg>
+<span>Resend only offers account-wide API keys. yari.run stores yours encrypted, uses it only for email services and never shows it to the agent.</span>
+</div>
+</sc-if>
+<p style="margin: 0; display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #8C8F9C">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+<span>{{calmLine}}</span>
+</p>
+</sc-if>
+
+<sc-if value="{{bReview}}" hint-placeholder-val="{{ false }}">
+<dl style="margin: 0; border: 1px solid #24262F; border-radius: 10px; overflow: hidden">
+<sc-for list="{{review}}" as="r" hint-placeholder-count="5">
+<div style="{{r.style}}">
+<dt style="width: 120px; flex: none; font-size: 12px; color: #8C8F9C">{{r.k}}</dt>
+<dd style="margin: 0; font-size: 13px; color: #E8E9EE">{{r.v}}</dd>
+</div>
+</sc-for>
+</dl>
+<p style="margin: 0; font-size: 12px; color: #8C8F9C">{{reviewNote}}</p>
+<sc-if value="{{connecting}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="display: flex; align-items: center; gap: 8px; font-size: 12px; color: #E8E9EE">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#7C8CFF" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>
+<span>Checking access with {{sel.name}}…</span>
+</div>
+</sc-if>
+</sc-if>
+
+<sc-if value="{{bConnected}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="display: flex; align-items: flex-start; gap: 12px; padding: 16px; border: 1px solid #24262F; border-radius: 10px; background: #181A22; animation: yr-in .16s ease-out">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+<div style="display: flex; flex-direction: column; gap: 2px">
+<span style="font-size: 14px; font-weight: 500">{{sel.name}} connected</span>
+<span style="font-size: 12px; color: #8C8F9C">{{sel.account}} · validated just now</span>
+</div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 8px">
+<span style="font-size: 12px; font-weight: 500">Granted</span>
+<ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px">
+<sc-for list="{{scopes}}" as="sc" hint-placeholder-count="4">
+<li style="display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: #8C8F9C"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#3DD68C" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none; margin-top: 2px"><path d="M20 6 9 17l-5-5"/></svg><span>{{sc.text}}</span></li>
+</sc-for>
+</ul>
+</div>
+<p style="margin: 0; font-size: 12px; color: #8C8F9C">Connect more providers now, or later from Connections. Each one stays revocable from its own dashboard.</p>
+</sc-if>
+
+</div>
+
+<!-- panel footer -->
+<div style="flex: none; border-top: 1px solid #24262F; padding: 16px 24px; display: flex; align-items: center; justify-content: flex-end; gap: 8px">
+<sc-if value="{{fMethod}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{closePanel}}" class="hv" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 13px; font-weight: 500; cursor: pointer">Cancel</button>
+<sc-if value="{{canNext}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{next}}" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500; cursor: pointer">Next: Scopes</button>
+</sc-if>
+<sc-if value="{{nextBlocked}}" hint-placeholder-val="{{ false }}">
+<button type="button" disabled title="Paste the key first" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500; opacity: .45; cursor: not-allowed">Next: Scopes</button>
+</sc-if>
+</sc-if>
+<sc-if value="{{fScopes}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{back}}" class="hv" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 13px; font-weight: 500; cursor: pointer">Back</button>
+<button type="button" onClick="{{next}}" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500; cursor: pointer">Next: Review</button>
+</sc-if>
+<sc-if value="{{fReview}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{back}}" class="hv" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 13px; font-weight: 500; cursor: pointer">Back</button>
+<button type="button" onClick="{{connect}}" title="Connect (⌘↵)" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500; cursor: pointer">Connect {{sel.name}}</button>
+</sc-if>
+<sc-if value="{{fConnecting}}" hint-placeholder-val="{{ false }}">
+<button type="button" disabled style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; background: transparent; color: #8C8F9C; border: 1px solid transparent; font-size: 13px; font-weight: 500; opacity: .45; cursor: not-allowed">Back</button>
+<button type="button" disabled aria-busy="true" style="display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 12px; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500; opacity: .8; cursor: progress"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="animation: yr-spin 1s linear infinite"><path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg>Connecting…</button>
+</sc-if>
+<sc-if value="{{fConnected}}" hint-placeholder-val="{{ false }}">
+<button type="button" onClick="{{closePanel}}" class="hvb" style="display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border-radius: 8px; background: #181A22; color: #E8E9EE; border: 1px solid #24262F; font-size: 13px; font-weight: 500; cursor: pointer">Connect another</button>
+<a href="Onboarding3.dc.html" title="Continue (⌘↵)" style="display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; box-sizing: border-box; border-radius: 8px; background: #7C8CFF; color: #0B0C10; border: 1px solid #7C8CFF; font-size: 13px; font-weight: 500">Continue<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a>
+</sc-if>
+</div>
+</aside>
+</sc-if>
+
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"start":{"editor":"enum","options":["catalog","railway","resend","connected"],"default":"catalog"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    var OAUTH = function (name, what) {
+      return { id: 'oauth', label: 'OAuth (recommended)', desc: 'Approve access in ' + name + ' and pick ' + what + '. Nothing to copy or rotate.', secret: false };
+    };
+    var PROVIDERS = [
+      { id: 'railway', name: 'Railway', cat: 'PaaS', kinds: 'web, worker, cron, database', available: true, account: 'workspace kestrel-studio',
+        methods: [OAUTH('Railway', 'a workspace'), { id: 'token', label: 'Scoped project token', desc: 'Paste a token that only reaches one Railway project.', secret: true, field: 'Project token', help: 'Create one in Railway under Project settings, Tokens.' }],
+        scopes: ['Create and read projects in the workspace you pick', 'Deploy services and read build logs', 'Read metrics', 'Manage service variables'] },
+      { id: 'vercel', name: 'Vercel', cat: 'PaaS', kinds: 'web, static, function', available: true, account: 'team kestrel',
+        methods: [OAUTH('Vercel', 'a team'), { id: 'token', label: 'Scoped team token', desc: 'Paste a token limited to one Vercel team.', secret: true, field: 'Team token', help: 'Create one in Vercel under Account settings, Tokens, scoped to a single team.' }],
+        scopes: ['Create and read projects in the team you pick', 'Deploy and read build logs', 'Manage environment variables', 'Add and verify domains'] },
+      { id: 'netlify', name: 'Netlify', cat: 'PaaS', kinds: 'static, function', available: true, account: 'team kestrel-studio',
+        methods: [OAUTH('Netlify', 'a team'), { id: 'token', label: 'Personal access token', desc: 'Paste a token from your Netlify user settings.', secret: true, field: 'Access token', help: 'Create one in Netlify under User settings, Applications.' }],
+        scopes: ['Create and read sites in the team you pick', 'Deploy and read build logs', 'Manage environment variables'] },
+      { id: 'render', name: 'Render', cat: 'PaaS', kinds: 'web, worker, database', available: false },
+      { id: 'fly', name: 'Fly.io', cat: 'PaaS', kinds: 'web, worker', available: false },
+      { id: 'aws', name: 'AWS', cat: 'Clouds', kinds: 'web, worker, database, bucket', available: false },
+      { id: 'gcp', name: 'Google Cloud', cat: 'Clouds', kinds: 'web, worker, database, bucket', available: false },
+      { id: 'hetzner', name: 'Hetzner', cat: 'Clouds', kinds: 'web, worker, volume', available: false },
+      { id: 'supabase', name: 'Supabase', cat: 'Databases', kinds: 'database', available: true, account: 'organization kestrel',
+        methods: [OAUTH('Supabase', 'an organization'), { id: 'token', label: 'Scoped access token', desc: 'Paste a token from your Supabase account.', secret: true, field: 'Access token', help: 'Create one in Supabase under Account, Access tokens.' }],
+        scopes: ['Create and read projects in the organization you pick', 'Run migrations you approve in a Plan', 'Read database metrics', 'Read connection strings to inject into services'] },
+      { id: 'neon', name: 'Neon', cat: 'Databases', kinds: 'database', available: true, account: 'organization kestrel-studio',
+        methods: [OAUTH('Neon', 'an organization'), { id: 'token', label: 'Scoped API key', desc: 'Paste an API key limited to one Neon organization.', secret: true, field: 'API key', help: 'Create one in Neon under Organization settings, API keys.' }],
+        scopes: ['Create and read projects', 'Create branches for preview environments', 'Read connection strings to inject into services'] },
+      { id: 'planetscale', name: 'PlanetScale', cat: 'Databases', kinds: 'database', available: false },
+      { id: 'b2', name: 'Backblaze B2', cat: 'Storage', kinds: 'bucket', available: true, account: 'account kestrel-studio',
+        methods: [{ id: 'key', label: 'Scoped application key (recommended)', desc: 'Limited to the buckets you name. Backblaze does not offer OAuth.', secret: true, field: 'Application key', help: 'Create one in Backblaze under Application keys.' }],
+        scopes: ['Create and read buckets you name', 'Write and read objects in those buckets', 'Read bucket size for usage'] },
+      { id: 'r2', name: 'Cloudflare R2', cat: 'Storage', kinds: 'bucket', available: false },
+      { id: 'resend', name: 'Resend', cat: 'Email', kinds: 'email', available: true, accountWide: true, account: 'account kestrel-studio',
+        methods: [{ id: 'key', label: 'API key', desc: 'Resend keys reach the whole account. Name yours yari.run so it is easy to revoke.', secret: true, field: 'API key', help: 'Create one in Resend under API keys.' }],
+        scopes: ['Send email from domains you verify', 'Add and verify sending domains', 'Read delivery events'] },
+      { id: 'postmark', name: 'Postmark', cat: 'Email', kinds: 'email', available: false }
+    ];
+    var CATS = ['PaaS', 'Clouds', 'Databases', 'Storage', 'Email'];
+    var STEPS = ['Method', 'Scopes', 'Review'];
+    this.P = PROVIDERS;
+    this.CATS = CATS;
+    this.STEPS = STEPS;
+    var start = (props && props.start) || 'catalog';
+    this.state = { q: '', cat: 'All', sel: null, step: 0, method: {}, tok: '', connecting: false, connected: {}, last: null };
+    if (start === 'railway') { this.state.sel = 'railway'; }
+    if (start === 'resend') { this.state.sel = 'resend'; this.state.step = 1; this.state.tok = 're_live_key'; }
+    if (start === 'connected') { this.state.sel = 'railway'; this.state.connected = { railway: true }; this.state.last = 'railway'; }
+    this.timer = null;
+  }
+  componentWillUnmount() {
+    if (this.timer) clearTimeout(this.timer);
+  }
+  find(id) {
+    var P = this.P;
+    for (var i = 0; i < P.length; i++) if (P[i].id === id) return P[i];
+    return null;
+  }
+  pick(id) {
+    if (this.timer) { clearTimeout(this.timer); this.timer = null; }
+    this.setState({ sel: id, step: 0, tok: '', connecting: false });
+  }
+  connect() {
+    var id = this.state.sel;
+    if (!id) return;
+    this.setState({ connecting: true });
+    if (this.timer) clearTimeout(this.timer);
+    this.timer = setTimeout(() => {
+      var c = Object.assign({}, this.state.connected);
+      c[id] = true;
+      this.timer = null;
+      this.setState({ connecting: false, connected: c, last: id });
+    }, 1200);
+  }
+  close() {
+    if (this.state.connecting) return;
+    this.setState({ sel: null, step: 0, tok: '' });
+  }
+  renderVals() {
+    var s = this.state;
+    var PROVIDERS = this.P, CATS = this.CATS, STEPS = this.STEPS;
+    var q = s.q.trim().toLowerCase();
+    var match = function (p) { return !q || p.name.toLowerCase().indexOf(q) >= 0 || p.kinds.indexOf(q) >= 0 || p.cat.toLowerCase().indexOf(q) >= 0; };
+    var cur = s.sel ? this.find(s.sel) : null;
+    if (cur && !cur.available) cur = null;
+    var selP = cur || PROVIDERS[0];
+    var self = this;
+
+    var pillBase = 'display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 10px; border-radius: 13px; font-size: 12px; font-weight: 500; cursor: pointer; ';
+    var pills = ['All'].concat(CATS).map(function (c) {
+      var n = PROVIDERS.filter(function (p) { return (c === 'All' || p.cat === c) && match(p); }).length;
+      var on = s.cat === c;
+      return {
+        label: c, count: String(n), pressed: on,
+        style: pillBase + (on ? 'background: #181A22; border: 1px solid #2F323D; color: #E8E9EE' : 'background: transparent; border: 1px solid #24262F; color: #8C8F9C'),
+        pick: function () { self.setState({ cat: c }); }
+      };
+    });
+
+    var tileBase = 'display: flex; flex-direction: column; align-items: flex-start; gap: 6px; width: 100%; min-height: 76px; box-sizing: border-box; padding: 14px; border-radius: 10px; text-align: left; cursor: pointer; font-size: 13px; color: #E8E9EE; background: #121319; ';
+    var groups = CATS.filter(function (c) { return s.cat === 'All' || s.cat === c; }).map(function (c) {
+      var items = PROVIDERS.filter(function (p) { return p.cat === c && match(p); });
+      var av = items.filter(function (p) { return p.available; }).length;
+      var pl = items.length - av;
+      var meta = [];
+      if (av) meta.push(av + ' available');
+      if (pl) meta.push(pl + ' planned');
+      return {
+        name: c, meta: meta.join(' · '),
+        items: items.map(function (p) {
+          var selected = !!cur && cur.id === p.id;
+          var conn = !!s.connected[p.id];
+          return {
+            name: p.name, kinds: p.kinds,
+            available: p.available, planned: !p.available,
+            connected: conn, showAvailable: p.available && !conn,
+            selected: selected,
+            aria: p.name + ', ' + p.kinds + ', ' + (p.available ? (conn ? 'connected' : 'available') : 'planned, not supported yet'),
+            cls: selected ? '' : 'hvb',
+            style: tileBase + (selected ? 'border: 1px solid #7C8CFF; box-shadow: 0 0 0 3px rgba(124,140,255,0.18)' : 'border: 1px solid #24262F'),
+            pick: function () { if (p.available) self.pick(p.id); }
+          };
+        })
+      };
+    }).filter(function (g) { return g.items.length > 0; });
+
+    var mId = s.method[selP.id] || selP.methods[0].id;
+    var method = selP.methods.filter(function (m) { return m.id === mId; })[0] || selP.methods[0];
+    var isConn = !!(cur && s.connected[cur.id]);
+    var secretOk = !method.secret || s.tok.trim().length >= 4;
+    var step = s.step;
+
+    var methods = selP.methods.map(function (m) {
+      var on = m.id === method.id;
+      return {
+        id: m.id, label: m.label, desc: m.desc, checked: on,
+        cls: on ? '' : 'hvb',
+        style: 'display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; border-radius: 10px; cursor: pointer; ' + (on ? 'background: rgba(124,140,255,0.12); border: 1px solid #7C8CFF' : 'background: #121319; border: 1px solid #24262F'),
+        pick: function () { var mm = Object.assign({}, self.state.method); mm[selP.id] = m.id; self.setState({ method: mm, tok: '' }); }
+      };
+    });
+
+    var dotBase = 'width: 18px; height: 18px; box-sizing: border-box; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 600; flex: none; ';
+    var psteps = STEPS.map(function (label, i) {
+      var done = isConn || i < step;
+      var current = !isConn && i === step;
+      var clickable = done && !isConn && !s.connecting;
+      return {
+        label: label, num: String(i + 1), done: done, notDone: !done,
+        clickable: clickable, inert: !clickable,
+        ariaCurrent: current ? 'step' : 'false',
+        aria: 'Back to ' + label,
+        connector: i < STEPS.length - 1,
+        liStyle: 'display: flex; align-items: center; gap: 10px; ' + (i < STEPS.length - 1 ? 'flex: 1' : 'flex: none'),
+        labelStyle: 'display: inline-flex; align-items: center; gap: 6px; height: 26px; font-size: 12px; white-space: nowrap; ' + (current ? 'color: #E8E9EE; font-weight: 500' : (done ? 'color: #E8E9EE' : 'color: #8C8F9C')),
+        dotStyle: dotBase + (done ? 'background: rgba(124,140,255,0.12); border: 1px solid rgba(124,140,255,0.35); color: #7C8CFF' : (current ? 'background: #7C8CFF; border: 1px solid #7C8CFF; color: #0B0C10' : 'background: transparent; border: 1px solid #2F323D; color: #8C8F9C')),
+        go: function () { self.setState({ step: i }); }
+      };
+    });
+
+    var scopes = (selP.scopes || []).map(function (t, i) {
+      return { text: t, style: 'display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; font-size: 13px; color: #E8E9EE; background: #121319; ' + (i > 0 ? 'border-top: 1px solid #24262F' : '') };
+    });
+
+    var calm = method.secret
+      ? (selP.accountWide ? 'Revoke the key from Resend at any time. yari.run stops using it right away.' : 'yari.run stores the ' + method.field.toLowerCase() + ' encrypted and never shows it to the agent. Revoke it from ' + selP.name + ' at any time.')
+      : 'yari.run never sees your ' + selP.name + ' password. Revoke access from ' + selP.name + ' at any time.';
+
+    var rowStyle = function (i) { return 'display: flex; align-items: baseline; gap: 12px; padding: 10px 14px; background: #121319; ' + (i > 0 ? 'border-top: 1px solid #24262F' : ''); };
+    var reviewRows = [
+      ['Provider', selP.name + ' · ' + selP.kinds],
+      ['Method', method.label.replace(' (recommended)', '')],
+      ['Access', (selP.scopes || []).length + ' permissions, listed in the previous step'],
+      ['Available to', 'Kestrel Studio · all workspaces'],
+      ['Billing', selP.name + ' bills you directly']
+    ].map(function (r, i) { return { k: r[0], v: r[1], style: rowStyle(i) }; });
+    var reviewNote = method.secret
+      ? 'yari.run checks the ' + method.field.toLowerCase() + ' with ' + selP.name + ' before saving it.'
+      : selP.name + ' asks you to approve and pick ' + (selP.id === 'railway' ? 'a workspace' : 'where yari.run may work') + '. Then you come back here.';
+
+    var lastP = s.last ? this.find(s.last) : null;
+    var anyConnected = Object.keys(s.connected).length > 0;
+
+    return {
+      q: s.q,
+      hasQuery: s.q.length > 0,
+      onQ: function (e) { self.setState({ q: e.target.value }); },
+      clearQ: function () { self.setState({ q: '' }); },
+      clearAll: function () { self.setState({ q: '', cat: 'All' }); },
+      pills: pills,
+      groups: groups,
+      noResults: groups.length === 0,
+
+      panelOpen: !!cur,
+      panelKey: function (e) { if (e.key === 'Escape') self.close(); },
+      closePanel: function () { self.close(); },
+      sel: selP,
+      panelTitle: isConn ? selP.name + ' connected' : 'Connect ' + selP.name,
+      psteps: psteps,
+      methods: methods,
+      method: method,
+      needSecret: !!method.secret,
+      tok: s.tok,
+      onTok: function (e) { self.setState({ tok: e.target.value }); },
+      scopes: scopes,
+      calmLine: calm,
+      review: reviewRows,
+      reviewNote: reviewNote,
+      connecting: s.connecting,
+
+      bMethod: !isConn && step === 0,
+      bScopes: !isConn && step === 1,
+      bReview: !isConn && step === 2,
+      bConnected: isConn,
+      fMethod: !isConn && step === 0,
+      fScopes: !isConn && step === 1,
+      fReview: !isConn && step === 2 && !s.connecting,
+      fConnecting: !isConn && s.connecting,
+      fConnected: isConn,
+      canNext: secretOk,
+      nextBlocked: !secretOk,
+      next: function () { self.setState({ step: Math.min(2, self.state.step + 1) }); },
+      back: function () { self.setState({ step: Math.max(0, self.state.step - 1) }); },
+      connect: function () { self.connect(); },
+
+      anyConnected: anyConnected,
+      noneConnected: !anyConnected,
+      footNote: lastP ? lastP.name + ' connected · ' + lastP.account + ' · validated just now' : ''
+    };
+  }
+}
+</script>
+</body>
+</html>
