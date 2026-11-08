@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package yari.v1;
+
+import "google/protobuf/timestamp.proto";
+
+// PrincipalKind is the kind of actor behind a request.
+enum PrincipalKind {
+  PRINCIPAL_KIND_UNSPECIFIED = 0;
+  PRINCIPAL_KIND_HUMAN = 1;
+  PRINCIPAL_KIND_API_KEY = 2;
+  PRINCIPAL_KIND_CI = 3;
+  PRINCIPAL_KIND_AGENT = 4;
+}
+
+// Membership is the identity of the caller inside one Organization.
+message Membership {
+  string organization_id = 1;
+  string organization_slug = 2;
+  string principal_id = 3;
+  PrincipalKind principal_kind = 4;
+}
+
+message WhoAmIRequest {}
+
+message WhoAmIResponse {
+  // Empty for organization-scoped API tokens that are not tied to a human user.
+  string user_id = 1;
+  string email = 2;
+  string display_name = 3;
+  // One entry per Organization the caller belongs to.
+  repeated Membership memberships = 4;
+}
+
+message CreateApiTokenRequest {
+  string organization_id = 1;
+  // Defaults to the caller. Creating a token for another principal needs member.manage.
+  string principal_id = 2;
+  // Human readable label stored with the token prefix.
+  string label = 3;
+  // Lifetime in seconds. Required, and capped by the server.
+  int64 ttl_seconds = 4;
+}
+
+message CreateApiTokenResponse {
+  string token_id = 1;
+  // The plaintext token. Shown exactly once and never stored.
+  string token = 2;
+  string prefix = 3;
+  google.protobuf.Timestamp expires_at = 4;
+}
+
+message RevokeApiTokenRequest {
+  string organization_id = 1;
+  string token_id = 2;
+}
+
+message RevokeApiTokenResponse {}
+
+service IdentityService {
+  rpc WhoAmI(WhoAmIRequest) returns (WhoAmIResponse);
+  rpc CreateApiToken(CreateApiTokenRequest) returns (CreateApiTokenResponse);
+  rpc RevokeApiToken(RevokeApiTokenRequest) returns (RevokeApiTokenResponse);
+}

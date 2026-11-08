@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package yari.v1;
+
+// ScopeType is a level of the hierarchy that a grant or a permission check applies to.
+enum ScopeType {
+  SCOPE_TYPE_UNSPECIFIED = 0;
+  SCOPE_TYPE_ORGANIZATION = 1;
+  SCOPE_TYPE_WORKSPACE = 2;
+  SCOPE_TYPE_PROJECT = 3;
+  SCOPE_TYPE_ENVIRONMENT = 4;
+}
+
+// Scope identifies one node in Organization > Workspace > Project > Environment.
+message Scope {
+  ScopeType type = 1;
+  string id = 2;
+}

@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+package yari.v1;
+
+import "google/protobuf/timestamp.proto";
+import "yari/v1/common.proto";
+
+enum Role {
+  ROLE_UNSPECIFIED = 0;
+  ROLE_VIEWER = 1;
+  ROLE_DEVELOPER = 2;
+  ROLE_ADMIN = 3;
+  ROLE_OWNER = 4;
+}
+
+// Grant gives a Principal a Role on a Scope. Grants carry down the hierarchy.
+message Grant {
+  string id = 1;
+  string organization_id = 2;
+  string principal_id = 3;
+  Role role = 4;
+  Scope scope = 5;
+  string created_by = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+// Decision is the outcome of an authorization check.
+message Decision {
+  bool allowed = 1;
+  // True when the action is allowed only after another principal approves it.
+  bool requires_approval = 2;
+  string reason = 3;
+}
+
+message CheckPermissionRequest {
+  // A permission string such as "plan.apply".
+  string permission = 1;
+  Scope scope = 2;
+}
+
+message CheckPermissionResponse {
+  Decision decision = 1;
+}
+
+message GrantRoleRequest {
+  string principal_id = 1;
+  Role role = 2;
+  Scope scope = 3;
+}
+
+message GrantRoleResponse {
+  Grant grant = 1;
+}
+
+message RevokeGrantRequest {
+  string organization_id = 1;
+  string grant_id = 2;
+}
+
+message RevokeGrantResponse {}
+
+message ListGrantsRequest {
+  string organization_id = 1;
+  // Optional filter.
+  string principal_id = 2;
+}
+
+message ListGrantsResponse {
+  repeated Grant grants = 1;
+}
+
+service AccessService {
+  rpc CheckPermission(CheckPermissionRequest) returns (CheckPermissionResponse);
+  rpc GrantRole(GrantRoleRequest) returns (GrantRoleResponse);
+  rpc RevokeGrant(RevokeGrantRequest) returns (RevokeGrantResponse);
+  rpc ListGrants(ListGrantsRequest) returns (ListGrantsResponse);
+}
